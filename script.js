@@ -13,11 +13,11 @@ const ROMAJI_MAP = {
     'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
     'か': 'ka', 'き': 'ki', 'く': 'ku', 'け': 'ke', 'こ': 'ko',
     'さ': 'sa', 'し': 'shi', 'す': 'su', 'せ': 'se', 'そ': 'so',
-    'た': 'ta', 'ち': 'chi', 'つ': 'tsu', 'te': 'te', 'と': 'to',
+    'た': 'ta', 'ち': 'chi', 'つ': 'tsu', 'て': 'te', 'と': 'to',
     'な': 'na', 'に': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
     'は': 'ha', 'ひ': 'hi', 'ふ': 'fu', 'へ': 'he', 'ほ': 'ho',
     'ま': 'ma', 'み': 'mi', 'む': 'mu', 'め': 'me', 'も': 'mo',
-    '야': 'ya', 'ゆ': 'yu', 'よ': 'yo',
+    'や': 'ya', 'ゆ': 'yu', 'よ': 'yo',
     'ら': 'ra', 'り': 'ri', 'る': 'ru', 'れ': 're', 'ろ': 'ro',
     'わ': 'wa', 'を': 'wo', 'ん': 'n',
     'が': 'ga', 'ぎ': 'gi', 'ぐ': 'gu', 'げ': 'ge', 'ご': 'go',
@@ -26,7 +26,6 @@ const ROMAJI_MAP = {
     'ゃ': 'ya', 'ゅ': 'yu', 'ょ': 'yo', 'っ': '(stop)'
 };
 
-// Kartu acak untuk injector
 const POOL = ['あ','い','う','え','お','か','き','く','け','こ','さ','し','す','せ','そ','た','ち','つ','て','と','な','に','ぬ','ね','の','ま','み','む','め','も','ら','り','る','れ','ろ'];
 
 async function init() {
@@ -47,6 +46,12 @@ function loadQuestion() {
     document.getElementById('kanji-question').innerText = currentQuestion.kanji;
     document.getElementById('kanji-meaning').innerText = currentQuestion.meaning;
     
+    // Sinkronisasi Romaji Hint di bawah Kanji
+    const kanjiHint = document.getElementById('kanji-reading-hint');
+    kanjiHint.innerText = currentQuestion.reading_romaji;
+    if(isRomajiVisible) kanjiHint.classList.remove('hidden');
+    else kanjiHint.classList.add('hidden');
+
     selectedLetters = [];
     generateHand(currentQuestion.reading);
     renderWordZone();
@@ -55,17 +60,26 @@ function loadQuestion() {
 }
 
 function generateHand(reading) {
-    // INJECTOR LOGIC
     let required = reading.split('').filter(c => !['ゃ','ゅ','ょ','っ'].includes(c));
     let extraCount = 10 - required.length;
     let finalCards = [...required];
-    
     for(let i=0; i<extraCount; i++) {
         finalCards.push(POOL[Math.floor(Math.random() * POOL.length)]);
     }
-    
     hand = shuffle(finalCards);
     renderHand();
+}
+
+function toggleRomaji() {
+    isRomajiVisible = !isRomajiVisible;
+    document.getElementById('romaji-toggle-btn').innerText = `Romaji: ${isRomajiVisible ? 'ON' : 'OFF'}`;
+    
+    const kanjiHint = document.getElementById('kanji-reading-hint');
+    if(isRomajiVisible) kanjiHint.classList.remove('hidden');
+    else kanjiHint.classList.add('hidden');
+
+    renderHand(); 
+    renderWordZone();
 }
 
 function renderHand() {
@@ -79,7 +93,7 @@ function renderHand() {
             <div class="romaji ${isRomajiVisible ? '' : 'hidden'}">${ROMAJI_MAP[char] || ''}</div>
         `;
         card.onclick = () => {
-            if(selectedLetters.length < 7) {
+            if(gameActive && selectedLetters.length < 7) {
                 selectedLetters.push(hand.splice(i, 1)[0]);
                 renderHand(); renderWordZone();
             }
@@ -93,11 +107,12 @@ function renderWordZone() {
     slots.forEach((slot, i) => {
         const char = selectedLetters[i];
         if(char) {
-            slot.innerHTML = `<div style="font-size:18px; font-weight:bold;">${char}</div>
-                              <div style="font-size:8px; color:var(--gold);" class="${isRomajiVisible ? '' : 'hidden'}">${ROMAJI_MAP[char] || ''}</div>`;
+            slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:black;">${char}</div>
+                              <div style="font-size:9px; color:#666;" class="${isRomajiVisible ? '' : 'hidden'}">${ROMAJI_MAP[char] || ''}</div>`;
+            slot.style.backgroundColor = "white";
             slot.classList.add('active');
         } else {
-            slot.innerHTML = ''; slot.classList.remove('active');
+            slot.innerHTML = ''; slot.style.backgroundColor = "transparent"; slot.classList.remove('active');
         }
     });
     document.getElementById('confirm-btn').disabled = selectedLetters.length === 0;
@@ -107,16 +122,16 @@ function confirmWord() {
     if(!gameActive) return;
     const answer = selectedLetters.join('');
     if(answer === currentQuestion.reading) {
-        yokaiHP -= 34; // 3 kali benar untuk menang
+        yokaiHP -= 34;
         if(yokaiHP <= 0) {
             yokaiHP = 0; gameActive = false; showModal(true);
         } else {
-            loadQuestion(); // Lanjut soal berikutnya dalam level yang sama
+            loadQuestion();
         }
     } else {
         timeLeft -= 10;
         clearWord();
-        alert("Mantra Salah!");
+        showFlashError();
     }
     updateUI();
 }
@@ -129,19 +144,13 @@ function renderSupportButtons() {
         btn.className = 'btn-support';
         btn.innerText = s;
         btn.onclick = () => {
-            if(selectedLetters.length < 7) {
+            if(gameActive && selectedLetters.length < 7) {
                 selectedLetters.push(s);
                 renderWordZone();
             }
         };
         container.appendChild(btn);
     });
-}
-
-function toggleRomaji() {
-    isRomajiVisible = !isRomajiVisible;
-    document.getElementById('romaji-toggle-btn').innerText = `Romaji: ${isRomajiVisible ? 'ON' : 'OFF'}`;
-    renderHand(); renderWordZone();
 }
 
 function clearWord() {
@@ -151,12 +160,13 @@ function clearWord() {
 }
 
 function showHint() {
+    if(!gameActive) return;
     const cards = document.querySelectorAll('.card');
     const firstChar = currentQuestion.reading[0];
     cards.forEach(c => {
         if(c.querySelector('.kana').innerText === firstChar) {
             c.classList.add('hint-glow');
-            setTimeout(() => c.classList.remove('hint-glow'), 2000);
+            setTimeout(() => c.classList.remove('hint-glow'), 3000);
         }
     });
 }
@@ -170,6 +180,12 @@ function startTimer() {
     }, 1000);
 }
 
+function showFlashError() {
+    const timer = document.querySelector('.timer-section');
+    timer.style.color = "red";
+    setTimeout(() => timer.style.color = "white", 500);
+}
+
 function updateUI() {
     document.getElementById('hp-fill').style.width = yokaiHP + "%";
     document.getElementById('time-val').innerText = timeLeft;
@@ -179,11 +195,10 @@ function showModal(isWin) {
     const overlay = document.getElementById('modal-overlay');
     overlay.style.display = 'flex';
     document.getElementById('modal-title').innerText = isWin ? "RITUAL BERHASIL!" : "RITUAL GAGAL!";
-    document.getElementById('modal-desc').innerText = isWin ? "Yokai telah tersegel ke dalam kitab." : "Waktu habis, Yokai melarikan diri!";
 }
 
 function nextLevel() {
-    currentLevel++;
+    if(currentLevel < 2) currentLevel++;
     yokaiHP = 100; timeLeft = 90;
     loadQuestion();
     document.getElementById('modal-overlay').style.display = 'none';
