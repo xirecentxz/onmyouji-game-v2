@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onmyoji Game V2: Kanji Seal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="level-banner" id="level-banner">Loading Ritual...</div>
+
+        <div class="header">
+            <div class="hp-section">
+                <div class="hp-bar">
+                    <div class="hp-fill" id="hp-fill"></div>
+                    <span class="hp-text">YOKAI HP</span>
+                </div>
+            </div>
+            <div class="timer-section">
+                <span id="time-val">90</span>s ⏳
+            </div>
+        </div>
+
+        <div class="quest-container">
+            <div id="kanji-question" class="kanji-display">?</div>
+            <div id="kanji-meaning" class="meaning-display">Menunggu Mantra...</div>
+        </div>
+
+        <div class="word-zone" id="word-zone">
+            <div class="letter-slot"></div>
+            <div class="letter-slot"></div>
+            <div class="letter-slot"></div>
+            <div class="letter-slot"></div>
+            <div class="letter-slot"></div>
+            <div class="letter-slot"></div>
+            <div class="letter-slot"></div>
+        </div>
+
+        <div class="support-container" id="support-container"></div>
+
+        <div class="controls">
+            <button onclick="clearWord()" class="btn btn-clear">Hapus</button>
+            <button id="confirm-btn" onclick="confirmWord()" class="btn btn-confirm" disabled>SEGEL!</button>
+            <button id="romaji-toggle-btn" onclick="toggleRomaji()" class="btn btn-romaji">Romaji: OFF</button>
+            <button id="hint-btn" onclick="showHint()" class="btn btn-hint">Onmyouroku</button>
+        </div>
+
+        <div class="card-area">
+            <div class="deck-status">🎴 Tangan Anda</div>
+            <div class="hand" id="player-hand"></div>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="overlay">
+        <div class="modal">
+            <h2 id="modal-title">RITUAL BERHASIL!</h2>
+            <p id="modal-desc">Yokai telah tersegel.</p>
+            <div class="modal-buttons">
+                <button id="btn-next" class="btn btn-retry" onclick="nextLevel()">Level Berikutnya</button>
+                <button class="btn btn-nav" onclick="location.reload()">Main Lagi</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
