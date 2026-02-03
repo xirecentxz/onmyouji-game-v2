@@ -3,21 +3,21 @@
     "1": {
       "category": "Binatang / Hewan",
       "words": [
-        { "kanji": "犬", "reading": "いぬ", "meaning": "Anjing" },
-        { "kanji": "猫", "reading": "ねこ", "meaning": "Kucing" },
-        { "kanji": "鳥", "reading": "とり", "meaning": "Burung" },
-        { "kanji": "牛", "reading": "うし", "meaning": "Sapi" },
-        { "kanji": "馬", "reading": "うま", "meaning": "Kuda" }
+        { "kanji": "犬", "reading": "いぬ", "reading_romaji": "inu", "meaning": "Anjing" },
+        { "kanji": "猫", "reading": "ねこ", "reading_romaji": "neko", "meaning": "Kucing" },
+        { "kanji": "鳥", "reading": "とり", "reading_romaji": "tori", "meaning": "Burung" },
+        { "kanji": "牛", "reading": "うし", "reading_romaji": "ushi", "meaning": "Sapi" },
+        { "kanji": "馬", "reading": "うま", "reading_romaji": "uma", "meaning": "Kuda" }
       ]
     },
     "2": {
       "category": "Hewan & Serangga",
       "words": [
-        { "kanji": "動物", "reading": "どうぶつ", "meaning": "Binatang / Hewan" },
-        { "kanji": "魚", "reading": "さかな", "meaning": "Ikan" },
-        { "kanji": "虫", "reading": "むし", "meaning": "Serangga" },
-        { "kanji": "豚", "reading": "ぶた", "meaning": "Babi" },
-        { "kanji": "ペット", "reading": "ぺっと", "meaning": "Peliharaan" }
+        { "kanji": "動物", "reading": "どうぶつ", "reading_romaji": "doubutsu", "meaning": "Binatang / Hewan" },
+        { "kanji": "魚", "reading": "さかな", "reading_romaji": "sakana", "meaning": "Ikan" },
+        { "kanji": "虫", "reading": "むし", "reading_romaji": "mushi", "meaning": "Serangga" },
+        { "kanji": "豚", "reading": "ぶた", "reading_romaji": "buta", "meaning": "Babi" },
+        { "kanji": "ペット", "reading": "ぺっと", "reading_romaji": "petto", "meaning": "Peliharaan" }
       ]
     }
   }
