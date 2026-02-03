@@ -1,0 +1,24 @@
+{
+  "levels": {
+    "1": {
+      "category": "Binatang / Hewan",
+      "words": [
+        { "kanji": "犬", "reading": "いぬ", "meaning": "Anjing" },
+        { "kanji": "猫", "reading": "ねこ", "meaning": "Kucing" },
+        { "kanji": "鳥", "reading": "とり", "meaning": "Burung" },
+        { "kanji": "牛", "reading": "うし", "meaning": "Sapi" },
+        { "kanji": "馬", "reading": "うま", "meaning": "Kuda" }
+      ]
+    },
+    "2": {
+      "category": "Hewan & Serangga",
+      "words": [
+        { "kanji": "動物", "reading": "どうぶつ", "meaning": "Binatang / Hewan" },
+        { "kanji": "魚", "reading": "さかな", "meaning": "Ikan" },
+        { "kanji": "虫", "reading": "むし", "meaning": "Serangga" },
+        { "kanji": "豚", "reading": "ぶた", "meaning": "Babi" },
+        { "kanji": "ペット", "reading": "ぺっと", "meaning": "Peliharaan" }
+      ]
+    }
+  }
+}
