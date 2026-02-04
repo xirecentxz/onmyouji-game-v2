@@ -9,12 +9,15 @@ let selectedLetters = [];
 let hand = [];
 let timerInt = null;
 
+// VARIABEL BARU UNTUK ANTRIAN ANTI-BERULANG
+let questionPool = []; 
+
 const ROMAJI_MAP = {
     'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
     'か': 'ka', 'き': 'ki', 'く': 'ku', 'け': 'ke', 'こ': 'ko',
     'さ': 'sa', 'し': 'shi', 'す': 'su', 'せ': 'se', 'そ': 'so',
     'た': 'ta', 'ち': 'chi', 'つ': 'tsu', 'て': 'te', 'と': 'to',
-    'な': 'na', 'に': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
+    'な': 'na', 'ni': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
     'は': 'ha', 'ひ': 'hi', 'ふ': 'fu', 'へ': 'he', 'ほ': 'ho',
     'ま': 'ma', 'み': 'mi', 'む': 'mu', 'め': 'me', 'も': 'mo',
     'や': 'ya', 'ゆ': 'yu', 'よ': 'yo',
@@ -39,14 +42,20 @@ async function init() {
 
 function loadQuestion() {
     const levelData = ALL_DATA.levels[currentLevel];
-    const randomIndex = Math.floor(Math.random() * levelData.words.length);
-    currentQuestion = levelData.words[randomIndex];
+    
+    // LOGIKA SHUFFLED QUEUE (ANTI-BERULANG)
+    if (questionPool.length === 0) {
+        questionPool = [...levelData.words]; // Ambil semua kata dari kategori 
+        shuffle(questionPool); // Kocok urutannya 
+    }
+    
+    // Ambil satu per satu sampai habis
+    currentQuestion = questionPool.pop();
     
     document.getElementById('level-banner').innerText = `Level ${currentLevel}: ${levelData.category}`;
     document.getElementById('kanji-question').innerText = currentQuestion.kanji;
     document.getElementById('kanji-meaning').innerText = currentQuestion.meaning;
     
-    // Sinkronisasi Romaji Hint di bawah Kanji
     const kanjiHint = document.getElementById('kanji-reading-hint');
     kanjiHint.innerText = currentQuestion.reading_romaji;
     if(isRomajiVisible) kanjiHint.classList.remove('hidden');
@@ -122,16 +131,26 @@ function confirmWord() {
     if(!gameActive) return;
     const answer = selectedLetters.join('');
     if(answer === currentQuestion.reading) {
-        yokaiHP -= 34;
+        // Bonus Damage berdasarkan panjang kata
+        let damage = 20 + (answer.length * 5); 
+        yokaiHP -= damage;
+        
         if(yokaiHP <= 0) {
             yokaiHP = 0; gameActive = false; showModal(true);
         } else {
             loadQuestion();
         }
     } else {
-        timeLeft -= 10;
+        // FIX TIMER MINUS: Gunakan Math.max untuk membatasi angka paling rendah adalah 0
+        timeLeft = Math.max(0, timeLeft - 10);
         clearWord();
         showFlashError();
+        
+        // Cek jika waktu habis setelah pengurangan penalti
+        if(timeLeft === 0) {
+            gameActive = false;
+            showModal(false);
+        }
     }
     updateUI();
 }
@@ -174,8 +193,13 @@ function showHint() {
 function startTimer() {
     timerInt = setInterval(() => {
         if(gameActive && timeLeft > 0) {
-            timeLeft--; updateUI();
-            if(timeLeft <= 0) { gameActive = false; showModal(false); }
+            timeLeft--; 
+            updateUI();
+            if(timeLeft <= 0) { 
+                timeLeft = 0;
+                gameActive = false; 
+                showModal(false); 
+            }
         }
     }, 1000);
 }
@@ -198,10 +222,17 @@ function showModal(isWin) {
 }
 
 function nextLevel() {
-    if(currentLevel < 2) currentLevel++;
-    yokaiHP = 100; timeLeft = 90;
-    loadQuestion();
-    document.getElementById('modal-overlay').style.display = 'none';
+    // Sesuaikan batas level dengan database Anda (Level 1-10) [cite: 3, 10, 25]
+    if(currentLevel < 10) {
+        currentLevel++;
+        questionPool = []; // Reset antrean untuk level baru
+        yokaiHP = 100; timeLeft = 90;
+        loadQuestion();
+        document.getElementById('modal-overlay').style.display = 'none';
+    } else {
+        alert("Selamat! Anda telah menguasai semua segel Kanji!");
+        location.reload();
+    }
 }
 
 function shuffle(array) {
