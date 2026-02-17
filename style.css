@@ -1,29 +1,69 @@
 :root {
     --gold: #d4af37;
     --gold-bright: #fff200;
-    --glass: rgba(0, 0, 0, 0.9);
+    --glass: rgba(0, 0, 0, 0.85); /* Sedikit lebih transparan untuk efek blur */
     --purple: #8e44ad;
+    --crimson: #c0392b;
 }
 
 body {
-    margin: 0; padding: 0;
-    background: #0d0d0d;
-    display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; font-family: 'Segoe UI', sans-serif; color: white;
-    user-select: none; overflow: hidden;
+    margin: 0; 
+    padding: 0;
+    /* Menggunakan background dari folder assets */
+    background: #0d0d0d url('assets/bg-mobile.webp') no-repeat center center fixed;
+    background-size: cover;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    min-height: 100vh; 
+    font-family: 'Segoe UI', sans-serif; 
+    color: white;
+    user-select: none; 
+    overflow: hidden;
 }
 
-/* HOMEPAGE */
+/* HOMEPAGE & SPLASH STYLE */
 .full-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    /* Layer hitam transparan di atas background agar logo menonjol */
+    background: radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.9) 100%);
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
     z-index: 200;
 }
-.main-logo { width: 200px; height: auto; filter: drop-shadow(0 0 15px var(--gold)); }
+
+.splash-art {
+    margin-bottom: 20px;
+    animation: fadeInDown 1.5s ease-out;
+}
+
+.main-logo {
+    width: 200px; 
+    height: auto;
+    filter: drop-shadow(0 0 15px var(--gold));
+}
+
 .game-title { font-size: 50px; margin: 0; color: var(--gold); letter-spacing: 8px; text-shadow: 0 0 20px var(--gold); }
 .game-subtitle { font-size: 14px; margin: 0; color: #fff; letter-spacing: 4px; opacity: 0.8; }
-.btn-start { margin-top: 50px; padding: 15px 40px; font-size: 18px; font-weight: bold; background: none; border: 2px solid var(--gold); color: var(--gold); cursor: pointer; transition: 0.3s; border-radius: 50px; }
+
+.btn-start {
+    margin-top: 50px; 
+    padding: 15px 40px; 
+    font-size: 18px; 
+    font-weight: bold;
+    background: rgba(0,0,0,0.5); 
+    border: 2px solid var(--gold); 
+    color: var(--gold);
+    cursor: pointer; 
+    transition: 0.3s; 
+    border-radius: 50px;
+}
 .btn-start:hover { background: var(--gold); color: black; box-shadow: 0 0 30px var(--gold); }
 
 /* GAME STAGE NAVIGATION */
@@ -31,7 +71,7 @@ body {
 .btn-exit-small { background: #333; color: #fff; border: 1px solid #555; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px; }
 .stage-banner { flex: 1; background: var(--gold); color: black; text-align: center; font-weight: bold; padding: 5px; border-radius: 5px; font-size: 13px; }
 
-/* MODAL BUTTONS */
+/* MODAL BUTTONS (WIN/LOSE) */
 .modal-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
 .btn-modal { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
 .btn-next-stage { background: var(--gold); color: black; }
@@ -39,15 +79,31 @@ body {
 .btn-exit-stage { background: #222; color: #777; border: 1px solid #444; }
 
 /* CORE GAME CONTAINER */
-.game-container { width: 95%; max-width: 400px; background: var(--glass); border: 2px solid var(--gold); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; gap: 12px; backdrop-filter: blur(10px); }
+.game-container {
+    width: 95%; 
+    max-width: 400px; 
+    background: var(--glass);
+    border: 2px solid var(--gold); 
+    border-radius: 20px; 
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    backdrop-filter: blur(10px); /* Efek blur pada background saat bermain */
+}
+
 .quest-container { text-align: center; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border: 1px double var(--gold); }
 .kanji-display { font-size: 55px; font-weight: bold; text-shadow: 0 0 15px var(--gold); margin-bottom: 5px; }
 .meaning-display { font-size: 14px; color: #aaa; font-style: italic; }
 .romaji-hint { font-size: 16px; color: var(--gold-bright); font-weight: bold; margin-top: 8px; letter-spacing: 2px; text-transform: uppercase; }
+
+/* HP & TIMER */
 .hp-bar { width: 100%; height: 18px; background: #222; border-radius: 9px; position: relative; overflow: hidden; border: 1px solid #444; }
 #hp-fill { height: 100%; background: #e74c3c; transition: 0.5s; width: 100%; }
 .hp-text { position: absolute; width: 100%; text-align: center; font-size: 10px; top: 2px; font-weight: bold; color: white; }
 .timer-section { text-align: right; font-weight: bold; font-size: 18px; }
+
+/* CARDS & SLOTS */
 .word-zone { display: flex; justify-content: center; gap: 4px; }
 .letter-slot { width: 40px; height: 55px; border: 1px solid #555; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .letter-slot.active { border-color: var(--gold); box-shadow: 0 0 10px var(--gold); }
@@ -55,6 +111,8 @@ body {
 .card { width: 44px; height: 60px; background: white; color: black; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
 .card .kana { font-size: 22px; font-weight: bold; }
 .card .romaji { font-size: 9px; color: #666; border-top: 1px solid #eee; width: 100%; text-align: center; }
+
+/* CONTROLS */
 .controls { display: flex; gap: 5px; flex-wrap: wrap; }
 .btn { flex: 1; padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 11px; }
 .btn-confirm { background: var(--gold); color: black; }
@@ -63,6 +121,13 @@ body {
 .btn-romaji { background: #2c3e50; color: white; }
 .support-container { display: flex; justify-content: center; gap: 6px; margin-bottom: 5px; }
 .btn-support { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--gold); background: none; color: white; cursor: pointer; }
+
+/* SYSTEM */
 .hidden { display: none !important; }
 .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 100; }
 .modal { background: #111; border: 2px solid var(--gold); padding: 25px; border-radius: 15px; text-align: center; width: 260px; }
+
+/* ANIMATIONS */
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.card.hint-glow { box-shadow: 0 0 20px var(--gold-bright); border: 2px solid var(--gold-bright); transform: scale(1.1); animation: pulse 1s infinite alternate; z-index: 10; }
+@keyframes pulse { from { opacity: 0.8; } to { opacity: 1; filter: brightness(1.2); } }
