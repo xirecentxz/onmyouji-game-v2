@@ -8,16 +8,28 @@ let yokaiHP = 100;
 let selectedLetters = [];
 let hand = [];
 let timerInt = null;
+let questionPool = [];
 
-// VARIABEL BARU UNTUK ANTRIAN ANTI-BERULANG
-let questionPool = []; 
+// Konfigurasi Level berdasarkan Gambar Sistem Level
+const LEVEL_CONFIG = {
+    [cite_start]1: { target: 10, dmg: 10 },    // Angka & Satuan [cite: 3]
+    [cite_start]2: { target: 15, dmg: 6.7 },  // Waktu & Kalender [cite: 5]
+    [cite_start]3: { target: 15, dmg: 6.7 },  // Orang & Keluarga [cite: 8]
+    [cite_start]4: { target: 10, dmg: 10 },   // Sekolah [cite: 10]
+    [cite_start]5: { target: 15, dmg: 6.7 },  // Makanan & Minuman [cite: 14]
+    [cite_start]6: { target: 10, dmg: 10 },   // Binatang & Alam [cite: 16]
+    [cite_start]7: { target: 5,  dmg: 20 },   // Tempat & Transportasi [cite: 18]
+    [cite_start]8: { target: 10, dmg: 10 },   // Kegiatan [cite: 20]
+    [cite_start]9: { target: 15, dmg: 6.7 },  // Sifat & Keadaan [cite: 22, 23]
+    [cite_start]10: { target: 5,  dmg: 20 }   // Arah & Posisi [cite: 25]
+};
 
 const ROMAJI_MAP = {
     'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
     'か': 'ka', 'き': 'ki', 'く': 'ku', 'け': 'ke', 'こ': 'ko',
     'さ': 'sa', 'し': 'shi', 'す': 'su', 'せ': 'se', 'そ': 'so',
     'た': 'ta', 'ち': 'chi', 'つ': 'tsu', 'て': 'te', 'と': 'to',
-    'な': 'na', 'ni': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
+    'な': 'na', 'に': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
     'は': 'ha', 'ひ': 'hi', 'ふ': 'fu', 'へ': 'he', 'ほ': 'ho',
     'ま': 'ma', 'み': 'mi', 'む': 'mu', 'め': 'me', 'も': 'mo',
     'や': 'ya', 'ゆ': 'yu', 'よ': 'yo',
@@ -42,14 +54,18 @@ async function init() {
 
 function loadQuestion() {
     const levelData = ALL_DATA.levels[currentLevel];
+    const config = LEVEL_CONFIG[currentLevel];
     
-    // LOGIKA SHUFFLED QUEUE (ANTI-BERULANG)
+    // Logika Shuffled Queue Anti-Berulang sesuai Target Level
     if (questionPool.length === 0) {
-        questionPool = [...levelData.words]; // Ambil semua kata dari kategori 
-        shuffle(questionPool); // Kocok urutannya 
+        questionPool = [...levelData.words];
+        shuffle(questionPool);
+        // Batasi soal sesuai target pada gambar sistem level
+        if(questionPool.length > config.target) {
+            questionPool = questionPool.slice(0, config.target);
+        }
     }
     
-    // Ambil satu per satu sampai habis
     currentQuestion = questionPool.pop();
     
     document.getElementById('level-banner').innerText = `Level ${currentLevel}: ${levelData.category}`;
@@ -130,23 +146,25 @@ function renderWordZone() {
 function confirmWord() {
     if(!gameActive) return;
     const answer = selectedLetters.join('');
+    const config = LEVEL_CONFIG[currentLevel];
+
     if(answer === currentQuestion.reading) {
-        // Bonus Damage berdasarkan panjang kata
-        let damage = 20 + (answer.length * 5); 
-        yokaiHP -= damage;
+        // Damage dinamis berdasarkan gambar sistem level
+        yokaiHP -= config.dmg; 
         
-        if(yokaiHP <= 0) {
-            yokaiHP = 0; gameActive = false; showModal(true);
+        if(yokaiHP <= 0.5) { // Toleransi desimal untuk angka 6.7
+            yokaiHP = 0; 
+            gameActive = false; 
+            showModal(true);
         } else {
             loadQuestion();
         }
     } else {
-        // FIX TIMER MINUS: Gunakan Math.max untuk membatasi angka paling rendah adalah 0
+        // Fix Timer Minus
         timeLeft = Math.max(0, timeLeft - 10);
         clearWord();
         showFlashError();
         
-        // Cek jika waktu habis setelah pengurangan penalti
         if(timeLeft === 0) {
             gameActive = false;
             showModal(false);
@@ -222,11 +240,11 @@ function showModal(isWin) {
 }
 
 function nextLevel() {
-    // Sesuaikan batas level dengan database Anda (Level 1-10) [cite: 3, 10, 25]
     if(currentLevel < 10) {
         currentLevel++;
-        questionPool = []; // Reset antrean untuk level baru
-        yokaiHP = 100; timeLeft = 90;
+        questionPool = [];
+        yokaiHP = 100; 
+        timeLeft = 90;
         loadQuestion();
         document.getElementById('modal-overlay').style.display = 'none';
     } else {
