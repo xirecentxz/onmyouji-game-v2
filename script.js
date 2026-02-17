@@ -10,18 +10,17 @@ let hand = [];
 let timerInt = null;
 let questionPool = [];
 
-// Konfigurasi Level berdasarkan Gambar Sistem Level
 const LEVEL_CONFIG = {
-    [cite_start]1: { target: 10, dmg: 10 },    // Angka & Satuan [cite: 3]
-    [cite_start]2: { target: 15, dmg: 6.7 },  // Waktu & Kalender [cite: 5]
-    [cite_start]3: { target: 15, dmg: 6.7 },  // Orang & Keluarga [cite: 8]
-    [cite_start]4: { target: 10, dmg: 10 },   // Sekolah [cite: 10]
-    [cite_start]5: { target: 15, dmg: 6.7 },  // Makanan & Minuman [cite: 14]
-    [cite_start]6: { target: 10, dmg: 10 },   // Binatang & Alam [cite: 16]
-    [cite_start]7: { target: 5,  dmg: 20 },   // Tempat & Transportasi [cite: 18]
-    [cite_start]8: { target: 10, dmg: 10 },   // Kegiatan [cite: 20]
-    [cite_start]9: { target: 15, dmg: 6.7 },  // Sifat & Keadaan [cite: 22, 23]
-    [cite_start]10: { target: 5,  dmg: 20 }   // Arah & Posisi [cite: 25]
+    1: { target: 10, dmg: 10 },
+    2: { target: 15, dmg: 6.7 },
+    3: { target: 15, dmg: 6.7 },
+    4: { target: 10, dmg: 10 },
+    5: { target: 15, dmg: 6.7 },
+    6: { target: 10, dmg: 10 },
+    7: { target: 5,  dmg: 20 },
+    8: { target: 10, dmg: 10 },
+    9: { target: 15, dmg: 6.7 },
+    10: { target: 5,  dmg: 20 }
 };
 
 const ROMAJI_MAP = {
@@ -43,24 +42,52 @@ const ROMAJI_MAP = {
 
 const POOL = ['あ','い','う','え','お','か','き','く','け','こ','さ','し','す','せ','そ','た','ち','つ','て','と','な','に','ぬ','ね','の','ま','み','む','め','も','ら','り','る','れ','ろ'];
 
-async function init() {
-    try {
-        const res = await fetch('database.json');
-        ALL_DATA = await res.json();
-        loadQuestion();
-        startTimer();
-    } catch (e) { console.error("Database missing", e); }
+// --- FUNGSI NAVIGASI SESUAI GAME FLOW ---
+
+async function startGame() {
+    // Sembunyikan Homepage, Tampilkan Game Screen 
+    document.getElementById('homepage-screen').style.display = 'none';
+    document.getElementById('game-screen').style.display = 'flex';
+    
+    if (!ALL_DATA) {
+        try {
+            const res = await fetch('database.json');
+            ALL_DATA = await res.json();
+        } catch (e) { console.error("Database missing", e); return; }
+    }
+    
+    resetGameState();
+    loadQuestion();
+    startTimer();
 }
+
+function backToHome() {
+    // Kembali ke Beranda 
+    clearInterval(timerInt);
+    gameActive = false;
+    document.getElementById('game-screen').style.display = 'none';
+    document.getElementById('modal-overlay').style.display = 'none';
+    document.getElementById('homepage-screen').style.display = 'flex';
+}
+
+function resetGameState() {
+    currentLevel = 1;
+    yokaiHP = 100;
+    timeLeft = 90;
+    questionPool = [];
+    selectedLetters = [];
+    updateUI();
+}
+
+// --- LOGIKA PERMAINAN ---
 
 function loadQuestion() {
     const levelData = ALL_DATA.levels[currentLevel];
     const config = LEVEL_CONFIG[currentLevel];
     
-    // Logika Shuffled Queue Anti-Berulang sesuai Target Level
     if (questionPool.length === 0) {
         questionPool = [...levelData.words];
         shuffle(questionPool);
-        // Batasi soal sesuai target pada gambar sistem level
         if(questionPool.length > config.target) {
             questionPool = questionPool.slice(0, config.target);
         }
@@ -74,8 +101,7 @@ function loadQuestion() {
     
     const kanjiHint = document.getElementById('kanji-reading-hint');
     kanjiHint.innerText = currentQuestion.reading_romaji;
-    if(isRomajiVisible) kanjiHint.classList.remove('hidden');
-    else kanjiHint.classList.add('hidden');
+    kanjiHint.classList.toggle('hidden', !isRomajiVisible);
 
     selectedLetters = [];
     generateHand(currentQuestion.reading);
@@ -83,6 +109,79 @@ function loadQuestion() {
     renderSupportButtons();
     gameActive = true;
 }
+
+function confirmWord() {
+    if(!gameActive) return;
+    const answer = selectedLetters.join('');
+    const config = LEVEL_CONFIG[currentLevel];
+
+    if(answer === currentQuestion.reading) {
+        yokaiHP -= config.dmg; 
+        if(yokaiHP <= 0.5) {
+            yokaiHP = 0; gameActive = false; showModal(true);
+        } else {
+            loadQuestion();
+        }
+    } else {
+        timeLeft = Math.max(0, timeLeft - 10);
+        clearWord();
+        showFlashError();
+        if(timeLeft === 0) { gameActive = false; showModal(false); }
+    }
+    updateUI();
+}
+
+function showModal(isWin) {
+    const overlay = document.getElementById('modal-overlay');
+    const title = document.getElementById('modal-title');
+    const desc = document.getElementById('modal-desc');
+    const btnArea = document.getElementById('modal-buttons-area');
+    
+    overlay.style.display = 'flex';
+    btnArea.innerHTML = ''; // Clear previous buttons
+
+    if (isWin) {
+        title.innerText = "RITUAL BERHASIL!";
+        desc.innerText = "Yokai telah tersegel.";
+        
+        if (currentLevel < 10) {
+            // Tombol Lanjut Level 
+            btnArea.innerHTML += `<button class="btn-modal btn-next-level" onclick="nextLevel()">Level Berikutnya</button>`;
+        } else {
+            title.innerText = "MASTER ONMYOJI!";
+            desc.innerText = "Semua segel telah dikuasai.";
+        }
+    } else {
+        title.innerText = "RITUAL GAGAL!";
+        desc.innerText = "Waktu habis, Yokai melarikan diri.";
+        // Tombol Retry 
+        btnArea.innerHTML += `<button class="btn-modal btn-retry-level" onclick="retryCurrentLevel()">Coba Lagi</button>`;
+    }
+
+    // Tombol Exit selalu ada sesuai diagram 
+    btnArea.innerHTML += `<button class="btn-modal btn-exit-level" onclick="backToHome()">Exit ke Beranda</button>`;
+}
+
+function retryCurrentLevel() {
+    yokaiHP = 100;
+    timeLeft = 90;
+    questionPool = []; // Reset antrean untuk level yang sama 
+    document.getElementById('modal-overlay').style.display = 'none';
+    loadQuestion();
+    gameActive = true;
+}
+
+function nextLevel() {
+    currentLevel++;
+    questionPool = [];
+    yokaiHP = 100;
+    timeLeft = 90;
+    document.getElementById('modal-overlay').style.display = 'none';
+    loadQuestion();
+    gameActive = true;
+}
+
+// --- FUNGSI HELPER (TETAP SAMA) ---
 
 function generateHand(reading) {
     let required = reading.split('').filter(c => !['ゃ','ゅ','ょ','っ'].includes(c));
@@ -98,13 +197,8 @@ function generateHand(reading) {
 function toggleRomaji() {
     isRomajiVisible = !isRomajiVisible;
     document.getElementById('romaji-toggle-btn').innerText = `Romaji: ${isRomajiVisible ? 'ON' : 'OFF'}`;
-    
-    const kanjiHint = document.getElementById('kanji-reading-hint');
-    if(isRomajiVisible) kanjiHint.classList.remove('hidden');
-    else kanjiHint.classList.add('hidden');
-
-    renderHand(); 
-    renderWordZone();
+    document.getElementById('kanji-reading-hint').classList.toggle('hidden', !isRomajiVisible);
+    renderHand(); renderWordZone();
 }
 
 function renderHand() {
@@ -113,16 +207,8 @@ function renderHand() {
     hand.forEach((char, i) => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = `
-            <div class="kana">${char}</div>
-            <div class="romaji ${isRomajiVisible ? '' : 'hidden'}">${ROMAJI_MAP[char] || ''}</div>
-        `;
-        card.onclick = () => {
-            if(gameActive && selectedLetters.length < 7) {
-                selectedLetters.push(hand.splice(i, 1)[0]);
-                renderHand(); renderWordZone();
-            }
-        };
+        card.innerHTML = `<div class="kana">${char}</div><div class="romaji ${isRomajiVisible ? '' : 'hidden'}">${ROMAJI_MAP[char] || ''}</div>`;
+        card.onclick = () => { if(gameActive && selectedLetters.length < 7) { selectedLetters.push(hand.splice(i, 1)[0]); renderHand(); renderWordZone(); } };
         container.appendChild(card);
     });
 }
@@ -132,45 +218,11 @@ function renderWordZone() {
     slots.forEach((slot, i) => {
         const char = selectedLetters[i];
         if(char) {
-            slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:black;">${char}</div>
-                              <div style="font-size:9px; color:#666;" class="${isRomajiVisible ? '' : 'hidden'}">${ROMAJI_MAP[char] || ''}</div>`;
-            slot.style.backgroundColor = "white";
-            slot.classList.add('active');
-        } else {
-            slot.innerHTML = ''; slot.style.backgroundColor = "transparent"; slot.classList.remove('active');
-        }
+            slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:black;">${char}</div><div style="font-size:9px; color:#666;" class="${isRomajiVisible ? '' : 'hidden'}">${ROMAJI_MAP[char] || ''}</div>`;
+            slot.style.backgroundColor = "white"; slot.classList.add('active');
+        } else { slot.innerHTML = ''; slot.style.backgroundColor = "transparent"; slot.classList.remove('active'); }
     });
     document.getElementById('confirm-btn').disabled = selectedLetters.length === 0;
-}
-
-function confirmWord() {
-    if(!gameActive) return;
-    const answer = selectedLetters.join('');
-    const config = LEVEL_CONFIG[currentLevel];
-
-    if(answer === currentQuestion.reading) {
-        // Damage dinamis berdasarkan gambar sistem level
-        yokaiHP -= config.dmg; 
-        
-        if(yokaiHP <= 0.5) { // Toleransi desimal untuk angka 6.7
-            yokaiHP = 0; 
-            gameActive = false; 
-            showModal(true);
-        } else {
-            loadQuestion();
-        }
-    } else {
-        // Fix Timer Minus
-        timeLeft = Math.max(0, timeLeft - 10);
-        clearWord();
-        showFlashError();
-        
-        if(timeLeft === 0) {
-            gameActive = false;
-            showModal(false);
-        }
-    }
-    updateUI();
 }
 
 function renderSupportButtons() {
@@ -178,79 +230,45 @@ function renderSupportButtons() {
     container.innerHTML = '';
     ['ゃ', 'ゅ', 'ょ', 'っ'].forEach(s => {
         const btn = document.createElement('button');
-        btn.className = 'btn-support';
-        btn.innerText = s;
-        btn.onclick = () => {
-            if(gameActive && selectedLetters.length < 7) {
-                selectedLetters.push(s);
-                renderWordZone();
-            }
-        };
+        btn.className = 'btn-support'; btn.innerText = s;
+        btn.onclick = () => { if(gameActive && selectedLetters.length < 7) { selectedLetters.push(s); renderWordZone(); } };
         container.appendChild(btn);
     });
 }
 
 function clearWord() {
     selectedLetters.forEach(c => { if(!['ゃ','ゅ','ょ','っ'].includes(c)) hand.push(c); });
-    selectedLetters = [];
-    renderHand(); renderWordZone();
+    selectedLetters = []; renderHand(); renderWordZone();
 }
 
 function showHint() {
     if(!gameActive) return;
-    const cards = document.querySelectorAll('.card');
     const firstChar = currentQuestion.reading[0];
-    cards.forEach(c => {
+    document.querySelectorAll('.card').forEach(c => {
         if(c.querySelector('.kana').innerText === firstChar) {
-            c.classList.add('hint-glow');
-            setTimeout(() => c.classList.remove('hint-glow'), 3000);
+            c.classList.add('hint-glow'); setTimeout(() => c.classList.remove('hint-glow'), 3000);
         }
     });
 }
 
 function startTimer() {
+    clearInterval(timerInt);
     timerInt = setInterval(() => {
         if(gameActive && timeLeft > 0) {
-            timeLeft--; 
-            updateUI();
-            if(timeLeft <= 0) { 
-                timeLeft = 0;
-                gameActive = false; 
-                showModal(false); 
-            }
+            timeLeft--; updateUI();
+            if(timeLeft <= 0) { timeLeft = 0; gameActive = false; showModal(false); }
         }
     }, 1000);
 }
 
 function showFlashError() {
     const timer = document.querySelector('.timer-section');
-    timer.style.color = "red";
-    setTimeout(() => timer.style.color = "white", 500);
+    timer.style.color = "red"; setTimeout(() => timer.style.color = "white", 500);
 }
 
 function updateUI() {
     document.getElementById('hp-fill').style.width = yokaiHP + "%";
     document.getElementById('time-val').innerText = timeLeft;
-}
-
-function showModal(isWin) {
-    const overlay = document.getElementById('modal-overlay');
-    overlay.style.display = 'flex';
-    document.getElementById('modal-title').innerText = isWin ? "RITUAL BERHASIL!" : "RITUAL GAGAL!";
-}
-
-function nextLevel() {
-    if(currentLevel < 10) {
-        currentLevel++;
-        questionPool = [];
-        yokaiHP = 100; 
-        timeLeft = 90;
-        loadQuestion();
-        document.getElementById('modal-overlay').style.display = 'none';
-    } else {
-        alert("Selamat! Anda telah menguasai semua segel Kanji!");
-        location.reload();
-    }
 }
 
 function shuffle(array) {
@@ -260,5 +278,3 @@ function shuffle(array) {
     }
     return array;
 }
-
-window.onload = init;
