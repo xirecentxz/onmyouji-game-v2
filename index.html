@@ -2,13 +2,26 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Onmyoji Game V2: Kanji Seal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <div class="level-banner" id="level-banner">Memanggil Ritual...</div>
+    <div id="homepage-screen" class="full-overlay">
+        <div class="home-content">
+            <div class="logo-area">
+                <h1 class="game-title">ONMYOJI</h1>
+                <h2 class="game-subtitle">KOTODAMA RITUAL</h2>
+            </div>
+            <button class="btn-start" onclick="startGame()">START GAME</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="game-container" style="display: none;">
+        <div class="top-nav">
+            <button class="btn-exit-small" onclick="backToHome()">🏠 Home</button>
+            <div class="level-banner" id="level-banner">Memanggil Ritual...</div>
+        </div>
 
         <div class="header">
             <div class="hp-section">
@@ -29,12 +42,8 @@
         </div>
 
         <div class="word-zone" id="word-zone">
-            <div class="letter-slot"></div>
-            <div class="letter-slot"></div>
-            <div class="letter-slot"></div>
-            <div class="letter-slot"></div>
-            <div class="letter-slot"></div>
-            <div class="letter-slot"></div>
+            <div class="letter-slot"></div><div class="letter-slot"></div><div class="letter-slot"></div>
+            <div class="letter-slot"></div><div class="letter-slot"></div><div class="letter-slot"></div>
             <div class="letter-slot"></div>
         </div>
 
@@ -57,10 +66,8 @@
         <div class="modal">
             <h2 id="modal-title">RITUAL BERHASIL!</h2>
             <p id="modal-desc">Yokai telah tersegel.</p>
-            <div class="modal-buttons">
-                <button id="btn-next" class="btn btn-retry" onclick="nextLevel()">Level Berikutnya</button>
-                <button class="btn btn-nav" onclick="location.reload()">Main Lagi</button>
-            </div>
+            <div class="modal-buttons" id="modal-buttons-area">
+                </div>
         </div>
     </div>
 
