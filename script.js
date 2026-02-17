@@ -1,5 +1,5 @@
 let ALL_DATA = null;
-let currentLevel = 1;
+let currentStage = 1;
 let currentQuestion = null;
 let isRomajiVisible = false;
 let gameActive = false;
@@ -10,7 +10,8 @@ let hand = [];
 let timerInt = null;
 let questionPool = [];
 
-const LEVEL_CONFIG = {
+// Konfigurasi Berdasarkan Gambar Stage System
+const STAGE_CONFIG = {
     1: { target: 10, dmg: 10 },
     2: { target: 15, dmg: 6.7 },
     3: { target: 15, dmg: 6.7 },
@@ -42,10 +43,7 @@ const ROMAJI_MAP = {
 
 const POOL = ['あ','い','う','え','お','か','き','く','け','こ','さ','し','す','せ','そ','た','ち','つ','て','と','な','に','ぬ','ね','の','ま','み','む','め','も','ら','り','る','れ','ろ'];
 
-// --- FUNGSI NAVIGASI SESUAI GAME FLOW ---
-
 async function startGame() {
-    // Sembunyikan Homepage, Tampilkan Game Screen 
     document.getElementById('homepage-screen').style.display = 'none';
     document.getElementById('game-screen').style.display = 'flex';
     
@@ -56,13 +54,12 @@ async function startGame() {
         } catch (e) { console.error("Database missing", e); return; }
     }
     
-    resetGameState();
+    resetStageState();
     loadQuestion();
     startTimer();
 }
 
 function backToHome() {
-    // Kembali ke Beranda 
     clearInterval(timerInt);
     gameActive = false;
     document.getElementById('game-screen').style.display = 'none';
@@ -70,8 +67,8 @@ function backToHome() {
     document.getElementById('homepage-screen').style.display = 'flex';
 }
 
-function resetGameState() {
-    currentLevel = 1;
+function resetStageState() {
+    currentStage = 1;
     yokaiHP = 100;
     timeLeft = 90;
     questionPool = [];
@@ -79,14 +76,12 @@ function resetGameState() {
     updateUI();
 }
 
-// --- LOGIKA PERMAINAN ---
-
 function loadQuestion() {
-    const levelData = ALL_DATA.levels[currentLevel];
-    const config = LEVEL_CONFIG[currentLevel];
+    const stageData = ALL_DATA.levels[currentStage]; // Database tetap menggunakan key 'levels'
+    const config = STAGE_CONFIG[currentStage];
     
     if (questionPool.length === 0) {
-        questionPool = [...levelData.words];
+        questionPool = [...stageData.words];
         shuffle(questionPool);
         if(questionPool.length > config.target) {
             questionPool = questionPool.slice(0, config.target);
@@ -95,7 +90,7 @@ function loadQuestion() {
     
     currentQuestion = questionPool.pop();
     
-    document.getElementById('level-banner').innerText = `Level ${currentLevel}: ${levelData.category}`;
+    document.getElementById('stage-banner').innerText = `Stage ${currentStage}: ${stageData.category}`;
     document.getElementById('kanji-question').innerText = currentQuestion.kanji;
     document.getElementById('kanji-meaning').innerText = currentQuestion.meaning;
     
@@ -113,7 +108,7 @@ function loadQuestion() {
 function confirmWord() {
     if(!gameActive) return;
     const answer = selectedLetters.join('');
-    const config = LEVEL_CONFIG[currentLevel];
+    const config = STAGE_CONFIG[currentStage];
 
     if(answer === currentQuestion.reading) {
         yokaiHP -= config.dmg; 
@@ -138,15 +133,14 @@ function showModal(isWin) {
     const btnArea = document.getElementById('modal-buttons-area');
     
     overlay.style.display = 'flex';
-    btnArea.innerHTML = ''; // Clear previous buttons
+    btnArea.innerHTML = '';
 
     if (isWin) {
         title.innerText = "RITUAL BERHASIL!";
         desc.innerText = "Yokai telah tersegel.";
         
-        if (currentLevel < 10) {
-            // Tombol Lanjut Level 
-            btnArea.innerHTML += `<button class="btn-modal btn-next-level" onclick="nextLevel()">Level Berikutnya</button>`;
+        if (currentStage < 10) {
+            btnArea.innerHTML += `<button class="btn-modal btn-next-stage" onclick="nextStage()">Stage Berikutnya</button>`;
         } else {
             title.innerText = "MASTER ONMYOJI!";
             desc.innerText = "Semua segel telah dikuasai.";
@@ -154,25 +148,23 @@ function showModal(isWin) {
     } else {
         title.innerText = "RITUAL GAGAL!";
         desc.innerText = "Waktu habis, Yokai melarikan diri.";
-        // Tombol Retry 
-        btnArea.innerHTML += `<button class="btn-modal btn-retry-level" onclick="retryCurrentLevel()">Coba Lagi</button>`;
+        btnArea.innerHTML += `<button class="btn-modal btn-retry-stage" onclick="retryCurrentStage()">Coba Lagi</button>`;
     }
 
-    // Tombol Exit selalu ada sesuai diagram 
-    btnArea.innerHTML += `<button class="btn-modal btn-exit-level" onclick="backToHome()">Exit ke Beranda</button>`;
+    btnArea.innerHTML += `<button class="btn-modal btn-exit-stage" onclick="backToHome()">Exit ke Beranda</button>`;
 }
 
-function retryCurrentLevel() {
+function retryCurrentStage() {
     yokaiHP = 100;
     timeLeft = 90;
-    questionPool = []; // Reset antrean untuk level yang sama 
+    questionPool = [];
     document.getElementById('modal-overlay').style.display = 'none';
     loadQuestion();
     gameActive = true;
 }
 
-function nextLevel() {
-    currentLevel++;
+function nextStage() {
+    currentStage++;
     questionPool = [];
     yokaiHP = 100;
     timeLeft = 90;
@@ -180,8 +172,6 @@ function nextLevel() {
     loadQuestion();
     gameActive = true;
 }
-
-// --- FUNGSI HELPER (TETAP SAMA) ---
 
 function generateHand(reading) {
     let required = reading.split('').filter(c => !['ゃ','ゅ','ょ','っ'].includes(c));
