@@ -23,24 +23,25 @@ const STAGE_CONFIG = {
     10: { target: 5,  dmg: 20 }
 };
 
+// PERBAIKAN: Karakter Hiragana dipulihkan agar sistem bisa membaca input
 const ROMAJI_MAP = {
-    '?': 'a', '?': 'i', '?': 'u', '?': 'e', '?': 'o',
-    '?': 'ka', '?': 'ki', '?': 'ku', '?': 'ke', '?': 'ko',
-    '?': 'sa', '?': 'shi', '?': 'su', '?': 'se', '?': 'so',
-    '?': 'ta', '?': 'chi', '?': 'tsu', '?': 'te', '?': 'to',
-    '?': 'na', '?': 'ni', '?': 'nu', '?': 'ne', '?': 'no',
-    '?': 'ha', '?': 'hi', '?': 'fu', '?': 'he', '?': 'ho',
-    '?': 'ma', '?': 'mi', '?': 'mu', '?': 'me', '?': 'mo',
-    '?': 'ya', '?': 'yu', '?': 'yo',
-    '?': 'ra', '?': 'ri', '?': 'ru', '?': 're', '?': 'ro',
-    '?': 'wa', '?': 'wo', '?': 'n',
-    '?': 'ga', '?': 'gi', '?': 'gu', '?': 'ge', '?': 'go',
-    '?': 'ba', '?': 'bi', '?': 'bu', '?': 'be', '?': 'bo',
-    '?': 'pa', '?': 'pi', '?': 'pu', '?': 'pe', '?': 'po',
-    '?': 'ya', '?': 'yu', '?': 'yo', '?': 'tsu'
+    'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
+    'か': 'ka', 'き': 'ki', 'く': 'ku', 'け': 'ke', 'こ': 'ko',
+    'さ': 'sa', 'し': 'shi', 'す': 'su', 'せ': 'se', 'そ': 'so',
+    'た': 'ta', 'ち': 'chi', 'つ': 'tsu', 'て': 'te', 'と': 'to',
+    'な': 'na', 'に': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
+    'は': 'ha', 'ひ': 'hi', 'ふ': 'fu', 'へ': 'he', 'ほ': 'ho',
+    'ま': 'ma', 'み': 'mi', 'む': 'mu', 'め': 'me', 'も': 'mo',
+    'や': 'ya', 'ゆ': 'yu', 'よ': 'yo',
+    'ら': 'ra', 'り': 'ri', 'る': 'ru', 'れ': 're', 'ろ': 'ro',
+    'わ': 'wa', 'を': 'wo', 'ん': 'n',
+    'が': 'ga', 'ぎ': 'gi', 'ぐ': 'gu', 'げ': 'ge', 'ご': 'go',
+    'ば': 'ba', 'び': 'bi', 'ぶ': 'bu', 'べ': 'be', 'ぼ': 'bo',
+    'ぱ': 'pa', 'ぴ': 'pi', 'ぷ': 'pu', 'ぺ': 'pe', 'ぽ': 'po',
+    'ゃ': 'ya', 'ゅ': 'yu', 'ょ': 'yo', 'っ': 'tsu'
 };
 
-const POOL = ['?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?'];
+const POOL = ['あ','い','う','え','お','か','き','く','け','こ','さ','し','す','せ','そ','た','ち','つ','て','と','な','に','ぬ','ね','の','ま','み','む','め','も','ら','り','る','れ','ろ'];
 
 async function startGame() {
     document.getElementById('homepage-screen').style.display = 'none';
@@ -192,7 +193,8 @@ function nextStage() {
 }
 
 function generateHand(reading) {
-    let required = reading.split('').filter(c => !['?','?','?','?'].includes(c));
+    // Filter karakter modifikasi/kecil dari tangan utama
+    let required = reading.split('').filter(c => !['ゃ','ゅ','ょ','っ'].includes(c));
     let finalCards = [...required];
     
     while(finalCards.length < 10) {
@@ -243,7 +245,7 @@ function renderWordZone() {
 function renderSupportButtons() {
     const container = document.getElementById('support-container');
     container.innerHTML = '';
-    ['?', '?', '?', '?'].forEach(s => {
+    ['ゃ', 'ゅ', 'ょ', 'っ'].forEach(s => {
         const btn = document.createElement('button');
         btn.className = 'btn-support'; btn.innerText = s;
         btn.onclick = () => { if(gameActive && selectedLetters.length < 7) { selectedLetters.push(s); renderWordZone(); } };
@@ -252,7 +254,7 @@ function renderSupportButtons() {
 }
 
 function clearWord() {
-    selectedLetters.forEach(c => { if(!['?','?','?','?'].includes(c)) hand.push(c); });
+    selectedLetters.forEach(c => { if(!['ゃ','ゅ','ょ','っ'].includes(c)) hand.push(c); });
     selectedLetters = []; 
     renderHand(); 
     renderWordZone();
