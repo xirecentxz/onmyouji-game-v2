@@ -37,7 +37,7 @@ const ROMAJI_MAP = {
     '?': 'ga', '?': 'gi', '?': 'gu', '?': 'ge', '?': 'go',
     '?': 'ba', '?': 'bi', '?': 'bu', '?': 'be', '?': 'bo',
     '?': 'pa', '?': 'pi', '?': 'pu', '?': 'pe', '?': 'po',
-    '?': 'ya', '?': 'yu', '?': 'yo', '?': '(stop)'
+    '?': 'ya', '?': 'yu', '?': 'yo', '?': 'tsu'
 };
 
 const POOL = ['?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?'];
@@ -79,15 +79,14 @@ function loadQuestion() {
     const stageData = ALL_DATA.levels[currentStage];
     const config = STAGE_CONFIG[currentStage];
     
-    // LOGIKA ANTREAN (Full Shuffle lalu Pop satu per satu)
+    // SISTEM ANTREAN MURNI
     if (questionPool.length === 0) {
-        let allWords = [...stageData.words]; // Ambil semua kata dari database 
-        shuffle(allWords); // Kocok seluruhnya 
-        questionPool = allWords.slice(0, config.target); // Ambil 10 kata acak 
+        let allWords = [...stageData.words];
+        shuffle(allWords);
+        questionPool = allWords.slice(0, config.target);
     }
     
-    // Pakai 1, sisa berkurang (Pop mengambil item terakhir dan menghapusnya dari array)
-    currentQuestion = questionPool.pop(); // 
+    currentQuestion = questionPool.pop();
     
     document.getElementById('stage-banner').innerText = `Stage ${currentStage}: ${stageData.category}`;
     document.getElementById('kanji-question').innerText = currentQuestion.kanji;
@@ -104,7 +103,8 @@ function loadQuestion() {
 
 function updateRomajiDisplay() {
     const kanjiHint = document.getElementById('kanji-reading-hint');
-    const romajiData = currentQuestion ? (currentQuestion.reading_romaji || "") : "";
+    // Fallback untuk mencegah UNDEFINED
+    const romajiData = (currentQuestion && currentQuestion.reading_romaji) ? currentQuestion.reading_romaji : "";
     
     if (kanjiHint) {
         kanjiHint.innerText = romajiData;
@@ -194,12 +194,16 @@ function nextStage() {
 }
 
 function generateHand(reading) {
+    // Perbaikan: Ambil karakter dasar dan filter karakter bantuan
     let required = reading.split('').filter(c => !['?','?','?','?'].includes(c));
-    let extraCount = 10 - required.length;
     let finalCards = [...required];
-    for(let i=0; i<extraCount; i++) {
-        finalCards.push(POOL[Math.floor(Math.random() * POOL.length)]);
+    
+    // Tambah kartu acak sampai total 10 kartu di tangan
+    while(finalCards.length < 10) {
+        let randomChar = POOL[Math.floor(Math.random() * POOL.length)];
+        finalCards.push(randomChar);
     }
+    
     hand = shuffle(finalCards);
     renderHand();
 }
@@ -210,9 +214,16 @@ function renderHand() {
     hand.forEach((char, i) => {
         const card = document.createElement('div');
         card.className = 'card';
+        // Perbaikan tanda tanya: Pastikan ROMAJI_MAP membaca char dengan benar
         const romajiTag = isRomajiVisible ? `<div class="romaji">${ROMAJI_MAP[char] || ''}</div>` : '';
         card.innerHTML = `<div class="kana">${char}</div>${romajiTag}`;
-        card.onclick = () => { if(gameActive && selectedLetters.length < 7) { selectedLetters.push(hand.splice(i, 1)[0]); renderHand(); renderWordZone(); } };
+        card.onclick = () => { 
+            if(gameActive && selectedLetters.length < 7) { 
+                selectedLetters.push(hand.splice(i, 1)[0]); 
+                renderHand(); 
+                renderWordZone(); 
+            } 
+        };
         container.appendChild(card);
     });
 }
@@ -225,7 +236,11 @@ function renderWordZone() {
             const romajiHint = isRomajiVisible ? `<div style="font-size:9px; color:#666;">${ROMAJI_MAP[char] || ''}</div>` : '';
             slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:black;">${char}</div>${romajiHint}`;
             slot.style.backgroundColor = "white"; slot.classList.add('active');
-        } else { slot.innerHTML = ''; slot.style.backgroundColor = "transparent"; slot.classList.remove('active'); }
+        } else { 
+            slot.innerHTML = ''; 
+            slot.style.backgroundColor = "transparent"; 
+            slot.classList.remove('active'); 
+        }
     });
     document.getElementById('confirm-btn').disabled = selectedLetters.length === 0;
 }
@@ -243,7 +258,9 @@ function renderSupportButtons() {
 
 function clearWord() {
     selectedLetters.forEach(c => { if(!['?','?','?','?'].includes(c)) hand.push(c); });
-    selectedLetters = []; renderHand(); renderWordZone();
+    selectedLetters = []; 
+    renderHand(); 
+    renderWordZone();
 }
 
 function showHint() {
