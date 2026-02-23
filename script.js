@@ -10,7 +10,6 @@ let hand = [];
 let timerInt = null;
 let questionPool = [];
 
-// Konfigurasi Target & Damage sesuai Level System Anda
 const STAGE_CONFIG = {
     1: { target: 10, dmg: 10 },
     2: { target: 15, dmg: 6.7 },
@@ -25,23 +24,23 @@ const STAGE_CONFIG = {
 };
 
 const ROMAJI_MAP = {
-    'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
-    'か': 'ka', 'き': 'ki', 'く': 'ku', 'け': 'ke', 'こ': 'ko',
-    'さ': 'sa', 'し': 'shi', 'す': 'su', 'せ': 'se', 'そ': 'so',
-    'た': 'ta', 'ち': 'chi', 'つ': 'tsu', 'て': 'te', 'と': 'to',
-    'な': 'na', 'に': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
-    'は': 'ha', 'ひ': 'hi', 'ふ': 'fu', 'へ': 'he', 'ほ': 'ho',
-    'ま': 'ma', 'み': 'mi', 'む': 'mu', 'め': 'me', 'も': 'mo',
-    'や': 'ya', 'ゆ': 'yu', 'よ': 'yo',
-    'ら': 'ra', 'り': 'ri', 'る': 'ru', 'れ': 're', 'ろ': 'ro',
-    'わ': 'wa', 'を': 'wo', 'ん': 'n',
-    'が': 'ga', 'ぎ': 'gi', 'ぐ': 'gu', 'げ': 'ge', 'ご': 'go',
-    'ば': 'ba', 'び': 'bi', 'ぶ': 'bu', 'べ': 'be', 'ぼ': 'bo',
-    'ぱ': 'pa', 'ぴ': 'pi', 'ぷ': 'pu', 'ぺ': 'pe', 'ぽ': 'po',
-    'ゃ': 'ya', 'ゅ': 'yu', 'ょ': 'yo', 'っ': '(stop)'
+    '?': 'a', '?': 'i', '?': 'u', '?': 'e', '?': 'o',
+    '?': 'ka', '?': 'ki', '?': 'ku', '?': 'ke', '?': 'ko',
+    '?': 'sa', '?': 'shi', '?': 'su', '?': 'se', '?': 'so',
+    '?': 'ta', '?': 'chi', '?': 'tsu', '?': 'te', '?': 'to',
+    '?': 'na', '?': 'ni', '?': 'nu', '?': 'ne', '?': 'no',
+    '?': 'ha', '?': 'hi', '?': 'fu', '?': 'he', '?': 'ho',
+    '?': 'ma', '?': 'mi', '?': 'mu', '?': 'me', '?': 'mo',
+    '?': 'ya', '?': 'yu', '?': 'yo',
+    '?': 'ra', '?': 'ri', '?': 'ru', '?': 're', '?': 'ro',
+    '?': 'wa', '?': 'wo', '?': 'n',
+    '?': 'ga', '?': 'gi', '?': 'gu', '?': 'ge', '?': 'go',
+    '?': 'ba', '?': 'bi', '?': 'bu', '?': 'be', '?': 'bo',
+    '?': 'pa', '?': 'pi', '?': 'pu', '?': 'pe', '?': 'po',
+    '?': 'ya', '?': 'yu', '?': 'yo', '?': '(stop)'
 };
 
-const POOL = ['あ','い','う','え','お','か','き','く','け','こ','さ','し','す','せ','そ','た','ち','つ','て','と','な','に','ぬ','ね','の','ま','み','む','め','も','ら','り','る','れ','ろ'];
+const POOL = ['?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?'];
 
 async function startGame() {
     document.getElementById('homepage-screen').style.display = 'none';
@@ -80,21 +79,20 @@ function loadQuestion() {
     const stageData = ALL_DATA.levels[currentStage];
     const config = STAGE_CONFIG[currentStage];
     
+    // LOGIKA ANTREAN (Full Shuffle lalu Pop satu per satu)
     if (questionPool.length === 0) {
-        questionPool = [...stageData.words];
-        shuffle(questionPool);
-        if(questionPool.length > config.target) {
-            questionPool = questionPool.slice(0, config.target);
-        }
+        let allWords = [...stageData.words]; // Ambil semua kata dari database 
+        shuffle(allWords); // Kocok seluruhnya 
+        questionPool = allWords.slice(0, config.target); // Ambil 10 kata acak 
     }
     
-    currentQuestion = questionPool.pop();
+    // Pakai 1, sisa berkurang (Pop mengambil item terakhir dan menghapusnya dari array)
+    currentQuestion = questionPool.pop(); // 
     
     document.getElementById('stage-banner').innerText = `Stage ${currentStage}: ${stageData.category}`;
     document.getElementById('kanji-question').innerText = currentQuestion.kanji;
     document.getElementById('kanji-meaning').innerText = currentQuestion.meaning;
     
-    // --- REFRESH TAMPILAN ROMAJI ---
     updateRomajiDisplay();
 
     selectedLetters = [];
@@ -120,14 +118,10 @@ function updateRomajiDisplay() {
 
 function toggleRomaji() {
     isRomajiVisible = !isRomajiVisible;
-    
-    // Update teks tombol
     const romajiBtn = document.getElementById('romaji-toggle-btn');
     if (romajiBtn) {
         romajiBtn.innerText = `Romaji: ${isRomajiVisible ? 'ON' : 'OFF'}`;
     }
-
-    // Update hint cara baca dan render ulang kartu
     updateRomajiDisplay();
     renderHand();
     renderWordZone();
@@ -183,7 +177,7 @@ function showModal(isWin) {
 function retryCurrentStage() {
     yokaiHP = 100;
     timeLeft = 90;
-    questionPool = [];
+    questionPool = []; 
     document.getElementById('modal-overlay').style.display = 'none';
     loadQuestion();
     gameActive = true;
@@ -200,7 +194,7 @@ function nextStage() {
 }
 
 function generateHand(reading) {
-    let required = reading.split('').filter(c => !['ゃ','ゅ','ょ','っ'].includes(c));
+    let required = reading.split('').filter(c => !['?','?','?','?'].includes(c));
     let extraCount = 10 - required.length;
     let finalCards = [...required];
     for(let i=0; i<extraCount; i++) {
@@ -216,9 +210,7 @@ function renderHand() {
     hand.forEach((char, i) => {
         const card = document.createElement('div');
         card.className = 'card';
-        // Hanya tampilkan div romaji jika isRomajiVisible ON
         const romajiTag = isRomajiVisible ? `<div class="romaji">${ROMAJI_MAP[char] || ''}</div>` : '';
-        
         card.innerHTML = `<div class="kana">${char}</div>${romajiTag}`;
         card.onclick = () => { if(gameActive && selectedLetters.length < 7) { selectedLetters.push(hand.splice(i, 1)[0]); renderHand(); renderWordZone(); } };
         container.appendChild(card);
@@ -230,9 +222,7 @@ function renderWordZone() {
     slots.forEach((slot, i) => {
         const char = selectedLetters[i];
         if(char) {
-            // Hanya tampilkan romaji di slot jika isRomajiVisible ON
             const romajiHint = isRomajiVisible ? `<div style="font-size:9px; color:#666;">${ROMAJI_MAP[char] || ''}</div>` : '';
-            
             slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:black;">${char}</div>${romajiHint}`;
             slot.style.backgroundColor = "white"; slot.classList.add('active');
         } else { slot.innerHTML = ''; slot.style.backgroundColor = "transparent"; slot.classList.remove('active'); }
@@ -243,7 +233,7 @@ function renderWordZone() {
 function renderSupportButtons() {
     const container = document.getElementById('support-container');
     container.innerHTML = '';
-    ['ゃ', 'ゅ', 'ょ', 'っ'].forEach(s => {
+    ['?', '?', '?', '?'].forEach(s => {
         const btn = document.createElement('button');
         btn.className = 'btn-support'; btn.innerText = s;
         btn.onclick = () => { if(gameActive && selectedLetters.length < 7) { selectedLetters.push(s); renderWordZone(); } };
@@ -252,7 +242,7 @@ function renderSupportButtons() {
 }
 
 function clearWord() {
-    selectedLetters.forEach(c => { if(!['ゃ','ゅ','ょ','っ'].includes(c)) hand.push(c); });
+    selectedLetters.forEach(c => { if(!['?','?','?','?'].includes(c)) hand.push(c); });
     selectedLetters = []; renderHand(); renderWordZone();
 }
 
