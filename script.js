@@ -94,25 +94,43 @@ function loadQuestion() {
     document.getElementById('kanji-question').innerText = currentQuestion.kanji;
     document.getElementById('kanji-meaning').innerText = currentQuestion.meaning;
     
-    // --- LOGIKA PERLINDUNGAN UNDEFINED ---
-    const kanjiHint = document.getElementById('kanji-reading-hint');
-    const romajiData = currentQuestion.reading_romaji || ""; 
-    
-    kanjiHint.innerText = romajiData;
-    
-    // Sembunyikan jika Romaji OFF ATAU datanya memang kosong di database
-    if (isRomajiVisible && romajiData !== "") {
-        kanjiHint.classList.remove('hidden');
-    } else {
-        kanjiHint.classList.add('hidden');
-    }
-    // -------------------------------------
+    // --- REFRESH TAMPILAN ROMAJI ---
+    updateRomajiDisplay();
 
     selectedLetters = [];
     generateHand(currentQuestion.reading);
     renderWordZone();
     renderSupportButtons();
     gameActive = true;
+}
+
+function updateRomajiDisplay() {
+    const kanjiHint = document.getElementById('kanji-reading-hint');
+    const romajiData = currentQuestion ? (currentQuestion.reading_romaji || "") : "";
+    
+    if (kanjiHint) {
+        kanjiHint.innerText = romajiData;
+        if (isRomajiVisible && romajiData !== "") {
+            kanjiHint.classList.remove('hidden');
+        } else {
+            kanjiHint.classList.add('hidden');
+        }
+    }
+}
+
+function toggleRomaji() {
+    isRomajiVisible = !isRomajiVisible;
+    
+    // Update teks tombol
+    const romajiBtn = document.getElementById('romaji-toggle-btn');
+    if (romajiBtn) {
+        romajiBtn.innerText = `Romaji: ${isRomajiVisible ? 'ON' : 'OFF'}`;
+    }
+
+    // Update hint cara baca dan render ulang kartu
+    updateRomajiDisplay();
+    renderHand();
+    renderWordZone();
 }
 
 function confirmWord() {
@@ -192,26 +210,16 @@ function generateHand(reading) {
     renderHand();
 }
 
-function toggleRomaji() {
-    isRomajiVisible = !isRomajiVisible;
-    document.getElementById('romaji-toggle-btn').innerText = `Romaji: ${isRomajiVisible ? 'ON' : 'OFF'}`;
-    // Panggil ulang loadQuestion untuk refresh tampilan hint tanpa ganti soal
-    const kanjiHint = document.getElementById('kanji-reading-hint');
-    const romajiData = currentQuestion.reading_romaji || "";
-    if (isRomajiVisible && romajiData !== "") {
-        kanjiHint.classList.remove('hidden');
-    } else {
-        kanjiHint.classList.add('hidden');
-    }
-}
-
 function renderHand() {
     const container = document.getElementById('player-hand');
     container.innerHTML = '';
     hand.forEach((char, i) => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = `<div class="kana">${char}</div><div class="romaji ${isRomajiVisible ? '' : 'hidden'}">${ROMAJI_MAP[char] || ''}</div>`;
+        // Hanya tampilkan div romaji jika isRomajiVisible ON
+        const romajiTag = isRomajiVisible ? `<div class="romaji">${ROMAJI_MAP[char] || ''}</div>` : '';
+        
+        card.innerHTML = `<div class="kana">${char}</div>${romajiTag}`;
         card.onclick = () => { if(gameActive && selectedLetters.length < 7) { selectedLetters.push(hand.splice(i, 1)[0]); renderHand(); renderWordZone(); } };
         container.appendChild(card);
     });
@@ -222,7 +230,10 @@ function renderWordZone() {
     slots.forEach((slot, i) => {
         const char = selectedLetters[i];
         if(char) {
-            slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:black;">${char}</div><div style="font-size:9px; color:#666;" class="${isRomajiVisible ? '' : 'hidden'}">${ROMAJI_MAP[char] || ''}</div>`;
+            // Hanya tampilkan romaji di slot jika isRomajiVisible ON
+            const romajiHint = isRomajiVisible ? `<div style="font-size:9px; color:#666;">${ROMAJI_MAP[char] || ''}</div>` : '';
+            
+            slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:black;">${char}</div>${romajiHint}`;
             slot.style.backgroundColor = "white"; slot.classList.add('active');
         } else { slot.innerHTML = ''; slot.style.backgroundColor = "transparent"; slot.classList.remove('active'); }
     });
