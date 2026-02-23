@@ -79,7 +79,6 @@ function loadQuestion() {
     const stageData = ALL_DATA.levels[currentStage];
     const config = STAGE_CONFIG[currentStage];
     
-    // SISTEM ANTREAN MURNI
     if (questionPool.length === 0) {
         let allWords = [...stageData.words];
         shuffle(allWords);
@@ -103,7 +102,6 @@ function loadQuestion() {
 
 function updateRomajiDisplay() {
     const kanjiHint = document.getElementById('kanji-reading-hint');
-    // Fallback untuk mencegah UNDEFINED
     const romajiData = (currentQuestion && currentQuestion.reading_romaji) ? currentQuestion.reading_romaji : "";
     
     if (kanjiHint) {
@@ -194,11 +192,9 @@ function nextStage() {
 }
 
 function generateHand(reading) {
-    // Perbaikan: Ambil karakter dasar dan filter karakter bantuan
     let required = reading.split('').filter(c => !['?','?','?','?'].includes(c));
     let finalCards = [...required];
     
-    // Tambah kartu acak sampai total 10 kartu di tangan
     while(finalCards.length < 10) {
         let randomChar = POOL[Math.floor(Math.random() * POOL.length)];
         finalCards.push(randomChar);
@@ -214,7 +210,6 @@ function renderHand() {
     hand.forEach((char, i) => {
         const card = document.createElement('div');
         card.className = 'card';
-        // Perbaikan tanda tanya: Pastikan ROMAJI_MAP membaca char dengan benar
         const romajiTag = isRomajiVisible ? `<div class="romaji">${ROMAJI_MAP[char] || ''}</div>` : '';
         card.innerHTML = `<div class="kana">${char}</div>${romajiTag}`;
         card.onclick = () => { 
