@@ -10,7 +10,7 @@ let hand = [];
 let timerInt = null;
 let questionPool = [];
 
-// Konfigurasi Berdasarkan Gambar Stage System
+// Konfigurasi Target & Damage sesuai Level System Anda
 const STAGE_CONFIG = {
     1: { target: 10, dmg: 10 },
     2: { target: 15, dmg: 6.7 },
@@ -77,7 +77,7 @@ function resetStageState() {
 }
 
 function loadQuestion() {
-    const stageData = ALL_DATA.levels[currentStage]; // Database tetap menggunakan key 'levels'
+    const stageData = ALL_DATA.levels[currentStage];
     const config = STAGE_CONFIG[currentStage];
     
     if (questionPool.length === 0) {
@@ -94,9 +94,19 @@ function loadQuestion() {
     document.getElementById('kanji-question').innerText = currentQuestion.kanji;
     document.getElementById('kanji-meaning').innerText = currentQuestion.meaning;
     
+    // --- LOGIKA PERLINDUNGAN UNDEFINED ---
     const kanjiHint = document.getElementById('kanji-reading-hint');
-    kanjiHint.innerText = currentQuestion.reading_romaji;
-    kanjiHint.classList.toggle('hidden', !isRomajiVisible);
+    const romajiData = currentQuestion.reading_romaji || ""; 
+    
+    kanjiHint.innerText = romajiData;
+    
+    // Sembunyikan jika Romaji OFF ATAU datanya memang kosong di database
+    if (isRomajiVisible && romajiData !== "") {
+        kanjiHint.classList.remove('hidden');
+    } else {
+        kanjiHint.classList.add('hidden');
+    }
+    // -------------------------------------
 
     selectedLetters = [];
     generateHand(currentQuestion.reading);
@@ -138,7 +148,6 @@ function showModal(isWin) {
     if (isWin) {
         title.innerText = "RITUAL BERHASIL!";
         desc.innerText = "Yokai telah tersegel.";
-        
         if (currentStage < 10) {
             btnArea.innerHTML += `<button class="btn-modal btn-next-stage" onclick="nextStage()">Stage Berikutnya</button>`;
         } else {
@@ -150,7 +159,6 @@ function showModal(isWin) {
         desc.innerText = "Waktu habis, Yokai melarikan diri.";
         btnArea.innerHTML += `<button class="btn-modal btn-retry-stage" onclick="retryCurrentStage()">Coba Lagi</button>`;
     }
-
     btnArea.innerHTML += `<button class="btn-modal btn-exit-stage" onclick="backToHome()">Exit ke Beranda</button>`;
 }
 
@@ -187,8 +195,14 @@ function generateHand(reading) {
 function toggleRomaji() {
     isRomajiVisible = !isRomajiVisible;
     document.getElementById('romaji-toggle-btn').innerText = `Romaji: ${isRomajiVisible ? 'ON' : 'OFF'}`;
-    document.getElementById('kanji-reading-hint').classList.toggle('hidden', !isRomajiVisible);
-    renderHand(); renderWordZone();
+    // Panggil ulang loadQuestion untuk refresh tampilan hint tanpa ganti soal
+    const kanjiHint = document.getElementById('kanji-reading-hint');
+    const romajiData = currentQuestion.reading_romaji || "";
+    if (isRomajiVisible && romajiData !== "") {
+        kanjiHint.classList.remove('hidden');
+    } else {
+        kanjiHint.classList.add('hidden');
+    }
 }
 
 function renderHand() {
