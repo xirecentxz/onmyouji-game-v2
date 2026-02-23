@@ -3,147 +3,147 @@
     "1": {
       "category": "Ritual Angka (Angka & Satuan)",
       "words": [
-        { "kanji": "?", "reading": "??", "reading_romaji": "ichi", "meaning": "Satu" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "hitori", "meaning": "Seorang" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "hitotsu", "meaning": "Sebuah" },
-        { "kanji": "?", "reading": "???", "reading_romaji": "juu", "meaning": "Sepuluh" },
-        { "kanji": "?", "reading": "???", "reading_romaji": "hyaku", "meaning": "Seratus" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "sen", "meaning": "Seribu" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "man", "meaning": "Sepuluh ribu" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "en", "meaning": "Yen / uang" }
+        { "kanji": "一", "reading": "いち", "reading_romaji": "ichi", "meaning": "Satu" },
+        { "kanji": "一人", "reading": "ひとり", "reading_romaji": "hitori", "meaning": "Seorang" },
+        { "kanji": "一つ", "reading": "ひとつ", "reading_romaji": "hitotsu", "meaning": "Sebuah" },
+        { "kanji": "十", "reading": "じゅう", "reading_romaji": "juu", "meaning": "Sepuluh" },
+        { "kanji": "百", "reading": "ひゃく", "reading_romaji": "hyaku", "meaning": "Seratus" },
+        { "kanji": "千", "reading": "せん", "reading_romaji": "sen", "meaning": "Seribu" },
+        { "kanji": "万", "reading": "まん", "reading_romaji": "man", "meaning": "Sepuluh ribu" },
+        { "kanji": "円", "reading": "えん", "reading_romaji": "en", "meaning": "Yen / uang" }
       ]
     },
     "2": {
       "category": "Segel Waktu (Waktu & Kalender)",
       "words": [
-        { "kanji": "?", "reading": "?", "reading_romaji": "hi", "meaning": "Hari / Matahari" },
-        { "kanji": "??", "reading": "????", "reading_romaji": "tsuitachi", "meaning": "Tanggal 1" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "futsuka", "meaning": "Dua hari/tanggal 2" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "mikka", "meaning": "Tanggal 3" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "getsu", "meaning": "Bulan" },
-        { "kanji": "??", "reading": "????", "reading_romaji": "ichigatsu", "meaning": "Januari" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "nen", "meaning": "Tahun" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "toki", "meaning": "Waktu" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "fun", "meaning": "Menit" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "ima", "meaning": "Sekarang" },
-        { "kanji": "??", "reading": "????", "reading_romaji": "mainichi", "meaning": "Setiap hari" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "ashita", "meaning": "Besok" },
-        { "kanji": "??", "reading": "????", "reading_romaji": "konban", "meaning": "Malam ini" },
-        { "kanji": "??", "reading": "?????", "reading_romaji": "kyuujitsu", "meaning": "Hari Libur" }
+        { "kanji": "日", "reading": "ひ", "reading_romaji": "hi", "meaning": "Hari / Matahari" },
+        { "kanji": "一日", "reading": "ついたち", "reading_romaji": "tsuitachi", "meaning": "Tanggal 1" },
+        { "kanji": "二日", "reading": "ふつか", "reading_romaji": "futsuka", "meaning": "Dua hari/tanggal 2" },
+        { "kanji": "三日", "reading": "みっか", "reading_romaji": "mikka", "meaning": "Tanggal 3" },
+        { "kanji": "月", "reading": "げつ", "reading_romaji": "getsu", "meaning": "Bulan" },
+        { "kanji": "一月", "reading": "いちがつ", "reading_romaji": "ichigatsu", "meaning": "Januari" },
+        { "kanji": "年", "reading": "ねん", "reading_romaji": "nen", "meaning": "Tahun" },
+        { "kanji": "時", "reading": "とき", "reading_romaji": "toki", "meaning": "Waktu" },
+        { "kanji": "分", "reading": "ふん", "reading_romaji": "fun", "meaning": "Menit" },
+        { "kanji": "今", "reading": "いま", "reading_romaji": "ima", "meaning": "Sekarang" },
+        { "kanji": "毎日", "reading": "まいにち", "reading_romaji": "mainichi", "meaning": "Setiap hari" },
+        { "kanji": "明日", "reading": "あした", "reading_romaji": "ashita", "meaning": "Besok" },
+        { "kanji": "今晩", "reading": "こんばん", "reading_romaji": "konban", "meaning": "Malam ini" },
+        { "kanji": "休日", "reading": "きゅうじつ", "reading_romaji": "kyuujitsu", "meaning": "Hari Libur" }
       ]
     },
     "3": {
       "category": "Ikatan Darah (Orang & Keluarga)",
       "words": [
-        { "kanji": "?", "reading": "??", "reading_romaji": "hito", "meaning": "Orang" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "namae", "meaning": "Nama" },
-        { "kanji": "?", "reading": "???", "reading_romaji": "otoko", "meaning": "Laki-laki" },
-        { "kanji": "?", "reading": "???", "reading_romaji": "onna", "meaning": "Perempuan" },
-        { "kanji": "??", "reading": "?????", "reading_romaji": "shounen", "meaning": "Laki-laki" },
-        { "kanji": "??", "reading": "?????", "reading_romaji": "shoujo", "meaning": "Perempuan" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "kodomo", "meaning": "Anak" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "chichi", "meaning": "Ayah" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "haha", "meaning": "Ibu" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "ani", "meaning": "Kakak laki-laki" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "ane", "meaning": "Kakak perempuan" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "tomo", "meaning": "Teman" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "ie", "meaning": "Rumah" },
-        { "kanji": "?", "reading": "???", "reading_romaji": "watashi", "meaning": "Saya" }
+        { "kanji": "人", "reading": "ひと", "reading_romaji": "hito", "meaning": "Orang" },
+        { "kanji": "名前", "reading": "なまえ", "reading_romaji": "namae", "meaning": "Nama" },
+        { "kanji": "男", "reading": "おとこ", "reading_romaji": "otoko", "meaning": "Laki-laki" },
+        { "kanji": "女", "reading": "おんな", "reading_romaji": "onna", "meaning": "Perempuan" },
+        { "kanji": "少年", "reading": "しょうねん", "reading_romaji": "shounen", "meaning": "Laki-laki" },
+        { "kanji": "少女", "reading": "しょうじょ", "reading_romaji": "shoujo", "meaning": "Perempuan" },
+        { "kanji": "子供", "reading": "こども", "reading_romaji": "kodomo", "meaning": "Anak" },
+        { "kanji": "父", "reading": "ちち", "reading_romaji": "chichi", "meaning": "Ayah" },
+        { "kanji": "母", "reading": "はは", "reading_romaji": "haha", "meaning": "Ibu" },
+        { "kanji": "兄", "reading": "あに", "reading_romaji": "ani", "meaning": "Kakak laki-laki" },
+        { "kanji": "姉", "reading": "あね", "reading_romaji": "ane", "meaning": "Kakak perempuan" },
+        { "kanji": "友", "reading": "とも", "reading_romaji": "tomo", "meaning": "Teman" },
+        { "kanji": "家", "reading": "いえ", "reading_romaji": "ie", "meaning": "Rumah" },
+        { "kanji": "私", "reading": "わたし", "reading_romaji": "watashi", "meaning": "Saya" }
       ]
     },
     "4": {
       "category": "Gerbang Ilmu (Sekolah)",
       "words": [
-        { "kanji": "??", "reading": "????", "reading_romaji": "gakusei", "meaning": "Siswa" },
-        { "kanji": "??", "reading": "????", "reading_romaji": "gakkou", "meaning": "Sekolah" },
-        { "kanji": "??", "reading": "????", "reading_romaji": "sensei", "meaning": "Guru" },
-        { "kanji": "??", "reading": "????", "reading_romaji": "daigaku", "meaning": "Universitas" },
-        { "kanji": "??", "reading": "?????", "reading_romaji": "benkyou", "meaning": "Belajar" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "hon", "meaning": "Buku" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "jisho", "meaning": "Kamus" },
-        { "kanji": "??", "reading": "????", "reading_romaji": "suugaku", "meaning": "Matematika" }
+        { "kanji": "学生", "reading": "がくせい", "reading_romaji": "gakusei", "meaning": "Siswa" },
+        { "kanji": "学校", "reading": "がっこう", "reading_romaji": "gakkou", "meaning": "Sekolah" },
+        { "kanji": "先生", "reading": "せんせい", "reading_romaji": "sensei", "meaning": "Guru" },
+        { "kanji": "大学", "reading": "だいがく", "reading_romaji": "daigaku", "meaning": "Universitas" },
+        { "kanji": "勉強", "reading": "べんきょう", "reading_romaji": "benkyou", "meaning": "Belajar" },
+        { "kanji": "本", "reading": "ほん", "reading_romaji": "hon", "meaning": "Buku" },
+        { "kanji": "辞書", "reading": "じしょ", "reading_romaji": "jisho", "meaning": "Kamus" },
+        { "kanji": "数学", "reading": "すうがく", "reading_romaji": "suugaku", "meaning": "Matematika" }
       ]
     },
     "5": {
       "category": "Persembahan (Makanan & Minuman)",
       "words": [
-        { "kanji": "???", "reading": "???", "reading_romaji": "taberu", "meaning": "Makan" },
-        { "kanji": "??", "reading": "??", "reading_romaji": "nomu", "meaning": "Minum" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "mizu", "meaning": "Air" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "niku", "meaning": "Daging" },
-        { "kanji": "?", "reading": "???", "reading_romaji": "sakana", "meaning": "Ikan" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "gohan", "meaning": "Nasi" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "yasai", "meaning": "Sayuran" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "sake", "meaning": "Sake" },
-        { "kanji": "??", "reading": "??????", "reading_romaji": "gyuunyuu", "meaning": "Susu" }
+        { "kanji": "食べる", "reading": "たべる", "reading_romaji": "taberu", "meaning": "Makan" },
+        { "kanji": "飲む", "reading": "のむ", "reading_romaji": "nomu", "meaning": "Minum" },
+        { "kanji": "水", "reading": "みず", "reading_romaji": "mizu", "meaning": "Air" },
+        { "kanji": "肉", "reading": "にく", "reading_romaji": "niku", "meaning": "Daging" },
+        { "kanji": "魚", "reading": "さかな", "reading_romaji": "sakana", "meaning": "Ikan" },
+        { "kanji": "ご飯", "reading": "ごはん", "reading_romaji": "gohan", "meaning": "Nasi" },
+        { "kanji": "野菜", "reading": "やさい", "reading_romaji": "yasai", "meaning": "Sayuran" },
+        { "kanji": "酒", "reading": "さけ", "reading_romaji": "sake", "meaning": "Sake" },
+        { "kanji": "牛乳", "reading": "ぎゅうにゅう", "reading_romaji": "gyuunyuu", "meaning": "Susu" }
       ]
     },
     "6": {
       "category": "Roh Alam (Binatang & Alam)",
       "words": [
-        { "kanji": "?", "reading": "??", "reading_romaji": "inu", "meaning": "Anjing" },
-        { "kanji": "?", "reading": "?co", "reading_romaji": "neko", "meaning": "Kucing" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "tori", "meaning": "Burung" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "uma", "meaning": "Kuda" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "mushi", "meaning": "Serangga" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "hana", "meaning": "Bunga" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "sora", "meaning": "Langit" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "umi", "meaning": "Laut" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "ame", "meaning": "Hujan" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "kawa", "meaning": "Sungai" },
-        { "kanji": "?", "reading": "?", "reading_romaji": "ki", "meaning": "Pohon" }
+        { "kanji": "犬", "reading": "いぬ", "reading_romaji": "inu", "meaning": "Anjing" },
+        { "kanji": "猫", "reading": "ねco", "reading_romaji": "neko", "meaning": "Kucing" },
+        { "kanji": "鳥", "reading": "とり", "reading_romaji": "tori", "meaning": "Burung" },
+        { "kanji": "馬", "reading": "うま", "reading_romaji": "uma", "meaning": "Kuda" },
+        { "kanji": "虫", "reading": "むし", "reading_romaji": "mushi", "meaning": "Serangga" },
+        { "kanji": "花", "reading": "はな", "reading_romaji": "hana", "meaning": "Bunga" },
+        { "kanji": "空", "reading": "そら", "reading_romaji": "sora", "meaning": "Langit" },
+        { "kanji": "海", "reading": "うみ", "reading_romaji": "umi", "meaning": "Laut" },
+        { "kanji": "雨", "reading": "あめ", "reading_romaji": "ame", "meaning": "Hujan" },
+        { "kanji": "川", "reading": "かわ", "reading_romaji": "kawa", "meaning": "Sungai" },
+        { "kanji": "木", "reading": "き", "reading_romaji": "ki", "meaning": "Pohon" }
       ]
     },
     "7": {
       "category": "Jejak Perjalanan (Tempat & Transportasi)",
       "words": [
-        { "kanji": "?", "reading": "??", "reading_romaji": "mise", "meaning": "Toko" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "eki", "meaning": "Stasiun" },
-        { "kanji": "?", "reading": "???", "reading_romaji": "kuruma", "meaning": "Mobil" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "michi", "meaning": "Jalan" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "den", "meaning": "Listrik" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "kuni", "meaning": "Negara" }
+        { "kanji": "店", "reading": "みせ", "reading_romaji": "mise", "meaning": "Toko" },
+        { "kanji": "駅", "reading": "えき", "reading_romaji": "eki", "meaning": "Stasiun" },
+        { "kanji": "車", "reading": "くるま", "reading_romaji": "kuruma", "meaning": "Mobil" },
+        { "kanji": "道", "reading": "みち", "reading_romaji": "michi", "meaning": "Jalan" },
+        { "kanji": "電", "reading": "でん", "reading_romaji": "den", "meaning": "Listrik" },
+        { "kanji": "国", "reading": "くに", "reading_romaji": "kuni", "meaning": "Negara" }
       ]
     },
     "8": {
       "category": "Mantra Aksi (Kegiatan)",
       "words": [
-        { "kanji": "??", "reading": "??", "reading_romaji": "iku", "meaning": "Pergi" },
-        { "kanji": "??", "reading": "??", "reading_romaji": "kuru", "meaning": "Datang" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "kaeru", "meaning": "Pulang" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "tsukuru", "meaning": "Membuat" },
-        { "kanji": "??", "reading": "????", "reading_romaji": "hataraku", "meaning": "Bekerja" },
-        { "kanji": "??", "reading": "??", "reading_romaji": "au", "meaning": "Bertemu" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "yasumi", "meaning": "Istirahat" },
-        { "kanji": "???", "reading": "???", "reading_romaji": "okiru", "meaning": "Bangun" },
-        { "kanji": "??", "reading": "??", "reading_romaji": "neru", "meaning": "Tidur" }
+        { "kanji": "行く", "reading": "いく", "reading_romaji": "iku", "meaning": "Pergi" },
+        { "kanji": "来る", "reading": "くる", "reading_romaji": "kuru", "meaning": "Datang" },
+        { "kanji": "帰る", "reading": "かえる", "reading_romaji": "kaeru", "meaning": "Pulang" },
+        { "kanji": "作る", "reading": "つくる", "reading_romaji": "tsukuru", "meaning": "Membuat" },
+        { "kanji": "働く", "reading": "はたらく", "reading_romaji": "hataraku", "meaning": "Bekerja" },
+        { "kanji": "会う", "reading": "あう", "reading_romaji": "au", "meaning": "Bertemu" },
+        { "kanji": "休み", "reading": "やすみ", "reading_romaji": "yasumi", "meaning": "Istirahat" },
+        { "kanji": "起きる", "reading": "おきる", "reading_romaji": "okiru", "meaning": "Bangun" },
+        { "kanji": "寝る", "reading": "ねる", "reading_romaji": "neru", "meaning": "Tidur" }
       ]
     },
     "9": {
       "category": "Aura & Sifat (Sifat & Keadaan)",
       "words": [
-        { "kanji": "???", "reading": "????", "reading_romaji": "ookii", "meaning": "Besar" },
-        { "kanji": "???", "reading": "????", "reading_romaji": "chiisai", "meaning": "Kecil" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "nagai", "meaning": "Panjang" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "takai", "meaning": "Tinggi / Mahal" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "yasui", "meaning": "Murah" },
-        { "kanji": "???", "reading": "?????", "reading_romaji": "anzenna", "meaning": "Aman" },
-        { "kanji": "????", "reading": "??????", "reading_romaji": "anshin-suru", "meaning": "Tenang" },
-        { "kanji": "???", "reading": "?????", "reading_romaji": "taisetsuna", "meaning": "Penting" }
+        { "kanji": "大きい", "reading": "おおきい", "reading_romaji": "ookii", "meaning": "Besar" },
+        { "kanji": "小さい", "reading": "ちいさい", "reading_romaji": "chiisai", "meaning": "Kecil" },
+        { "kanji": "長い", "reading": "ながい", "reading_romaji": "nagai", "meaning": "Panjang" },
+        { "kanji": "高い", "reading": "たかい", "reading_romaji": "takai", "meaning": "Tinggi / Mahal" },
+        { "kanji": "安い", "reading": "やすい", "reading_romaji": "yasui", "meaning": "Murah" },
+        { "kanji": "安全な", "reading": "あんぜんな", "reading_romaji": "anzenna", "meaning": "Aman" },
+        { "kanji": "安心する", "reading": "あんしんする", "reading_romaji": "anshin-suru", "meaning": "Tenang" },
+        { "kanji": "大切な", "reading": "たいせつな", "reading_romaji": "taisetsuna", "meaning": "Penting" }
       ]
     },
     "10": {
       "category": "Ritual Agung (Arah & Posisi)",
       "words": [
-        { "kanji": "?", "reading": "??", "reading_romaji": "ue", "meaning": "Atas" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "shita", "meaning": "Bawah" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "naka", "meaning": "Tengah" },
-        { "kanji": "?", "reading": "???", "reading_romaji": "hidari", "meaning": "Kiri" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "migi", "meaning": "Kanan" },
-        { "kanji": "?", "reading": "??", "reading_romaji": "mae", "meaning": "Depan" },
-        { "kanji": "?", "reading": "???", "reading_romaji": "ushiro", "meaning": "Belakang" },
-        { "kanji": "??", "reading": "???", "reading_romaji": "deguchi", "meaning": "Pintu keluar" },
-        { "kanji": "???", "reading": "????", "reading_romaji": "iriguchi", "meaning": "Pintu masuk" }
+        { "kanji": "上", "reading": "うえ", "reading_romaji": "ue", "meaning": "Atas" },
+        { "kanji": "下", "reading": "した", "reading_romaji": "shita", "meaning": "Bawah" },
+        { "kanji": "中", "reading": "なか", "reading_romaji": "naka", "meaning": "Tengah" },
+        { "kanji": "左", "reading": "ひだり", "reading_romaji": "hidari", "meaning": "Kiri" },
+        { "kanji": "右", "reading": "みぎ", "reading_romaji": "migi", "meaning": "Kanan" },
+        { "kanji": "前", "reading": "まえ", "reading_romaji": "mae", "meaning": "Depan" },
+        { "kanji": "後", "reading": "うしろ", "reading_romaji": "ushiro", "meaning": "Belakang" },
+        { "kanji": "出口", "reading": "でぐち", "reading_romaji": "deguchi", "meaning": "Pintu keluar" },
+        { "kanji": "入り口", "reading": "いりぐち", "reading_romaji": "iriguchi", "meaning": "Pintu masuk" }
       ]
     }
   }
