@@ -23,26 +23,23 @@ const STAGE_CONFIG = {
     10: { target: 5,  dmg: 20 }
 };
 
-// PERBAIKAN: Karakter Hiragana dipulihkan agar sistem bisa membaca input
 const ROMAJI_MAP = {
-'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
+    'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
     'か': 'ka', 'き': 'ki', 'く': 'ku', 'け': 'ke', 'こ': 'ko',
     'さ': 'sa', 'し': 'shi', 'す': 'su', 'せ': 'se', 'そ': 'so',
     'た': 'ta', 'ち': 'chi', 'つ': 'tsu', 'て': 'te', 'と': 'to',
-    'な': 'na', 'に': 'ni', 'ぬ': 'nu', 'ne': 'ne', 'の': 'no',
+    'な': 'na', 'に': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
     'は': 'ha', 'ひ': 'hi', 'ふ': 'fu', 'へ': 'he', 'ほ': 'ho',
     'ま': 'ma', 'み': 'mi', 'む': 'mu', 'め': 'me', 'も': 'mo',
     'や': 'ya', 'ゆ': 'yu', 'よ': 'yo',
     'ら': 'ra', 'り': 'ri', 'る': 'ru', 'れ': 're', 'ろ': 'ro',
     'わ': 'wa', 'を': 'wo', 'ん': 'n',
-    // Dakuten (G, Z, D, B) - INI YANG TADI HILANG
     'が': 'ga', 'ぎ': 'gi', 'ぐ': 'gu', 'げ': 'ge', 'ご': 'go',
     'ざ': 'za', 'じ': 'ji', 'ず': 'zu', 'ぜ': 'ze', 'ぞ': 'zo',
     'だ': 'da', 'ぢ': 'ji', 'づ': 'zu', 'で': 'de', 'ど': 'do',
     'ば': 'ba', 'び': 'bi', 'ぶ': 'bu', 'べ': 'be', 'ぼ': 'bo',
     'ぱ': 'pa', 'ぴ': 'pi', 'ぷ': 'pu', 'ぺ': 'pe', 'ぽ': 'po',
-    // Modifikasi (Yoon & Sokuon)
-    'ゃ': 'ya', 'ゅ': 'yu', 'ょ': 'yo', 'っ': 'tsu''tsu'
+    'ゃ': 'ya', 'ゅ': 'yu', 'ょ': 'yo', 'っ': 'tsu'
 };
 
 const POOL = ['あ','い','う','え','お','か','き','く','け','こ','さ','し','す','せ','そ','た','ち','つ','て','と','な','に','ぬ','ね','の','ま','み','む','め','も','ら','り','る','れ','ろ','が','ざ','だ','ば'];
@@ -72,7 +69,6 @@ function backToHome() {
 }
 
 function resetStageState() {
-    currentStage = 1;
     yokaiHP = 100;
     timeLeft = 90;
     questionPool = [];
@@ -197,7 +193,6 @@ function nextStage() {
 }
 
 function generateHand(reading) {
-    // Filter karakter modifikasi/kecil dari tangan utama
     let required = reading.split('').filter(c => !['ゃ','ゅ','ょ','っ'].includes(c));
     let finalCards = [...required];
     
@@ -212,6 +207,7 @@ function generateHand(reading) {
 
 function renderHand() {
     const container = document.getElementById('player-hand');
+    if (!container) return;
     container.innerHTML = '';
     hand.forEach((char, i) => {
         const card = document.createElement('div');
@@ -243,11 +239,13 @@ function renderWordZone() {
             slot.classList.remove('active'); 
         }
     });
-    document.getElementById('confirm-btn').disabled = selectedLetters.length === 0;
+    const confirmBtn = document.getElementById('confirm-btn');
+    if (confirmBtn) confirmBtn.disabled = selectedLetters.length === 0;
 }
 
 function renderSupportButtons() {
     const container = document.getElementById('support-container');
+    if (!container) return;
     container.innerHTML = '';
     ['ゃ', 'ゅ', 'ょ', 'っ'].forEach(s => {
         const btn = document.createElement('button');
@@ -286,12 +284,16 @@ function startTimer() {
 
 function showFlashError() {
     const timer = document.querySelector('.timer-section');
-    timer.style.color = "red"; setTimeout(() => timer.style.color = "white", 500);
+    if (timer) {
+        timer.style.color = "red"; setTimeout(() => timer.style.color = "white", 500);
+    }
 }
 
 function updateUI() {
-    document.getElementById('hp-fill').style.width = yokaiHP + "%";
-    document.getElementById('time-val').innerText = timeLeft;
+    const hpFill = document.getElementById('hp-fill');
+    const timeVal = document.getElementById('time-val');
+    if (hpFill) hpFill.style.width = yokaiHP + "%";
+    if (timeVal) timeVal.innerText = timeLeft;
 }
 
 function shuffle(array) {
