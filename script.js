@@ -52,7 +52,10 @@ async function startGame() {
         try {
             const res = await fetch('database.json');
             ALL_DATA = await res.json();
-        } catch (e) { console.error("Database missing", e); return; }
+        } catch (e) { 
+            console.error("Database missing", e); 
+            return; 
+        }
     }
     
     resetStageState();
@@ -134,15 +137,23 @@ function confirmWord() {
     if(answer === currentQuestion.reading) {
         yokaiHP -= config.dmg; 
         if(yokaiHP <= 0.5) {
-            yokaiHP = 0; gameActive = false; showModal(true);
+            yokaiHP = 0; 
+            gameActive = false; 
+            updateUI(); 
+            showModal(true);
         } else {
+            updateUI();
             loadQuestion();
         }
     } else {
         timeLeft = Math.max(0, timeLeft - 10);
         clearWord();
         showFlashError();
-        if(timeLeft === 0) { gameActive = false; showModal(false); }
+        if(timeLeft === 0) { 
+            gameActive = false; 
+            updateUI(); 
+            showModal(false); 
+        }
     }
     updateUI();
 }
@@ -231,12 +242,9 @@ function renderWordZone() {
         const char = selectedLetters[i];
         if(char) {
             const romajiHint = isRomajiVisible ? `<div style="font-size:9px; color:#666;">${ROMAJI_MAP[char] || ''}</div>` : '';
-            slot.innerHTML = `<div style="font-size:20px; font-weight:bold; color:black;">${char}</div>${romajiHint}`;
-            slot.style.backgroundColor = "white"; slot.classList.add('active');
+            slot.innerHTML = `<div>${char}</div>${romajiHint}`;
         } else { 
             slot.innerHTML = ''; 
-            slot.style.backgroundColor = "transparent"; 
-            slot.classList.remove('active'); 
         }
     });
     const confirmBtn = document.getElementById('confirm-btn');
@@ -267,7 +275,8 @@ function showHint() {
     const firstChar = currentQuestion.reading[0];
     document.querySelectorAll('.card').forEach(c => {
         if(c.querySelector('.kana').innerText === firstChar) {
-            c.classList.add('hint-glow'); setTimeout(() => c.classList.remove('hint-glow'), 3000);
+            c.classList.add('hint-glow'); 
+            setTimeout(() => c.classList.remove('hint-glow'), 3000);
         }
     });
 }
@@ -276,8 +285,14 @@ function startTimer() {
     clearInterval(timerInt);
     timerInt = setInterval(() => {
         if(gameActive && timeLeft > 0) {
-            timeLeft--; updateUI();
-            if(timeLeft <= 0) { timeLeft = 0; gameActive = false; showModal(false); }
+            timeLeft--; 
+            updateUI();
+            if(timeLeft <= 0) { 
+                timeLeft = 0; 
+                gameActive = false; 
+                updateUI();
+                showModal(false); 
+            }
         }
     }, 1000);
 }
@@ -285,15 +300,29 @@ function startTimer() {
 function showFlashError() {
     const timer = document.querySelector('.timer-section');
     if (timer) {
-        timer.style.color = "red"; setTimeout(() => timer.style.color = "white", 500);
+        timer.style.color = "red"; 
+        setTimeout(() => timer.style.color = "white", 500);
     }
 }
 
 function updateUI() {
-    const hpFill = document.getElementById('hp-fill');
+    const hpBarImg = document.getElementById('hp-bar-img');
     const timeVal = document.getElementById('time-val');
-    if (hpFill) hpFill.style.width = yokaiHP + "%";
-    if (timeVal) timeVal.innerText = timeLeft;
+
+    if (hpBarImg) {
+        // Logika pemilihan gambar HP Bar sesuai persentase HP Yokai
+        let hpImage = 'BarHp100.webp';
+        if (yokaiHP <= 0) hpImage = 'BarHp0.webp';
+        else if (yokaiHP <= 25) hpImage = 'BarHp25.webp';
+        else if (yokaiHP <= 50) hpImage = 'BarHp50.webp';
+        else if (yokaiHP <= 75) hpImage = 'BarHp75.webp';
+        
+        hpBarImg.src = `assets/${hpImage}`;
+    }
+
+    if (timeVal) {
+        timeVal.innerText = timeLeft + "s";
+    }
 }
 
 function shuffle(array) {
