@@ -9,56 +9,56 @@
 <body>
 
     <div id="homepage-screen" class="full-overlay">
-        <div class="splash-art">
-            <img src="assets/badge.webp" class="main-logo" alt="Logo">
-        </div>
+        <img src="assets/badge.webp" class="main-logo" alt="Logo">
         <h1 class="game-title">ONMYOJI</h1>
         <p class="game-subtitle">KANJI SEAL RITUAL</p>
         <button class="btn-start" onclick="startGame()">MULAI RITUAL</button>
     </div>
 
     <div id="game-screen" style="display: none;">
-        <div class="game-container">
+        <div class="game-layout">
             
-            <div class="header-row">
-                <img src="assets/badge.webp" class="mini-logo">
-                <div class="hp-wrapper">
+            <header class="game-header">
+                <img src="assets/badge.webp" class="icon-header">
+                <div class="hp-bar-center">
                     <img id="hp-bar-img" src="assets/BarHP100.webp" alt="HP Bar">
                 </div>
-                <div class="timer-wrapper">
-                    <img src="assets/jam.webp" class="mini-jam">
+                <div class="timer-display">
+                    <img src="assets/jam.webp" class="icon-jam">
                     <span id="time-val">90s</span>
                 </div>
-            </div>
+            </header>
 
-            <div id="stage-banner" class="stage-info">Stage 1: Ritual Angka</div>
-
-            <div class="quest-container">
-                <div id="kanji-question" class="kanji-display">九つ</div>
-                <div id="kanji-meaning" class="meaning-display">sembilan buah</div>
-            </div>
-
-            <div id="word-zone" class="word-zone">
-                <div class="letter-slot"></div>
-                <div class="letter-slot"></div>
-                <div class="letter-slot"></div>
-                <div class="letter-slot"></div>
-                <div class="letter-slot"></div>
-            </div>
-
-            <div class="interaction-zone">
-                <div id="support-container" class="support-btns"></div>
+            <main class="ritual-center">
+                <div id="stage-banner" class="stage-text">Stage 1: Ritual Angka</div>
                 
-                <button id="confirm-btn" class="btn-confirm" onclick="confirmWord()">SEGEL !</button>
-                
-                <div class="sub-btns-row">
-                    <button class="btn-oval" onclick="clearWord()">Hapus</button>
-                    <button class="btn-oval" onclick="showHint()">Onmyouroku</button>
-                    <button id="romaji-toggle-btn" class="btn-oval" onclick="toggleRomaji()">Romaji : off</button>
+                <div class="scroll-box">
+                    <div id="kanji-question" class="kanji-main">九つ</div>
+                    <div id="kanji-meaning" class="meaning-sub">sembilan buah</div>
                 </div>
-            </div>
 
-            <div id="player-hand" class="hand"></div>
+                <div class="answer-row">
+                    <div class="letter-slot"></div>
+                    <div class="letter-slot"></div>
+                    <div class="letter-slot"></div>
+                    <div class="letter-slot"></div>
+                    <div class="letter-slot"></div>
+                </div>
+
+                <div class="action-footer">
+                    <div id="support-container" class="small-kana-row"></div>
+                    <button id="confirm-btn" class="btn-segel-main" onclick="confirmWord()">SEGEL !</button>
+                    <div class="sub-btn-group">
+                        <button class="btn-gold-oval" onclick="clearWord()">Hapus</button>
+                        <button class="btn-gold-oval" onclick="showHint()">Onmyouroku</button>
+                        <button id="romaji-toggle-btn" class="btn-gold-oval" onclick="toggleRomaji()">Romaji : off</button>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="hand-footer">
+                <div id="player-hand" class="card-grid"></div>
+            </footer>
         </div>
     </div>
 
@@ -66,7 +66,7 @@
         <div class="modal">
             <h2 id="modal-title">HASIL RITUAL</h2>
             <p id="modal-desc"></p>
-            <div id="modal-buttons-area" class="modal-buttons"></div>
+            <div id="modal-buttons-area"></div>
         </div>
     </div>
 
