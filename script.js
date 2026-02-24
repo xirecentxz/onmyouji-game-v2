@@ -311,11 +311,11 @@ function updateUI() {
 
     if (hpBarImg) {
         // Pemilihan gambar HP Bar sesuai persentase HP Yokai
-        let hpImage = 'BarHp100.webp';
-        if (yokaiHP <= 0) hpImage = 'BarHp0.webp';
-        else if (yokaiHP <= 25) hpImage = 'BarHp25.webp';
-        else if (yokaiHP <= 50) hpImage = 'BarHp50.webp';
-        else if (yokaiHP <= 75) hpImage = 'BarHp75.webp';
+        let hpImage = 'BarHP100.webp';
+        if (yokaiHP <= 0) hpImage = 'BarHP0.webp';
+        else if (yokaiHP <= 25) hpImage = 'BarHP25.webp';
+        else if (yokaiHP <= 50) hpImage = 'BarHP50.webp';
+        else if (yokaiHP <= 75) hpImage = 'BarHP75.webp';
         
         hpBarImg.src = `assets/${hpImage}`;
     }
