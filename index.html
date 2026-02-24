@@ -10,9 +10,9 @@
 
     <div id="homepage-screen" class="full-overlay">
         <img src="assets/badge.webp" class="main-logo" alt="Logo">
-        <h1 class="game-title">ONMYOJI</h1>
-        <p class="game-subtitle">KANJI SEAL RITUAL</p>
-        <button class="btn-start" onclick="startGame()">MULAI RITUAL</button>
+        <h1 class="game-title" style="margin: 10px 0 0 0; font-size: 2.5rem; text-shadow: 0 0 10px var(--gold);">ONMYOJI</h1>
+        <p class="game-subtitle" style="margin-bottom: 20px; font-size: 0.9rem;">KANJI SEAL RITUAL</p>
+        <button class="btn-start" onclick="startGame()" style="padding: 10px 30px; border-radius: 20px; border: none; background: var(--gold-grad); font-weight: bold; cursor: pointer;">MULAI RITUAL</button>
     </div>
 
     <div id="game-screen" style="display: none;">
@@ -46,12 +46,14 @@
                 </div>
 
                 <div class="action-footer">
-                    <div id="support-container" class="small-kana-row"></div>
+                    <div id="support-container" class="sub-btn-group"></div>
+                    
                     <button id="confirm-btn" class="btn-segel-main" onclick="confirmWord()">SEGEL !</button>
+                    
                     <div class="sub-btn-group">
                         <button class="btn-gold-oval" onclick="clearWord()">Hapus</button>
-                        <button class="btn-gold-oval" onclick="showHint()">Onmyouroku</button>
-                        <button id="romaji-toggle-btn" class="btn-gold-oval" onclick="toggleRomaji()">Romaji : off</button>
+                        <button class="btn-gold-oval" onclick="showHint()">Hint</button>
+                        <button id="romaji-toggle-btn" class="btn-gold-oval" onclick="toggleRomaji()">Romaji: OFF</button>
                     </div>
                 </div>
             </main>
@@ -64,9 +66,9 @@
 
     <div id="modal-overlay" class="overlay">
         <div class="modal">
-            <h2 id="modal-title">HASIL RITUAL</h2>
-            <p id="modal-desc"></p>
-            <div id="modal-buttons-area"></div>
+            <h2 id="modal-title" style="color: var(--gold); margin-top: 0;">HASIL RITUAL</h2>
+            <p id="modal-desc" style="font-size: 0.9rem;"></p>
+            <div id="modal-buttons-area" style="display: flex; flex-direction: column; gap: 8px;"></div>
         </div>
     </div>
 
