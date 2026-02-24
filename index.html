@@ -2,75 +2,66 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Onmyoji Game V2: Kanji Seal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onmyoji Kanji Seal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div id="homepage-screen" class="full-overlay">
-        <div class="home-content">
-            <div class="splash-art">
-                <img src="assets/logo.webp" alt="Logo Onmyoji" class="main-logo">
-            </div>
-            <div class="logo-area">
-                <h1 class="game-title">ONMYOJI</h1>
-                <h2 class="game-subtitle">REIJI RITUAL</h2>
-            </div>
-            <button class="btn-start" onclick="startGame()">START GAME</button>
+        <div class="splash-art">
+            <img src="assets/badge.webp" class="main-logo" alt="Logo">
         </div>
+        <h1 class="game-title">ONMYOJI</h1>
+        <p class="game-subtitle">KANJI SEAL RITUAL</p>
+        <button class="btn-start" onclick="startGame()">MULAI RITUAL</button>
     </div>
 
-    <div id="game-screen" class="game-container" style="display: none;">
-        <div class="top-nav">
-            <button class="btn-exit-small" onclick="backToHome()">🏠 Home</button>
-            <div class="stage-banner" id="stage-banner">Memanggil Ritual...</div>
-        </div>
+    <div id="game-screen" style="display: none;">
+        <div class="game-container">
+            
+            <div class="top-nav">
+                <div id="stage-banner" class="stage-banner">Stage 1: Ritual Angka</div>
+                <div class="timer-section"><span id="time-val">90s</span></div>
+            </div>
 
-        <div class="header">
             <div class="hp-section">
-                <div class="hp-bar">
-                    <div class="hp-fill" id="hp-fill"></div>
-                    <span class="hp-text">YOKAI HP</span>
-                </div>
+                <img id="hp-bar-img" src="assets/BarHp100.webp" alt="HP Bar">
             </div>
-            <div class="timer-section">
-                <span id="time-val">90</span>s ⏳
+
+            <div class="quest-container">
+                <div id="kanji-question" class="kanji-display">一</div>
+                <div id="kanji-meaning" class="meaning-display">Satu</div>
+                <div id="kanji-reading-hint" class="romaji-hint hidden">ICHI</div>
             </div>
-        </div>
 
-        <div class="quest-container">
-            <div id="kanji-question" class="kanji-display">?</div>
-            <div id="kanji-meaning" class="meaning-display">Menyiapkan Mantra...</div>
-            <div id="kanji-reading-hint" class="romaji-hint hidden"></div> 
-        </div>
+            <div class="word-zone">
+                <div class="letter-slot"></div>
+                <div class="letter-slot"></div>
+                <div class="letter-slot"></div>
+                <div class="letter-slot"></div>
+                <div class="letter-slot"></div>
+                <div class="letter-slot"></div>
+            </div>
 
-        <div class="word-zone" id="word-zone">
-            <div class="letter-slot"></div><div class="letter-slot"></div><div class="letter-slot"></div>
-            <div class="letter-slot"></div><div class="letter-slot"></div><div class="letter-slot"></div>
-            <div class="letter-slot"></div>
-        </div>
+            <div id="support-container" class="controls"></div>
 
-        <div class="support-container" id="support-container"></div>
+            <div class="controls">
+                <button id="clear-btn" class="btn-clear" onclick="clearWord()">HAPUS</button>
+                <button id="confirm-btn" class="btn-confirm" onclick="confirmWord()">SEGEL!</button>
+                <button id="romaji-toggle-btn" class="btn-romaji" onclick="toggleRomaji()">ROMAJI</button>
+                <button id="hint-btn" class="btn-hint" onclick="showHint()">HINT</button>
+            </div>
 
-        <div class="controls">
-            <button onclick="clearWord()" class="btn btn-clear">Hapus</button>
-            <button id="confirm-btn" onclick="confirmWord()" class="btn btn-confirm" disabled>SEGEL!</button>
-            <button id="romaji-toggle-btn" onclick="toggleRomaji()" class="btn btn-romaji">Romaji: OFF</button>
-            <button id="hint-btn" onclick="showHint()" class="btn btn-hint">Onmyouroku</button>
-        </div>
-
-        <div class="card-area">
-            <div class="deck-status">🎴 Tangan Anda</div>
-            <div class="hand" id="player-hand"></div>
+            <div id="player-hand" class="hand"></div>
         </div>
     </div>
 
     <div id="modal-overlay" class="overlay">
         <div class="modal">
-            <h2 id="modal-title">RITUAL BERHASIL!</h2>
-            <p id="modal-desc">Yokai telah tersegel.</p>
-            <div class="modal-buttons" id="modal-buttons-area">
-                </div>
+            <h2 id="modal-title">RITUAL SELESAI</h2>
+            <p id="modal-desc"></p>
+            <div id="modal-buttons-area" class="modal-buttons"></div>
         </div>
     </div>
 
