@@ -241,8 +241,8 @@ function renderWordZone() {
     slots.forEach((slot, i) => {
         const char = selectedLetters[i];
         if(char) {
-            const romajiHint = isRomajiVisible ? `<div style="font-size:9px; color:#666;">${ROMAJI_MAP[char] || ''}</div>` : '';
-            slot.innerHTML = `<div>${char}</div>${romajiHint}`;
+            const romajiHint = isRomajiVisible ? `<div style="font-size:8px; opacity:0.6; margin-top:-2px;">${ROMAJI_MAP[char] || ''}</div>` : '';
+            slot.innerHTML = `<div style="margin-top:2px;">${char}</div>${romajiHint}`;
         } else { 
             slot.innerHTML = ''; 
         }
@@ -310,7 +310,7 @@ function updateUI() {
     const timeVal = document.getElementById('time-val');
 
     if (hpBarImg) {
-        // Logika pemilihan gambar HP Bar sesuai persentase HP Yokai
+        // Pemilihan gambar HP Bar sesuai persentase HP Yokai
         let hpImage = 'BarHp100.webp';
         if (yokaiHP <= 0) hpImage = 'BarHp0.webp';
         else if (yokaiHP <= 25) hpImage = 'BarHp25.webp';
