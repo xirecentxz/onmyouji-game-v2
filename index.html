@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Onmyoji Kanji Seal</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -21,8 +21,8 @@
         <div class="game-container">
             
             <div class="top-nav">
-                <div id="stage-banner" class="stage-banner">Stage 1: Ritual Angka</div>
-                <div class="timer-section"><span id="time-val">90s</span></div>
+                <div id="stage-banner" class="stage-banner">Stage 1</div>
+                <div class="timer-section">⌛ <span id="time-val">90s</span></div>
             </div>
 
             <div class="hp-section">
@@ -35,8 +35,7 @@
                 <div id="kanji-reading-hint" class="romaji-hint hidden">ICHI</div>
             </div>
 
-            <div class="word-zone">
-                <div class="letter-slot"></div>
+            <div id="word-zone" class="word-zone">
                 <div class="letter-slot"></div>
                 <div class="letter-slot"></div>
                 <div class="letter-slot"></div>
@@ -44,13 +43,15 @@
                 <div class="letter-slot"></div>
             </div>
 
-            <div id="support-container" class="controls"></div>
+            <div id="support-container" class="support-zone"></div>
 
             <div class="controls">
                 <button id="clear-btn" class="btn-clear" onclick="clearWord()">HAPUS</button>
                 <button id="confirm-btn" class="btn-confirm" onclick="confirmWord()">SEGEL!</button>
-                <button id="romaji-toggle-btn" class="btn-romaji" onclick="toggleRomaji()">ROMAJI</button>
-                <button id="hint-btn" class="btn-hint" onclick="showHint()">HINT</button>
+                <div class="sub-controls">
+                    <button id="romaji-toggle-btn" class="btn-romaji" onclick="toggleRomaji()">ROMAJI</button>
+                    <button id="hint-btn" class="btn-hint" onclick="showHint()">HINT</button>
+                </div>
             </div>
 
             <div id="player-hand" class="hand"></div>
@@ -59,7 +60,7 @@
 
     <div id="modal-overlay" class="overlay">
         <div class="modal">
-            <h2 id="modal-title">RITUAL SELESAI</h2>
+            <h2 id="modal-title">HASIL RITUAL</h2>
             <p id="modal-desc"></p>
             <div id="modal-buttons-area" class="modal-buttons"></div>
         </div>
