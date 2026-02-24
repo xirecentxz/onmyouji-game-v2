@@ -1,81 +1,80 @@
-/* Pastikan seluruh konten ada di tengah dan tidak meluap */
-.game-container {
-    width: 95%;
-    max-width: 450px;
-    height: 95vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Menjaga jarak antar elemen atas dan bawah */
-    align-items: center;
-    gap: 10px;
+:root {
+    --gold: #d4af37;
+    --white-glow: rgba(255, 255, 255, 0.8);
 }
 
-/* Area Gulungan Soal */
-.quest-container { 
-    background: url('assets/Gulungan.webp') no-repeat center;
-    background-size: 100% 100%;
-    width: 100%;
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+body {
+    margin: 0; padding: 0;
+    background: #0d0d0d url('assets/BG1.webp') no-repeat center center fixed;
+    background-size: cover;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; font-family: 'Segoe UI', sans-serif; color: white;
+    overflow: hidden; touch-action: manipulation;
+}
+
+/* --- GAME CONTAINER --- */
+.game-container {
+    width: 100%; max-width: 420px;
+    height: 100vh; padding: 10px;
+    display: flex; flex-direction: column;
+    justify-content: space-between; align-items: center;
     box-sizing: border-box;
 }
 
-/* Slot Jawaban (Kotak Kata) */
-.word-zone {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    flex-wrap: wrap;
-}
+.top-nav { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+.stage-banner { background: rgba(0,0,0,0.6); padding: 5px 15px; border-radius: 20px; border: 1px solid var(--gold); font-size: 12px; }
 
+.hp-section { width: 100%; text-align: center; margin: 5px 0; }
+#hp-bar-img { width: 85%; height: auto; }
+
+/* Gulungan Soal */
+.quest-container { 
+    background: url('assets/Gulungan.webp') no-repeat center;
+    background-size: 100% 100%; width: 100%;
+    min-height: 160px; display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+}
+.kanji-display { font-size: 50px; color: #333; font-weight: bold; margin: 0; }
+.meaning-display { color: #555; font-size: 14px; font-style: italic; }
+.romaji-hint { color: #8e44ad; font-weight: bold; font-size: 16px; }
+
+/* Jawaban & Jimat */
+.word-zone { display: flex; gap: 5px; margin-bottom: 5px; }
 .letter-slot { 
-    width: 50px;
-    height: 65px;
+    width: 42px; height: 58px; 
     background: url('assets/KotakKata.webp') no-repeat center;
-    background-size: contain;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    color: #222;
+    background-size: 100% 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: bold; color: #222;
 }
 
-/* Area Kartu (Jimat) di paling bawah */
-.hand {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 kolom agar rapi */
-    gap: 8px;
-    width: 100%;
-    padding-bottom: 20px;
-}
+.support-zone { display: flex; gap: 8px; margin-bottom: 5px; }
+.btn-support { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--gold); background: rgba(0,0,0,0.7); color: white; cursor: pointer; }
 
+.hand { 
+    display: grid; grid-template-columns: repeat(5, 1fr); 
+    gap: 6px; width: 100%; margin-top: 5px; padding-bottom: 10px;
+}
 .card { 
-    width: 100%;
-    aspect-ratio: 2/3;
-    background: url('assets/KertasJimat.webp') no-repeat center !important;
-    background-size: 100% 100% !important;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.2s;
+    aspect-ratio: 2/3; background: url('assets/KertasJimat.webp') no-repeat center !important;
+    background-size: 100% 100% !important; border: none;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; color: #222;
 }
+.card .kana { font-size: 20px; font-weight: bold; }
+.card .romaji { font-size: 8px; font-weight: bold; opacity: 0.7; }
 
-.card:active { transform: scale(0.9); }
+/* Tombol Kontrol */
+.controls { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.btn-confirm { background: url('assets/SegelButton.webp') no-repeat center; background-size: contain; width: 160px; height: 50px; border: none; color: transparent; cursor: pointer; }
+.sub-controls { display: flex; gap: 10px; }
+.btn-clear { background: url('assets/Hapus.webp') no-repeat center; background-size: contain; width: 80px; height: 35px; border: none; color: transparent; cursor: pointer; }
+.btn-romaji { background: url('assets/romaji.webp') no-repeat center; background-size: contain; width: 90px; height: 35px; border: none; color: transparent; cursor: pointer; }
+.btn-hint { background: url('assets/Onmyouroku.webp') no-repeat center; background-size: contain; width: 100px; height: 35px; border: none; color: transparent; cursor: pointer; }
 
-/* Tombol Kontrol agar tidak tumpang tindih */
-.controls {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    width: 100%;
-}
+/* MODAL & OTHERS */
+.full-overlay { position: fixed; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 200; }
+.main-logo { width: 180px; filter: drop-shadow(0 0 15px var(--white-glow)); }
+.btn-start { margin-top: 30px; padding: 12px 35px; border-radius: 50px; border: 2px solid var(--gold); background: transparent; color: var(--gold); font-weight: bold; cursor: pointer; }
+.hidden { display: none !important; }
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 1000; }
+.modal { background: #111; border: 2px solid var(--gold); padding: 20px; border-radius: 15px; text-align: center; width: 280px; }
