@@ -13,16 +13,26 @@ body {
     overflow: hidden; touch-action: manipulation;
 }
 
-/* --- UPGRADED HOMEPAGE (PREMIUM LOOK) --- */
+/* --- UPGRADED HOMEPAGE (FIXED FULL SCREEN) --- */
 #homepage-screen {
-    background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
-    backdrop-filter: blur(10px);
+    position: fixed; /* Menjamin tetap di tempat */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Memenuhi lebar layar */
+    height: 100vh; /* Memenuhi tinggi layar */
+    background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 500; /* Pastikan di atas segalanya */
 }
 
 .main-logo {
     width: 200px;
     filter: drop-shadow(0 0 15px var(--gold));
-    animation: floating 3s ease-in-out infinite; /* Efek melayang */
+    animation: floating 3s ease-in-out infinite;
 }
 
 @keyframes floating {
@@ -66,28 +76,19 @@ body {
 .hp-section { width: 100%; text-align: center; margin: 5px 0; }
 #hp-bar-img { width: 85%; height: auto; transition: 0.3s ease; }
 
-/* Gulungan Soal - Perbaikan agar Kanji tidak keluar frame */
 .quest-container { 
     background: url('assets/Gulungan.webp') no-repeat center;
     background-size: 100% 100%; width: 100%;
     min-height: 180px; display: flex; flex-direction: column;
     justify-content: center; align-items: center;
-    padding: 35px 55px; /* Padding ditambah agar teks aman di tengah */
+    padding: 35px 55px; 
     box-sizing: border-box;
 }
 
-.kanji-display { 
-    font-size: 48px; 
-    color: var(--ink-dark); 
-    font-weight: bold; 
-    margin: 0;
-    text-shadow: none; /* Menghilangkan glow emas agar teks jelas di kertas */
-}
-
+.kanji-display { font-size: 48px; color: var(--ink-dark); font-weight: bold; margin: 0; text-shadow: none; }
 .meaning-display { color: #555; font-size: 14px; font-style: italic; font-weight: bold; }
 .romaji-hint { color: #8e44ad; font-weight: bold; font-size: 16px; margin-top: 5px; }
 
-/* Jawaban & Jimat */
 .word-zone { display: flex; gap: 5px; margin-bottom: 5px; }
 .letter-slot { 
     width: 42px; height: 58px; 
@@ -115,7 +116,6 @@ body {
 .card .kana { font-size: 20px; font-weight: bold; }
 .card .romaji { font-size: 8px; font-weight: bold; opacity: 0.7; }
 
-/* Tombol Kontrol */
 .controls { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .btn-confirm { background: url('assets/SegelButton.webp') no-repeat center; background-size: contain; width: 160px; height: 50px; border: none; color: transparent; cursor: pointer; }
 .sub-controls { display: flex; gap: 10px; }
@@ -123,7 +123,6 @@ body {
 .btn-romaji { background: url('assets/romaji.webp') no-repeat center; background-size: contain; width: 90px; height: 35px; border: none; color: transparent; cursor: pointer; }
 .btn-hint { background: url('assets/Onmyouroku.webp') no-repeat center; background-size: contain; width: 100px; height: 35px; border: none; color: transparent; cursor: pointer; }
 
-/* MODAL & OTHERS */
 .hidden { display: none !important; }
 .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 1000; }
 .modal { background: #111; border: 2px solid var(--gold); padding: 25px; border-radius: 15px; text-align: center; width: 280px; }
