@@ -7,71 +7,86 @@
 body {
     margin: 0; background: #000 url('assets/BG1.webp') no-repeat center fixed;
     background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
-    overflow: hidden;
+    overflow: hidden; touch-action: manipulation;
 }
 
-/* --- GRID SYSTEM --- */
+/* --- GRID SYSTEM UTAMA --- */
 .game-layout {
     display: grid;
-    grid-template-rows: 70px 1fr 160px; /* Atur Header, Main, Footer */
+    grid-template-rows: auto 1fr auto;
     height: 100vh; width: 100vw;
-    max-width: 1100px; margin: 0 auto;
     padding: 10px; box-sizing: border-box;
+    gap: 10px;
 }
 
-/* --- HEADER (LOGO-HP-TIMER) --- */
+/* --- HEADER --- */
 .game-header {
-    display: flex; justify-content: space-between; align-items: center; width: 100%;
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 5px 10px;
 }
-.hp-bar-center { flex: 1; display: flex; justify-content: center; padding: 0 15px; }
-#hp-bar-img { width: 100%; max-width: 480px; height: auto; }
-.timer-display { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 1.2rem; }
-.icon-header, .icon-jam { width: 40px; height: auto; }
+.hp-bar-center { flex: 1; display: flex; justify-content: center; padding: 0 10px; }
+#hp-bar-img { width: 100%; max-width: 400px; height: auto; }
+.timer-display { display: flex; align-items: center; gap: 5px; font-weight: bold; }
+.icon-header, .icon-jam { width: 35px; height: auto; }
 
-/* --- RITUAL MAIN AREA --- */
+/* --- RITUAL AREA --- */
 .ritual-center {
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-}
-.scroll-box {
-    background: url('assets/Gulungan.webp') no-repeat center; background-size: 100% 100%;
-    width: 380px; height: 180px; display: flex; flex-direction: column;
-    justify-content: center; align-items: center; padding: 25px 45px; box-sizing: border-box;
-}
-.kanji-main { font-size: 3.2rem; color: var(--ink); font-weight: bold; margin: 0; }
-.meaning-sub { color: #5d4037; font-style: italic; font-weight: bold; font-size: 0.9rem; }
-
-.answer-row { display: flex; gap: 8px; margin: 10px 0; }
-.letter-slot { 
-    width: 42px; height: 56px; background: url('assets/KotakKata.webp') no-repeat center;
-    background-size: 100% 100%; display: flex; align-items: center; justify-content: center;
-    font-size: 18px; font-weight: bold; color: #222;
-}
-
-/* --- OVAL BUTTONS --- */
-.action-footer { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.btn-segel-main {
-    background: url('assets/SegelButton.webp') no-repeat center; background-size: 100% 100%;
-    width: 200px; height: 60px; border: none; color: var(--ink);
-    font-weight: bold; font-size: 1.3rem; cursor: pointer; filter: drop-shadow(0 0 8px var(--gold));
-}
-.sub-btn-group { display: flex; gap: 10px; }
-.btn-gold-oval {
-    background: var(--gold-grad); border: 2px solid var(--gold); border-radius: 25px;
-    padding: 6px 18px; font-size: 12px; font-weight: bold; color: var(--ink);
-    cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.4);
-}
-
-/* --- FOOTER (GRID 10 KARTU) --- */
-.card-grid {
-    display: grid; grid-template-columns: repeat(10, 1fr); /* 10 Kartu satu baris */
+    display: flex; flex-direction: column; align-items: center; justify-content: center; 
     gap: 8px; width: 100%;
 }
-.card {
-    aspect-ratio: 2/3; background: url('assets/KertasJimat.webp') no-repeat center !important;
-    background-size: 100% 100% !important; display: flex; align-items: center; justify-content: center;
-    color: #222; transition: transform 0.2s; cursor: pointer;
+.stage-text { font-size: 0.8rem; background: rgba(0,0,0,0.5); padding: 2px 10px; border-radius: 10px; }
+
+.scroll-box {
+    background: url('assets/Gulungan.webp') no-repeat center; background-size: 100% 100%;
+    width: 90%; max-width: 400px; aspect-ratio: 2/1;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 20px 50px; /* Safe zone agar teks tidak keluar */
+    box-sizing: border-box; text-align: center;
 }
-.card:hover { transform: translateY(-10px); }
+.kanji-main { font-size: 2.8rem; color: var(--ink); font-weight: bold; line-height: 1.1; }
+.meaning-sub { color: #5d4037; font-style: italic; font-weight: bold; font-size: 0.85rem; }
+
+.answer-row { display: flex; gap: 5px; margin: 5px 0; }
+.letter-slot { 
+    width: 40px; height: 55px; background: url('assets/KotakKata.webp') no-repeat center;
+    background-size: 100% 100%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; font-weight: bold; color: #222;
+}
+
+/* --- CONTROLS --- */
+.action-footer { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+.btn-segel-main {
+    background: url('assets/SegelButton.webp') no-repeat center; background-size: 100% 100%;
+    width: 180px; height: 55px; border: none; color: var(--ink);
+    font-weight: bold; font-size: 1.2rem; cursor: pointer; 
+    filter: drop-shadow(0 0 5px var(--gold));
+}
+.sub-btn-group { display: flex; gap: 8px; }
+.btn-gold-oval {
+    background: var(--gold-grad); border: 2px solid var(--gold); border-radius: 20px;
+    padding: 5px 12px; font-size: 11px; font-weight: bold; color: var(--ink);
+    cursor: pointer; box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+}
+
+/* --- FOOTER KARTU (SULUSI MELEDAK) --- */
+.hand-footer { width: 100%; display: flex; justify-content: center; padding-bottom: 10px; }
+.card-grid {
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr); /* 5 kolom agar pas di HP */
+    gap: 8px; width: 95%; max-width: 500px;
+}
+.card {
+    width: 100%; max-width: 65px; aspect-ratio: 2/3; 
+    background: url('assets/KertasJimat.webp') no-repeat center !important;
+    background-size: 100% 100% !important;
+    display: flex; flex-direction: column; /* Romaji otomatis ke bawah */
+    align-items: center; justify-content: center;
+    color: #222; transition: transform 0.1s; cursor: pointer;
+    box-sizing: border-box; padding: 2px;
+}
+.card .kana { font-size: 1.4rem; font-weight: bold; line-height: 1; }
+.card .romaji { font-size: 0.65rem; font-weight: bold; opacity: 0.8; margin-top: 2px; }
+.card:active { transform: scale(0.95); }
 
 /* HOMEPAGE */
 .full-overlay {
@@ -80,5 +95,8 @@ body {
     backdrop-filter: blur(8px); display: flex; flex-direction: column;
     justify-content: center; align-items: center; z-index: 500;
 }
-.main-logo { width: 180px; filter: drop-shadow(0 0 15px var(--gold)); animation: floating 3s infinite; }
-@keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+.main-logo { width: 150px; filter: drop-shadow(0 0 10px var(--gold)); animation: floating 3s infinite; }
+@keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 1000; }
+.modal { background: #111; border: 2px solid var(--gold); padding: 20px; border-radius: 15px; text-align: center; width: 80%; max-width: 300px; }
