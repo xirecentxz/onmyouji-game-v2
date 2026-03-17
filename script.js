@@ -30,13 +30,13 @@ const ROMAJI_MAP = {
     'た': 'ta', 'ち': 'chi', 'つ': 'tsu', 'て': 'te', 'と': 'to',
     'な': 'na', 'に': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
     'は': 'ha', 'ひ': 'hi', 'ふ': 'fu', 'へ': 'he', 'ほ': 'ho',
-    'ま': 'ma', 'み': 'mi', 'む': 'mu', 'め': 'me', 'も': 'mo',
+    'ま': 'ma', 'み': 'mi', 'む': 'mu', 'め': 'me', ' mo': 'mo',
     'や': 'ya', 'ゆ': 'yu', 'よ': 'yo',
     'ら': 'ra', 'り': 'ri', 'る': 'ru', 'れ': 're', 'ろ': 'ro',
     'わ': 'wa', 'を': 'wo', 'ん': 'n',
     'が': 'ga', 'ぎ': 'gi', 'ぐ': 'gu', 'げ': 'ge', 'ご': 'go',
     'ざ': 'za', 'じ': 'ji', 'ず': 'zu', 'ぜ': 'ze', 'ぞ': 'zo',
-    'だ': 'da', 'ぢ': 'ji', 'づ': 'zu', 'で': 'de', 'ど': 'do',
+    'だ': 'da', 'ぢ': 'ji', 'づ': 'zu', ' de': 'de', 'ど': 'do',
     'ば': 'ba', 'び': 'bi', 'ぶ': 'bu', 'べ': 'be', 'ぼ': 'bo',
     'ぱ': 'pa', 'ぴ': 'pi', 'ぷ': 'pu', 'ぺ': 'pe', 'ぽ': 'po',
     'ゃ': 'ya', 'ゅ': 'yu', 'ょ': 'yo', 'っ': 'tsu'
@@ -45,8 +45,8 @@ const ROMAJI_MAP = {
 const POOL = ['あ','い','う','え','お','か','き','く','け','こ','さ','し','す','せ','そ','た','ち','つ','て','と','な','に','ぬ','ね','の','ま','み','む','め','も','ら','り','る','れ','ろ','が','ざ','だ','ば'];
 
 async function startGame() {
-    document.getElementById('homepage-screen').style.display = 'none';
-    document.getElementById('game-screen').style.display = 'block'; // Bootstrap friendly
+    document.getElementById('homepage-screen').classList.replace('d-flex', 'd-none');
+    document.getElementById('game-screen').style.display = 'block'; 
     
     if (!ALL_DATA) {
         try {
@@ -67,8 +67,13 @@ function backToHome() {
     clearInterval(timerInt);
     gameActive = false;
     document.getElementById('game-screen').style.display = 'none';
-    document.getElementById('modal-overlay').style.display = 'none';
-    document.getElementById('homepage-screen').style.display = 'flex';
+    hideModal();
+    document.getElementById('homepage-screen').classList.replace('d-none', 'd-flex');
+}
+
+function hideModal() {
+    const overlay = document.getElementById('modal-overlay');
+    overlay.classList.replace('d-flex', 'd-none');
 }
 
 function resetStageState() {
@@ -147,14 +152,14 @@ function showModal(isWin) {
     const desc = document.getElementById('modal-desc');
     const btnArea = document.getElementById('modal-buttons-area');
     
-    overlay.style.display = 'flex';
+    overlay.classList.replace('d-none', 'd-flex');
     btnArea.innerHTML = '';
 
     if (isWin) {
         title.innerText = "RITUAL BERHASIL!";
         desc.innerText = "Yokai telah tersegel dengan sempurna.";
         if (currentStage < 10) {
-            btnArea.innerHTML += `<button class="btn btn-warning fw-bold py-2" onclick="nextStage()">Stage Berikutnya</button>`;
+            btnArea.innerHTML += `<button class="btn btn-warning fw-bold py-2 shadow" onclick="nextStage()">Stage Berikutnya</button>`;
         } else {
             title.innerText = "MASTER ONMYOJI!";
             desc.innerText = "Semua segel kuno telah berhasil Anda kuasai.";
@@ -162,7 +167,7 @@ function showModal(isWin) {
     } else {
         title.innerText = "RITUAL GAGAL!";
         desc.innerText = "Waktu habis, Yokai melarikan diri ke kegelapan.";
-        btnArea.innerHTML += `<button class="btn btn-danger fw-bold py-2" onclick="retryCurrentStage()">Coba Lagi</button>`;
+        btnArea.innerHTML += `<button class="btn btn-danger fw-bold py-2 shadow" onclick="retryCurrentStage()">Coba Lagi</button>`;
     }
     btnArea.innerHTML += `<button class="btn btn-outline-light btn-sm mt-2" onclick="backToHome()">Kembali ke Beranda</button>`;
 }
@@ -171,7 +176,7 @@ function retryCurrentStage() {
     yokaiHP = 100;
     timeLeft = 90;
     questionPool = []; 
-    document.getElementById('modal-overlay').style.display = 'none';
+    hideModal();
     loadQuestion();
     gameActive = true;
 }
@@ -181,7 +186,7 @@ function nextStage() {
     questionPool = [];
     yokaiHP = 100;
     timeLeft = 90;
-    document.getElementById('modal-overlay').style.display = 'none';
+    hideModal();
     loadQuestion();
     gameActive = true;
 }
@@ -290,13 +295,11 @@ function showFlashError() {
 }
 
 function updateUI() {
-    // BOOTSTRAP PROGRESS BAR UPDATE
     const progressBar = document.getElementById('hp-progress');
     if (progressBar) {
         const percentage = Math.max(0, yokaiHP);
         progressBar.style.width = percentage + "%";
         
-        // Logika perubahan warna bar (Bootstrap Contextual Colors)
         if (percentage > 50) {
             progressBar.className = "progress-bar bg-success progress-bar-striped progress-bar-animated";
         } else if (percentage > 20) {
