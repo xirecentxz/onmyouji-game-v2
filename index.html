@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <div id="homepage-screen" class="full-overlay container-fluid text-center">
+    <div id="homepage-screen" class="full-overlay container-fluid d-flex flex-column justify-content-center align-items-center text-center">
         <img src="assets/badge.webp" class="main-logo mb-3" alt="Logo">
         <h1 class="game-title display-4 fw-bold">ONMYOJI</h1>
         <p class="game-subtitle lead text-gold">KANJI SEAL RITUAL</p>
@@ -25,9 +25,8 @@
                 </div>
                 <div class="col-8 px-2">
                     <div class="progress bg-dark border border-warning" style="height: 25px; border-radius: 12px;">
-                        <div id="hp-progress" class="progress-bar bg-danger progress-bar-striped progress-bar-animated" 
+                        <div id="hp-progress" class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
                              role="progressbar" style="width: 100%"></div>
-                        <img id="hp-bar-img" src="assets/BarHP100.webp" style="display:none;">
                     </div>
                 </div>
                 <div class="col-2 text-end text-gold fw-bold small">
@@ -47,11 +46,11 @@
                 </div>
 
                 <div class="answer-row d-flex justify-content-center gap-1 my-3">
-                    <div class="letter-slot"></div>
-                    <div class="letter-slot"></div>
-                    <div class="letter-slot"></div>
-                    <div class="letter-slot"></div>
-                    <div class="letter-slot"></div>
+                    <div class="letter-slot border-0"></div>
+                    <div class="letter-slot border-0"></div>
+                    <div class="letter-slot border-0"></div>
+                    <div class="letter-slot border-0"></div>
+                    <div class="letter-slot border-0"></div>
                 </div>
 
                 <div class="action-footer container w-100">
@@ -73,7 +72,7 @@
         </div>
     </div>
 
-    <div id="modal-overlay" class="overlay d-flex justify-content-center align-items-center">
+    <div id="modal-overlay" class="overlay d-none justify-content-center align-items-center">
         <div class="modal-content-custom p-4 rounded-4 shadow border border-warning text-center">
             <h2 id="modal-title" class="text-gold mb-3">HASIL RITUAL</h2>
             <p id="modal-desc" class="small mb-4 text-white"></p>
