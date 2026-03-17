@@ -46,7 +46,7 @@ const POOL = ['あ','い','う','え','お','か','き','く','け','こ','さ',
 
 async function startGame() {
     document.getElementById('homepage-screen').style.display = 'none';
-    document.getElementById('game-screen').style.display = 'flex';
+    document.getElementById('game-screen').style.display = 'block'; // Bootstrap friendly
     
     if (!ALL_DATA) {
         try {
@@ -95,27 +95,11 @@ function loadQuestion() {
     document.getElementById('kanji-question').innerText = currentQuestion.kanji;
     document.getElementById('kanji-meaning').innerText = currentQuestion.meaning;
     
-    updateRomajiDisplay();
-
     selectedLetters = [];
     generateHand(currentQuestion.reading);
     renderWordZone();
     renderSupportButtons();
     gameActive = true;
-}
-
-function updateRomajiDisplay() {
-    const kanjiHint = document.getElementById('kanji-reading-hint');
-    const romajiData = (currentQuestion && currentQuestion.reading_romaji) ? currentQuestion.reading_romaji : "";
-    
-    if (kanjiHint) {
-        kanjiHint.innerText = romajiData;
-        if (isRomajiVisible && romajiData !== "") {
-            kanjiHint.classList.remove('hidden');
-        } else {
-            kanjiHint.classList.add('hidden');
-        }
-    }
 }
 
 function toggleRomaji() {
@@ -124,7 +108,6 @@ function toggleRomaji() {
     if (romajiBtn) {
         romajiBtn.innerText = `Romaji: ${isRomajiVisible ? 'ON' : 'OFF'}`;
     }
-    updateRomajiDisplay();
     renderHand();
     renderWordZone();
 }
@@ -169,19 +152,19 @@ function showModal(isWin) {
 
     if (isWin) {
         title.innerText = "RITUAL BERHASIL!";
-        desc.innerText = "Yokai telah tersegel.";
+        desc.innerText = "Yokai telah tersegel dengan sempurna.";
         if (currentStage < 10) {
-            btnArea.innerHTML += `<button class="btn-modal btn-next-stage" onclick="nextStage()">Stage Berikutnya</button>`;
+            btnArea.innerHTML += `<button class="btn btn-warning fw-bold py-2" onclick="nextStage()">Stage Berikutnya</button>`;
         } else {
             title.innerText = "MASTER ONMYOJI!";
-            desc.innerText = "Semua segel telah dikuasai.";
+            desc.innerText = "Semua segel kuno telah berhasil Anda kuasai.";
         }
     } else {
         title.innerText = "RITUAL GAGAL!";
-        desc.innerText = "Waktu habis, Yokai melarikan diri.";
-        btnArea.innerHTML += `<button class="btn-modal btn-retry-stage" onclick="retryCurrentStage()">Coba Lagi</button>`;
+        desc.innerText = "Waktu habis, Yokai melarikan diri ke kegelapan.";
+        btnArea.innerHTML += `<button class="btn btn-danger fw-bold py-2" onclick="retryCurrentStage()">Coba Lagi</button>`;
     }
-    btnArea.innerHTML += `<button class="btn-modal btn-exit-stage" onclick="backToHome()">Exit ke Beranda</button>`;
+    btnArea.innerHTML += `<button class="btn btn-outline-light btn-sm mt-2" onclick="backToHome()">Kembali ke Beranda</button>`;
 }
 
 function retryCurrentStage() {
@@ -226,7 +209,7 @@ function renderHand() {
         const romajiTag = isRomajiVisible ? `<div class="romaji">${ROMAJI_MAP[char] || ''}</div>` : '';
         card.innerHTML = `<div class="kana">${char}</div>${romajiTag}`;
         card.onclick = () => { 
-            if(gameActive && selectedLetters.length < 7) { 
+            if(gameActive && selectedLetters.length < 5) { 
                 selectedLetters.push(hand.splice(i, 1)[0]); 
                 renderHand(); 
                 renderWordZone(); 
@@ -257,8 +240,9 @@ function renderSupportButtons() {
     container.innerHTML = '';
     ['ゃ', 'ゅ', 'ょ', 'っ'].forEach(s => {
         const btn = document.createElement('button');
-        btn.className = 'btn-support'; btn.innerText = s;
-        btn.onclick = () => { if(gameActive && selectedLetters.length < 7) { selectedLetters.push(s); renderWordZone(); } };
+        btn.className = 'btn btn-outline-warning btn-sm fw-bold px-3'; 
+        btn.innerText = s;
+        btn.onclick = () => { if(gameActive && selectedLetters.length < 5) { selectedLetters.push(s); renderWordZone(); } };
         container.appendChild(btn);
     });
 }
@@ -298,30 +282,35 @@ function startTimer() {
 }
 
 function showFlashError() {
-    const timer = document.querySelector('.timer-section');
-    if (timer) {
-        timer.style.color = "red"; 
-        setTimeout(() => timer.style.color = "white", 500);
+    const timeDisplay = document.querySelector('.timer-display');
+    if (timeDisplay) {
+        timeDisplay.classList.add('text-danger');
+        setTimeout(() => timeDisplay.classList.remove('text-danger'), 500);
     }
 }
 
 function updateUI() {
-    const hpBarImg = document.getElementById('hp-bar-img');
-    const timeVal = document.getElementById('time-val');
-
-    if (hpBarImg) {
-        // Pemilihan gambar HP Bar sesuai persentase HP Yokai
-        let hpImage = 'BarHP100.webp';
-        if (yokaiHP <= 0) hpImage = 'BarHP0.webp';
-        else if (yokaiHP <= 25) hpImage = 'BarHP25.webp';
-        else if (yokaiHP <= 50) hpImage = 'BarHP50.webp';
-        else if (yokaiHP <= 75) hpImage = 'BarHP75.webp';
+    // BOOTSTRAP PROGRESS BAR UPDATE
+    const progressBar = document.getElementById('hp-progress');
+    if (progressBar) {
+        const percentage = Math.max(0, yokaiHP);
+        progressBar.style.width = percentage + "%";
         
-        hpBarImg.src = `assets/${hpImage}`;
+        // Logika perubahan warna bar (Bootstrap Contextual Colors)
+        if (percentage > 50) {
+            progressBar.className = "progress-bar bg-success progress-bar-striped progress-bar-animated";
+        } else if (percentage > 20) {
+            progressBar.className = "progress-bar bg-warning progress-bar-striped progress-bar-animated";
+        } else {
+            progressBar.className = "progress-bar bg-danger progress-bar-striped progress-bar-animated";
+        }
     }
 
+    const timeVal = document.getElementById('time-val');
     if (timeVal) {
         timeVal.innerText = timeLeft + "s";
+        if(timeLeft < 20) timeVal.classList.add('text-danger');
+        else timeVal.classList.remove('text-danger');
     }
 }
 
