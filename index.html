@@ -4,40 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Onmyoji Kanji Seal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="homepage-screen" class="full-overlay">
-        <img src="assets/badge.webp" class="main-logo" alt="Logo">
-        <h1 class="game-title" style="margin: 10px 0 0 0; font-size: 2.5rem; text-shadow: 0 0 10px var(--gold);">ONMYOJI</h1>
-        <p class="game-subtitle" style="margin-bottom: 20px; font-size: 0.9rem;">KANJI SEAL RITUAL</p>
-        <button class="btn-start" onclick="startGame()" style="padding: 10px 30px; border-radius: 20px; border: none; background: var(--gold-grad); font-weight: bold; cursor: pointer;">MULAI RITUAL</button>
+    <div id="homepage-screen" class="full-overlay container-fluid text-center">
+        <img src="assets/badge.webp" class="main-logo mb-3" alt="Logo">
+        <h1 class="game-title display-4 fw-bold">ONMYOJI</h1>
+        <p class="game-subtitle lead text-gold">KANJI SEAL RITUAL</p>
+        <button class="btn btn-start-custom mt-4 px-5 py-2 rounded-pill fw-bold" onclick="startGame()">MULAI RITUAL</button>
     </div>
 
     <div id="game-screen" style="display: none;">
-        <div class="game-layout">
+        <div class="container-fluid game-layout px-2">
             
-            <header class="game-header">
-                <img src="assets/badge.webp" class="icon-header">
-                <div class="hp-bar-center">
-                    <img id="hp-bar-img" src="assets/BarHP100.webp" alt="HP Bar">
+            <header class="row align-items-center py-2 gx-0">
+                <div class="col-2 text-start">
+                    <img src="assets/badge.webp" class="icon-header img-fluid">
                 </div>
-                <div class="timer-display">
-                    <img src="assets/jam.webp" class="icon-jam">
-                    <span id="time-val">90s</span>
+                <div class="col-8 px-2">
+                    <div class="progress bg-dark border border-warning" style="height: 25px; border-radius: 12px;">
+                        <div id="hp-progress" class="progress-bar bg-danger progress-bar-striped progress-bar-animated" 
+                             role="progressbar" style="width: 100%"></div>
+                        <img id="hp-bar-img" src="assets/BarHP100.webp" style="display:none;">
+                    </div>
+                </div>
+                <div class="col-2 text-end text-gold fw-bold small">
+                    <div class="d-flex align-items-center justify-content-end gap-1">
+                        <img src="assets/jam.webp" class="icon-jam">
+                        <span id="time-val">90s</span>
+                    </div>
                 </div>
             </header>
 
-            <main class="ritual-center">
-                <div id="stage-banner" class="stage-text">Stage 1: Ritual Angka</div>
+            <main class="ritual-center text-center">
+                <div id="stage-banner" class="badge rounded-pill bg-dark bg-opacity-50 border border-secondary mb-2">Stage 1: Ritual Angka</div>
                 
-                <div class="scroll-box">
+                <div class="scroll-box mx-auto shadow-lg">
                     <div id="kanji-question" class="kanji-main">九つ</div>
                     <div id="kanji-meaning" class="meaning-sub">sembilan buah</div>
                 </div>
 
-                <div class="answer-row">
+                <div class="answer-row d-flex justify-content-center gap-1 my-3">
                     <div class="letter-slot"></div>
                     <div class="letter-slot"></div>
                     <div class="letter-slot"></div>
@@ -45,33 +54,34 @@
                     <div class="letter-slot"></div>
                 </div>
 
-                <div class="action-footer">
-                    <div id="support-container" class="sub-btn-group"></div>
+                <div class="action-footer container w-100">
+                    <div id="support-container" class="d-flex justify-content-center gap-2 mb-3"></div>
                     
-                    <button id="confirm-btn" class="btn-segel-main" onclick="confirmWord()">SEGEL !</button>
+                    <button id="confirm-btn" class="btn-segel-main mb-3" onclick="confirmWord()">SEGEL !</button>
                     
-                    <div class="sub-btn-group">
-                        <button class="btn-gold-oval" onclick="clearWord()">Hapus</button>
-                        <button class="btn-gold-oval" onclick="showHint()">Hint</button>
-                        <button id="romaji-toggle-btn" class="btn-gold-oval" onclick="toggleRomaji()">Romaji: OFF</button>
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <button class="btn btn-gold-oval btn-sm" onclick="clearWord()">Hapus</button>
+                        <button class="btn btn-gold-oval btn-sm" onclick="showHint()">Hint</button>
+                        <button id="romaji-toggle-btn" class="btn btn-gold-oval btn-sm" onclick="toggleRomaji()">Romaji: OFF</button>
                     </div>
                 </div>
             </main>
 
-            <footer class="hand-footer">
-                <div id="player-hand" class="card-grid"></div>
+            <footer class="hand-footer pt-3">
+                <div id="player-hand" class="card-grid mx-auto"></div>
             </footer>
         </div>
     </div>
 
-    <div id="modal-overlay" class="overlay">
-        <div class="modal">
-            <h2 id="modal-title" style="color: var(--gold); margin-top: 0;">HASIL RITUAL</h2>
-            <p id="modal-desc" style="font-size: 0.9rem;"></p>
-            <div id="modal-buttons-area" style="display: flex; flex-direction: column; gap: 8px;"></div>
+    <div id="modal-overlay" class="overlay d-flex justify-content-center align-items-center">
+        <div class="modal-content-custom p-4 rounded-4 shadow border border-warning text-center">
+            <h2 id="modal-title" class="text-gold mb-3">HASIL RITUAL</h2>
+            <p id="modal-desc" class="small mb-4 text-white"></p>
+            <div id="modal-buttons-area" class="d-grid gap-2"></div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
