@@ -13,7 +13,7 @@
         <img src="assets/badge.webp" class="main-logo mb-3" alt="Logo">
         <h1 class="game-title display-4 fw-bold">ONMYOJI</h1>
         <p class="game-subtitle lead text-gold">KANJI SEAL RITUAL</p>
-        <button class="btn btn-start-custom mt-4 px-5 py-2 rounded-pill fw-bold" onclick="startGame()">MULAI RITUAL</button>
+        <button class="btn btn-start-custom mt-4 px-5 py-2 rounded-pill fw-bold shadow" onclick="startGame()">MULAI RITUAL</button>
     </div>
 
     <div id="game-screen" style="display: none;">
@@ -24,7 +24,7 @@
                     <img src="assets/badge.webp" class="icon-header img-fluid">
                 </div>
                 <div class="col-8 px-2">
-                    <div class="progress bg-dark border border-warning" style="height: 25px; border-radius: 12px;">
+                    <div class="progress bg-dark border border-warning shadow-sm" style="height: 25px; border-radius: 12px;">
                         <div id="hp-progress" class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
                              role="progressbar" style="width: 100%"></div>
                     </div>
@@ -38,7 +38,11 @@
             </header>
 
             <main class="ritual-center text-center">
-                <div id="stage-banner" class="badge rounded-pill bg-dark bg-opacity-50 border border-secondary mb-2">Stage 1: Ritual Angka</div>
+                <div class="d-flex justify-content-center w-100">
+                    <div id="stage-banner" class="badge rounded-pill bg-dark bg-opacity-75 px-4 py-2 mb-3">
+                        Stage 1: Ritual Angka (Angka & Satuan)
+                    </div>
+                </div>
                 
                 <div class="scroll-box mx-auto shadow-lg">
                     <div id="kanji-question" class="kanji-main">九つ</div>
@@ -56,12 +60,12 @@
                 <div class="action-footer container w-100">
                     <div id="support-container" class="d-flex justify-content-center gap-2 mb-3"></div>
                     
-                    <button id="confirm-btn" class="btn-segel-main mb-3" onclick="confirmWord()"> </button>
+                    <button id="confirm-btn" class="btn-segel-main mb-3" onclick="confirmWord()" aria-label="Segel"></button>
                     
                     <div class="d-flex justify-content-center gap-2 flex-wrap">
-                        <button class="btn btn-gold-oval btn-sm" onclick="clearWord()">Hapus</button>
-                        <button class="btn btn-gold-oval btn-sm" onclick="showHint()">Hint</button>
-                        <button id="romaji-toggle-btn" class="btn btn-gold-oval btn-sm" onclick="toggleRomaji()">Romaji: OFF</button>
+                        <button class="btn btn-gold-oval btn-sm px-3" onclick="clearWord()">Hapus</button>
+                        <button class="btn btn-gold-oval btn-sm px-3" onclick="showHint()">Hint</button>
+                        <button id="romaji-toggle-btn" class="btn btn-gold-oval btn-sm px-3" onclick="toggleRomaji()">Romaji: OFF</button>
                     </div>
                 </div>
             </main>
@@ -74,7 +78,7 @@
 
     <div id="modal-overlay" class="overlay d-none justify-content-center align-items-center">
         <div class="modal-content-custom p-4 rounded-4 shadow border border-warning text-center">
-            <h2 id="modal-title" class="text-gold mb-3">HASIL RITUAL</h2>
+            <h2 id="modal-title" class="text-gold mb-3 fw-bold">HASIL RITUAL</h2>
             <p id="modal-desc" class="small mb-4 text-white"></p>
             <div id="modal-buttons-area" class="d-grid gap-2"></div>
         </div>
