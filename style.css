@@ -16,7 +16,7 @@ body {
 
 .text-gold { color: var(--gold); }
 
-/* --- HEADER --- */
+/* --- GRID SYSTEM --- */
 .game-layout {
     display: flex;
     flex-direction: column;
@@ -29,7 +29,7 @@ body {
 /* --- RITUAL AREA --- */
 .ritual-center { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 
-/* Perbaikan Kotak Stage */
+/* Judul Stage */
 #stage-banner {
     width: fit-content;
     font-size: 0.9rem;
@@ -55,17 +55,33 @@ body {
 .kanji-main { font-size: 2.5rem; color: var(--ink); font-weight: 800; line-height: 1; }
 .meaning-sub { color: #5d4037; font-style: italic; font-weight: bold; font-size: 0.8rem; margin-top: 5px; }
 
+/* PERBAIKAN SLOT KATA (BAGIAN YANG ANEH TADI) */
 .letter-slot { 
     width: 45px; 
     height: 60px; 
     background: url('assets/KotakKata.webp') no-repeat center;
     background-size: 100% 100%; 
     display: flex; 
+    flex-direction: column; /* Hiragana di atas, Romaji di bawah */
     align-items: center; 
     justify-content: center;
     font-size: 1.2rem; 
     font-weight: bold; 
     color: #222;
+    line-height: 1.1;
+    padding-bottom: 2px;
+}
+
+/* Mengatur Romaji di dalam slot agar tidak menabrak border */
+.letter-slot div {
+    width: 100%;
+    text-align: center;
+}
+
+.letter-slot div:last-child {
+    font-size: 9px !important; /* Ukuran romaji lebih kecil */
+    opacity: 0.7;
+    margin-top: -2px; /* Menarik romaji agak naik agar pas di tengah */
 }
 
 /* --- BUTTONS --- */
@@ -85,7 +101,7 @@ body {
     width: 180px; 
     height: 55px; 
     border: none; 
-    color: transparent; /* Sembunyikan jika masih ada sisa teks */
+    color: transparent;
     cursor: pointer;
     filter: drop-shadow(0 0 5px var(--gold));
     transition: 0.2s;
@@ -103,7 +119,7 @@ body {
     box-shadow: 0 3px 6px rgba(0,0,0,0.4);
 }
 
-/* --- FOOTER KARTU --- */
+/* --- FOOTER KARTU (HAND) --- */
 .card-grid {
     display: grid; 
     grid-template-columns: repeat(5, 1fr); 
