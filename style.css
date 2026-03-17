@@ -5,167 +5,85 @@
 }
 
 body {
-    margin: 0; 
-    background: #000 url('assets/BG1.webp') no-repeat center fixed;
-    background-size: cover; 
-    color: white; 
-    font-family: 'Segoe UI', sans-serif;
-    overflow: hidden; 
-    touch-action: manipulation;
+    margin: 0; background: #000 url('assets/BG1.webp') no-repeat center fixed;
+    background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden; touch-action: manipulation;
 }
 
-.text-gold { color: var(--gold); }
-
-/* --- GRID SYSTEM --- */
+/* --- GAME LAYOUT --- */
 .game-layout {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    padding: 10px;
+    display: flex; flex-direction: column; height: 100vh; padding: 10px;
 }
 
-.icon-header, .icon-jam { width: 30px; height: auto; }
+.header-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.hp-bar-center { flex: 1; display: flex; justify-content: center; padding: 0 10px; }
+#hp-bar-img { width: 100%; max-width: 400px; height: auto; }
 
-/* --- RITUAL AREA --- */
-.ritual-center { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-
-/* Judul Stage */
-#stage-banner {
-    width: fit-content;
-    font-size: 0.9rem;
-    color: var(--gold);
-    border: 1px solid rgba(212, 175, 55, 0.4) !important;
-    text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
-    font-weight: 700;
-    white-space: nowrap;
-}
+/* --- RITUAL AREA (GULUNGAN) --- */
+.ritual-center { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; }
 
 .scroll-box {
-    background: url('assets/Gulungan.webp') no-repeat center; 
-    background-size: 100% 100%;
-    width: 95%; 
-    max-width: 380px; 
-    aspect-ratio: 2/1;
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    padding: 20px 40px;
+    background: url('assets/Gulungan.webp') no-repeat center; background-size: 100% 100%;
+    width: 95%; max-width: 380px; aspect-ratio: 2/1;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 20px 45px; box-sizing: border-box;
 }
 
-.kanji-main { font-size: 2.5rem; color: var(--ink); font-weight: 800; line-height: 1; }
-.meaning-sub { color: #5d4037; font-style: italic; font-weight: bold; font-size: 0.8rem; margin-top: 5px; }
+.kanji-main { font-size: 2.8rem; color: var(--ink); font-weight: 800; line-height: 1; margin: 0; }
+.meaning-sub { color: #5d4037; font-style: italic; font-weight: bold; font-size: 0.85rem; margin-top: 5px; }
 
-/* PERBAIKAN SLOT KATA (BAGIAN YANG ANEH TADI) */
+/* --- SLOT JAWABAN (SOLUSI ROMAJI MELEDAK) --- */
+.answer-row { display: flex; gap: 6px; margin: 10px 0; }
 .letter-slot { 
-    width: 45px; 
-    height: 60px; 
-    background: url('assets/KotakKata.webp') no-repeat center;
-    background-size: 100% 100%; 
-    display: flex; 
-    flex-direction: column; /* Hiragana di atas, Romaji di bawah */
-    align-items: center; 
-    justify-content: center;
-    font-size: 1.2rem; 
-    font-weight: bold; 
-    color: #222;
-    line-height: 1.1;
-    padding-bottom: 2px;
+    width: 42px; height: 58px; background: url('assets/KotakKata.webp') no-repeat center;
+    background-size: 100% 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; color: #222; font-weight: bold;
 }
-
-/* Mengatur Romaji di dalam slot agar tidak menabrak border */
-.letter-slot div {
-    width: 100%;
-    text-align: center;
-}
-
-.letter-slot div:last-child {
-    font-size: 9px !important; /* Ukuran romaji lebih kecil */
-    opacity: 0.7;
-    margin-top: -2px; /* Menarik romaji agak naik agar pas di tengah */
-}
+.letter-slot div:first-child { font-size: 1.2rem; }
+.letter-slot div:last-child { font-size: 8px !important; opacity: 0.7; margin-top: -2px; }
 
 /* --- BUTTONS --- */
-.btn-start-custom {
-    background: var(--gold-grad);
-    border: none;
-    color: var(--ink);
-    box-shadow: 0 0 15px var(--gold);
-    transition: 0.3s;
-}
-
-.btn-start-custom:hover { transform: scale(1.05); color: #000; }
-
 .btn-segel-main {
-    background: url('assets/SegelButton.webp') no-repeat center; 
-    background-size: 100% 100%;
-    width: 180px; 
-    height: 55px; 
-    border: none; 
-    color: transparent;
-    cursor: pointer;
+    background: url('assets/SegelButton.webp') no-repeat center; background-size: 100% 100%;
+    width: 180px; height: 55px; border: none; color: transparent; cursor: pointer;
     filter: drop-shadow(0 0 5px var(--gold));
-    transition: 0.2s;
 }
-
-.btn-segel-main:active { transform: scale(0.95); }
-
 .btn-gold-oval {
-    background: var(--gold-grad); 
-    border: 2px solid var(--gold); 
-    border-radius: 20px;
-    padding: 5px 15px; 
-    color: var(--ink); 
-    font-weight: bold;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+    background: var(--gold-grad); border: 2px solid var(--gold); border-radius: 20px;
+    padding: 5px 15px; color: var(--ink); font-weight: bold; font-size: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4); cursor: pointer;
 }
 
 /* --- FOOTER KARTU (HAND) --- */
+.hand-container { width: 100%; display: flex; justify-content: center; padding-bottom: 15px; }
 .card-grid {
-    display: grid; 
-    grid-template-columns: repeat(5, 1fr); 
-    gap: 8px; 
-    width: 100%; 
-    max-width: 450px;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+    width: 100%; max-width: 450px;
 }
-
 .card {
     background: url('assets/KertasJimat.webp') no-repeat center !important;
-    background-size: 100% 100% !important;
-    aspect-ratio: 2/3.2;
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center;
-    color: #222; 
-    padding: 2px;
-    cursor: pointer;
-    transition: transform 0.1s;
+    background-size: 100% 100% !important; aspect-ratio: 2/3.2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #222; cursor: pointer; transition: transform 0.1s;
+}
+.card .kana { font-size: 1.4rem; font-weight: bold; }
+.card .romaji { font-size: 0.65rem; font-weight: bold; opacity: 0.8; }
+
+/* --- EFEK HINT (SOLUSI TOMBOL TIDAK BERFUNGSI) --- */
+.hint-glow {
+    position: relative !important;
+    z-index: 100;
+    animation: pulse-gold 0.8s infinite alternate;
 }
 
-.card:active { transform: scale(0.9); }
-.card .kana { font-size: 1.4rem; font-weight: bold; line-height: 1; }
-.card .romaji { font-size: 0.65rem; font-weight: bold; opacity: 0.8; }
+@keyframes pulse-gold {
+    from { filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px var(--gold)); transform: scale(1); }
+    to { filter: drop-shadow(0 0 15px #fff) drop-shadow(0 0 25px var(--gold)); transform: scale(1.1); }
+}
 
 /* OVERLAYS */
 .full-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
-    backdrop-filter: blur(8px); z-index: 1050;
+    backdrop-filter: blur(8px); z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
-
-.modal-content-custom {
-    background: #111;
-    width: 85%;
-    max-width: 320px;
-}
-
-.overlay { 
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.85); z-index: 2000; 
-}
-
-@keyframes floating { 
-    0%, 100% { transform: translateY(0px); } 
-    50% { transform: translateY(-10px); } 
-}
-.main-logo { width: 140px; animation: floating 3s infinite; }
