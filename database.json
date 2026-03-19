@@ -35,7 +35,7 @@
       "words": [
         { "kanji": "日", "reading": "ひ", "reading_romaji": "hi", "meaning": "hari" },
         { "kanji": "一日", "reading": "ついたち", "reading_romaji": "tsuitachi", "meaning": "tanggal 1" },
-        { "kanji": "二日", "reading": "ふつka", "reading_romaji": "futsuka", "meaning": "dua hari/tanggal 2" },
+        { "kanji": "二日", "reading": "ふつか", "reading_romaji": "futsuka", "meaning": "dua hari/tanggal 2" },
         { "kanji": "三日", "reading": "みっか", "reading_romaji": "mikka", "meaning": "tanggal 3" },
         { "kanji": "四日", "reading": "よっか", "reading_romaji": "yokka", "meaning": "tanggal 4" },
         { "kanji": "五日", "reading": "いつか", "reading_romaji": "itsuka", "meaning": "tanggal 5" },
@@ -116,7 +116,7 @@
         { "kanji": "飲む", "reading": "のむ", "reading_romaji": "nomu", "meaning": "minum" },
         { "kanji": "水", "reading": "みず", "reading_romaji": "mizu", "meaning": "air" },
         { "kanji": "肉", "reading": "にく", "reading_romaji": "niku", "meaning": "daging" },
-        { "kanji": "魚", "reading": "さkana", "reading_romaji": "sakana", "meaning": "ikan" },
+        { "kanji": "魚", "reading": "さかな", "reading_romaji": "sakana", "meaning": "ikan" },
         { "kanji": "米", "reading": "こめ", "reading_romaji": "kome", "meaning": "beras" },
         { "kanji": "ご飯", "reading": "ごはん", "reading_romaji": "gohan", "meaning": "nasi" },
         { "kanji": "野菜", "reading": "やさい", "reading_romaji": "yasai", "meaning": "sayuran" },
@@ -181,7 +181,7 @@
       "category": "Aura & Sifat (Sifat & Keadaan)",
       "words": [
         { "kanji": "大きい", "reading": "おおきい", "reading_romaji": "ookii", "meaning": "besar" },
-        { "kanji": "小さい", "reading": "chiisai", "reading_romaji": "chiisai", "meaning": "kecil" },
+        { "kanji": "小さい", "reading": "ちいいさい", "reading_romaji": "chiisai", "meaning": "kecil" },
         { "kanji": "長い", "reading": "ながい", "reading_romaji": "nagai", "meaning": "panjang" },
         { "kanji": "高い", "reading": "たかい", "reading_romaji": "takai", "meaning": "tinggi/mahal" },
         { "kanji": "安い", "reading": "やすい", "reading_romaji": "yasui", "meaning": "murah" },
