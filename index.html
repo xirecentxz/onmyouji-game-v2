@@ -11,7 +11,7 @@
 
     <div id="homepage-screen" class="full-overlay container-fluid d-flex flex-column justify-content-center align-items-center text-center">
         <img src="assets/badge.webp" class="main-logo mb-3" alt="Logo">
-        <h1 class="game-title display-4 fw-bold">ONMYOJI</h1>
+        <h1 class="game-title display-4 fw-bold text-white">ONMYOJI</h1>
         <p class="game-subtitle lead text-gold">KANJI SEAL RITUAL</p>
         <button class="btn btn-start-custom mt-4 px-5 py-2 rounded-pill fw-bold shadow" onclick="showLevelSelector()">MULAI RITUAL</button>
     </div>
@@ -58,7 +58,13 @@
                     <div id="kanji-question" class="kanji-main"></div>
                     <div id="kanji-meaning" class="meaning-sub"></div>
                 </div>
-                <div id="word-zone" class="answer-row d-flex justify-content-center gap-1 my-3"></div>
+                <div id="word-zone" class="answer-row d-flex justify-content-center gap-1 my-3">
+                    <div class="letter-slot"></div>
+                    <div class="letter-slot"></div>
+                    <div class="letter-slot"></div>
+                    <div class="letter-slot"></div>
+                    <div class="letter-slot"></div>
+                </div>
                 <div class="action-footer container">
                     <div id="support-container" class="d-flex justify-content-center gap-2 mb-2"></div>
                     <button id="confirm-btn" class="btn-segel-main" onclick="confirmWord()"></button>
@@ -82,7 +88,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="js/main.js"></script>
-    
 </body>
 </html>
