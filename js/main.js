@@ -1,83 +1,64 @@
-import { state, shuffle, resetState } from './engine.js';
+import { state, resetState, shuffle } from './engine.js';
 import { ROMAJI_MAP, STAGE_CONFIG, POOL } from './constants.js';
 
-// --- FUNGSI NAVIGASI (Expose ke HTML) ---
-window.showLevelSelector = () => {
+// --- NAVIGASI LAYAR (WAJIB EXPOSE KE WINDOW) ---
+window.showLevelSelector = function() {
     document.getElementById('homepage-screen').classList.add('d-none');
     document.getElementById('level-selector').classList.remove('d-none');
 };
 
-window.backToHome = () => {
+window.backToHome = function() {
     document.getElementById('level-selector').classList.add('d-none');
     document.getElementById('homepage-screen').classList.remove('d-none');
 };
 
-window.startMode = (mode, stage) => {
+window.startMode = function(mode, stage) {
     state.gameMode = mode;
     state.currentStage = stage;
     document.getElementById('level-selector').classList.add('d-none');
     startGame();
 };
 
+// --- LOGIKA UTAMA ---
 async function startGame() {
     document.getElementById('game-screen').style.display = 'block';
+    
+    // Pastikan database dimuat
     if (!state.allData) {
         try {
             const res = await fetch('database.json');
             state.allData = await res.json();
-        } catch (e) { console.error("Database missing", e); return; }
+        } catch (e) { console.error("Database Gagal", e); return; }
     }
+    
     resetState();
     loadQuestion();
+    // Jalankan timer hanya jika bukan mode tutorial
     if (state.gameMode !== 'tutorial') startTimer();
 }
 
-// --- FUNGSI GAMEPLAY (Expose ke HTML) ---
-window.confirmWord = () => {
-    const answer = state.selectedLetters.join('');
-    if(answer === state.currentQuestion.reading) {
-        state.yokaiHP -= STAGE_CONFIG[state.currentStage].dmg;
-        if(state.yokaiHP <= 0) { showModal(true); } 
-        else { updateUI(); loadQuestion(); }
-    } else {
-        state.timeLeft -= 10;
-        window.clearWord();
-        updateUI();
-    }
-};
-
-window.clearWord = () => {
-    state.selectedLetters.forEach(c => { if(!['ゃ','ゅ','ょ','っ'].includes(c)) state.hand.push(c); });
-    state.selectedLetters = [];
-    renderHand();
-    renderWordZone();
-};
-
-window.showHint = () => {
-    const firstChar = state.currentQuestion.reading[0];
-    document.querySelectorAll('.card').forEach(c => {
-        if(c.querySelector('.kana').innerText === firstChar) {
-            c.classList.add('hint-glow');
-            setTimeout(() => c.classList.remove('hint-glow'), 3000);
-        }
-    });
-};
-
-// Fungsi render internal (tidak perlu window.)
 function loadQuestion() {
-    // ... logika ambil pertanyaan dari allData ...
-    renderHand();
+    const stageData = state.allData.levels[state.currentStage];
+    const config = STAGE_CONFIG[state.currentStage];
+    
+    if (state.questionPool.length === 0) {
+        let allWords = [...stageData.words];
+        shuffle(allWords);
+        state.questionPool = allWords.slice(0, config.target);
+    }
+    
+    state.currentQuestion = state.questionPool.pop();
+    
+    document.getElementById('stage-banner').innerText = `Stage ${state.currentStage}: ${stageData.category}`;
+    document.getElementById('kanji-question').innerText = state.currentQuestion.kanji;
+    document.getElementById('kanji-meaning').innerText = state.currentQuestion.meaning;
+    
+    state.selectedLetters = [];
+    generateHand(state.currentQuestion.reading);
     renderWordZone();
+    renderSupportButtons();
+    state.gameActive = true;
 }
 
-function renderHand() {
-    const container = document.getElementById('player-hand');
-    container.innerHTML = '';
-    state.hand.forEach((char, i) => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `<div class="kana">${char}</div>`;
-        card.onclick = () => { /* logika pilih kartu */ };
-        container.appendChild(card);
-    });
-}
+// Tambahkan fungsi updateUI, startTimer, dan renderHand di bawahnya...
+// Pastikan semua fungsi yang dipanggil di HTML diawali "window.namaFungsi"
