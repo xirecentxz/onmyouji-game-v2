@@ -1,5 +1,4 @@
-import { STAGE_CONFIG } from './constants.js';
-
+// Variable state untuk menyimpan status game
 export let state = {
     allData: null,
     currentStage: 1,
@@ -11,18 +10,26 @@ export let state = {
     selectedLetters: [],
     hand: [],
     questionPool: [],
-    gameMode: 'story'
+    gameMode: 'story',
+    timerInt: null
 };
 
-export function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
+export function resetState() {
+    state.yokaiHP = 100;
+    state.timeLeft = (state.gameMode === 'tutorial') ? 999 : 90;
+    state.selectedLetters = [];
+    state.questionPool = [];
+    state.gameActive = false;
+    if (state.timerInt) clearInterval(state.timerInt);
+    console.log("Engine: State has been reset.");
 }
 
-export function checkAnswer() {
-    const answer = state.selectedLetters.join('');
-    return answer === state.currentQuestion.reading;
+export function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex != 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
 }
