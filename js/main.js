@@ -15,6 +15,8 @@ window.backToHome = () => {
 window.startMode = (mode, stage) => {
     state.gameMode = mode;
     state.currentStage = stage;
+    // Tutup modal jika sedang terbuka (untuk fitur retry)
+    document.getElementById('modal-overlay').classList.replace('d-flex', 'd-none');
     document.getElementById('level-selector').classList.add('d-none');
     startGame();
 };
@@ -48,14 +50,13 @@ function loadQuestion() {
     
     state.selectedLetters = [];
     generateHand(state.currentQuestion.reading);
-    renderWordZone(); // Render ulang slot kosong
+    renderWordZone();
     renderSupportButtons();
     state.gameActive = true;
 }
 
-// --- FITUR INTERAKSI (Hapus, Hint, Romaji) ---
+// --- FITUR INTERAKSI ---
 window.clearWord = () => {
-    // Kembalikan kartu ke tangan jika bukan karakter kecil
     state.selectedLetters.forEach(char => {
         if (!['ゃ', 'ゅ', 'ょ', 'っ'].includes(char)) state.hand.push(char);
     });
@@ -96,7 +97,6 @@ window.confirmWord = () => {
             loadQuestion();
         }
     } else {
-        // Efek Getar jika salah
         document.querySelector('.scroll-box').classList.add('shake');
         setTimeout(() => document.querySelector('.scroll-box').classList.remove('shake'), 400);
         state.timeLeft = Math.max(0, state.timeLeft - 10);
@@ -138,7 +138,6 @@ function renderHand() {
 function renderWordZone() {
     const zone = document.getElementById('word-zone');
     zone.innerHTML = '';
-    // Buat 5 slot permanen
     for (let i = 0; i < 5; i++) {
         const slot = document.createElement('div');
         slot.className = 'letter-slot';
@@ -169,7 +168,7 @@ function renderSupportButtons() {
 }
 
 function updateUI() {
-    document.getElementById('hp-progress').style.width = state.yokaiHP + "%";
+    document.getElementById('hp-progress').style.width = Math.max(0, state.yokaiHP) + "%";
     document.getElementById('time-val').innerText = state.timeLeft + "s";
 }
 
@@ -189,8 +188,26 @@ function startTimer() {
 
 function showModal(isWin) {
     const overlay = document.getElementById('modal-overlay');
+    const title = document.getElementById('modal-title');
+    const desc = document.getElementById('modal-desc');
+    const btnArea = document.getElementById('modal-buttons-area');
+    
     overlay.classList.replace('d-none', 'd-flex');
-    document.getElementById('modal-title').innerText = isWin ? "RITUAL BERHASIL!" : "RITUAL GAGAL!";
-    document.getElementById('modal-desc').innerText = isWin ? "Yokai tersegel sempurna." : "Yokai melarikan diri!";
-    document.getElementById('modal-buttons-area').innerHTML = `<button class="btn btn-warning py-2 fw-bold" onclick="location.reload()">KE MENU UTAMA</button>`;
+    btnArea.innerHTML = ''; 
+
+    if (isWin) {
+        title.innerText = "RITUAL BERHASIL!";
+        desc.innerText = "Yokai telah tersegel sempurna. ✨";
+        btnArea.innerHTML = `
+            <button class="btn btn-warning fw-bold py-2" onclick="window.startMode('${state.gameMode}', ${state.currentStage})">ULANGI RITUAL</button>
+            <button class="btn btn-outline-light btn-sm mt-2" onclick="location.reload()">KE MENU UTAMA</button>
+        `;
+    } else {
+        title.innerText = "RITUAL GAGAL!";
+        desc.innerText = "Waktu habis, Yokai melarikan diri.";
+        btnArea.innerHTML = `
+            <button class="btn btn-danger fw-bold py-2" onclick="window.startMode('${state.gameMode}', ${state.currentStage})">COBA LAGI</button>
+            <button class="btn btn-outline-light btn-sm mt-2" onclick="location.reload()">MENYERAH</button>
+        `;
+    }
 }
