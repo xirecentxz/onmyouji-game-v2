@@ -1,32 +1,30 @@
 import { state, resetState, shuffle } from './engine.js';
 import { ROMAJI_MAP, STAGE_CONFIG, POOL } from './constants.js';
 
-// --- NAVIGASI KE WINDOW (Agar onclick di HTML berfungsi) ---
-window.showLevelSelector = function() {
+// --- NAVIGASI LAYAR ---
+window.showLevelSelector = () => {
     document.getElementById('homepage-screen').classList.add('d-none');
     document.getElementById('level-selector').classList.remove('d-none');
 };
 
-window.backToHome = function() {
+window.backToHome = () => {
     document.getElementById('level-selector').classList.add('d-none');
     document.getElementById('homepage-screen').classList.remove('d-none');
 };
 
-window.startMode = function(mode, stage) {
+window.startMode = (mode, stage) => {
     state.gameMode = mode;
     state.currentStage = stage;
     document.getElementById('level-selector').classList.add('d-none');
     startGame();
 };
 
-// --- LOGIKA UTAMA ---
+// --- LOGIKA GAME ---
 async function startGame() {
     document.getElementById('game-screen').style.display = 'block';
     if (!state.allData) {
-        try {
-            const res = await fetch('database.json');
-            state.allData = await res.json();
-        } catch (e) { console.error("Database Gagal Dimuat", e); return; }
+        const res = await fetch('database.json');
+        state.allData = await res.json();
     }
     resetState();
     loadQuestion();
@@ -44,40 +42,74 @@ function loadQuestion() {
     }
     
     state.currentQuestion = state.questionPool.pop();
-    document.getElementById('stage-banner').innerText = `Stage ${state.currentStage}: ${stageData.category}`;
     document.getElementById('kanji-question').innerText = state.currentQuestion.kanji;
     document.getElementById('kanji-meaning').innerText = state.currentQuestion.meaning;
+    document.getElementById('stage-banner').innerText = `Stage ${state.currentStage}: ${stageData.category}`;
     
     state.selectedLetters = [];
     generateHand(state.currentQuestion.reading);
-    renderWordZone();
+    renderWordZone(); // Render ulang slot kosong
+    renderSupportButtons();
     state.gameActive = true;
 }
 
-function startTimer() {
-    clearInterval(state.timerInt);
-    state.timerInt = setInterval(() => {
-        if(state.gameActive && state.timeLeft > 0) {
-            state.timeLeft--;
-            updateUI();
-            if(state.timeLeft <= 0) {
-                state.gameActive = false;
-                showModal(false);
-            }
+// --- FITUR INTERAKSI (Hapus, Hint, Romaji) ---
+window.clearWord = () => {
+    // Kembalikan kartu ke tangan jika bukan karakter kecil
+    state.selectedLetters.forEach(char => {
+        if (!['ゃ', 'ゅ', 'ょ', 'っ'].includes(char)) state.hand.push(char);
+    });
+    state.selectedLetters = [];
+    renderHand();
+    renderWordZone();
+};
+
+window.toggleRomaji = () => {
+    state.isRomajiVisible = !state.isRomajiVisible;
+    const btn = document.getElementById('romaji-toggle-btn');
+    if(btn) btn.classList.toggle('btn-warning'); 
+    renderHand();
+    renderWordZone();
+};
+
+window.showHint = () => {
+    if (!state.gameActive) return;
+    const firstChar = state.currentQuestion.reading[0];
+    document.querySelectorAll('.card').forEach(card => {
+        if (card.querySelector('.kana').innerText === firstChar) {
+            card.classList.add('hint-glow');
+            setTimeout(() => card.classList.remove('hint-glow'), 2000);
         }
-    }, 1000);
-}
+    });
+};
 
-function updateUI() {
-    const hp = document.getElementById('hp-progress');
-    if (hp) hp.style.width = state.yokaiHP + "%";
-    document.getElementById('time-val').innerText = state.timeLeft + "s";
-}
+window.confirmWord = () => {
+    if (!state.gameActive) return;
+    const answer = state.selectedLetters.join('');
+    if (answer === state.currentQuestion.reading) {
+        state.yokaiHP -= STAGE_CONFIG[state.currentStage].dmg;
+        updateUI();
+        if (state.yokaiHP <= 0) {
+            state.gameActive = false;
+            showModal(true);
+        } else {
+            loadQuestion();
+        }
+    } else {
+        // Efek Getar jika salah
+        document.querySelector('.scroll-box').classList.add('shake');
+        setTimeout(() => document.querySelector('.scroll-box').classList.remove('shake'), 400);
+        state.timeLeft = Math.max(0, state.timeLeft - 10);
+        window.clearWord();
+        updateUI();
+    }
+};
 
+// --- RENDER ENGINE ---
 function generateHand(reading) {
-    let required = reading.split('').filter(c => !['ゃ','ゅ','ょ','っ'].includes(c));
+    let required = reading.split('').filter(c => !['ゃ', 'ゅ', 'ょ', 'っ'].includes(c));
     let finalCards = [...required];
-    while(finalCards.length < 10) {
+    while (finalCards.length < 10) {
         finalCards.push(POOL[Math.floor(Math.random() * POOL.length)]);
     }
     state.hand = shuffle(finalCards);
@@ -90,9 +122,10 @@ function renderHand() {
     state.hand.forEach((char, i) => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = `<div class="kana">${char}</div>`;
+        const romaji = state.isRomajiVisible ? `<div class="romaji">${ROMAJI_MAP[char] || ''}</div>` : '';
+        card.innerHTML = `<div class="kana">${char}</div>${romaji}`;
         card.onclick = () => {
-            if(state.gameActive && state.selectedLetters.length < 7) {
+            if (state.gameActive && state.selectedLetters.length < 7) {
                 state.selectedLetters.push(state.hand.splice(i, 1)[0]);
                 renderHand();
                 renderWordZone();
@@ -103,16 +136,61 @@ function renderHand() {
 }
 
 function renderWordZone() {
-    const slots = document.querySelectorAll('.letter-slot');
-    slots.forEach((slot, i) => {
+    const zone = document.getElementById('word-zone');
+    zone.innerHTML = '';
+    // Buat 5 slot permanen
+    for (let i = 0; i < 5; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'letter-slot';
         const char = state.selectedLetters[i];
-        slot.innerHTML = char ? `<div>${char}</div>` : '';
+        if (char) {
+            const romaji = state.isRomajiVisible ? `<div style="font-size:8px;">${ROMAJI_MAP[char] || ''}</div>` : '';
+            slot.innerHTML = `<div>${char}</div>${romaji}`;
+        }
+        zone.appendChild(slot);
+    }
+}
+
+function renderSupportButtons() {
+    const container = document.getElementById('support-container');
+    container.innerHTML = '';
+    ['ゃ', 'ゅ', 'ょ', 'っ'].forEach(s => {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-gold-oval btn-sm px-3';
+        btn.innerText = s;
+        btn.onclick = () => {
+            if (state.gameActive && state.selectedLetters.length < 7) {
+                state.selectedLetters.push(s);
+                renderWordZone();
+            }
+        };
+        container.appendChild(btn);
     });
+}
+
+function updateUI() {
+    document.getElementById('hp-progress').style.width = state.yokaiHP + "%";
+    document.getElementById('time-val').innerText = state.timeLeft + "s";
+}
+
+function startTimer() {
+    clearInterval(state.timerInt);
+    state.timerInt = setInterval(() => {
+        if (state.gameActive && state.timeLeft > 0) {
+            state.timeLeft--;
+            updateUI();
+            if (state.timeLeft <= 0) {
+                state.gameActive = false;
+                showModal(false);
+            }
+        }
+    }, 1000);
 }
 
 function showModal(isWin) {
     const overlay = document.getElementById('modal-overlay');
     overlay.classList.replace('d-none', 'd-flex');
     document.getElementById('modal-title').innerText = isWin ? "RITUAL BERHASIL!" : "RITUAL GAGAL!";
-    document.getElementById('modal-buttons-area').innerHTML = `<button class="btn btn-warning" onclick="location.reload()">Selesai</button>`;
+    document.getElementById('modal-desc').innerText = isWin ? "Yokai tersegel sempurna." : "Yokai melarikan diri!";
+    document.getElementById('modal-buttons-area').innerHTML = `<button class="btn btn-warning py-2 fw-bold" onclick="location.reload()">KE MENU UTAMA</button>`;
 }
