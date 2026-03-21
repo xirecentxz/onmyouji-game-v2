@@ -4,6 +4,7 @@
     --ink: #3e2723;
 }
 
+/* --- DASAR & LAYOUT UTAMA --- */
 body {
     margin: 0; padding: 0;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
@@ -40,7 +41,7 @@ body {
 /* FIX MODAL UNTUK HP */
 .modal-box { 
     background: #111 url('../assets/Gulungan.webp') no-repeat center; 
-    background-size: contain; /* Gambar gulungan tetap di dalam kotak */
+    background-size: contain; 
     border: 2px solid var(--gold); 
     width: 85%; 
     max-width: 320px; 
@@ -128,6 +129,28 @@ body {
 .card .kana { font-size: 1.2rem; font-weight: bold; }
 .card .romaji { font-size: 8px; opacity: 0.7; font-weight: bold; }
 
+/* --- BUTTONS --- */
+
+/* FIX TOMBOL MULAI RITUAL (TIDAK TRANSPARAN) */
+.btn-start-custom {
+    background: var(--gold-grad) !important;
+    border: 3px solid var(--gold) !important;
+    color: var(--ink) !important;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6) !important;
+    font-size: 1.2rem;
+    font-weight: 800;
+    transition: all 0.2s ease-in-out;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-start-custom:hover {
+    background: #fff !important;
+    color: #000 !important;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.8) !important;
+}
+
 .btn-gold-oval { 
     background: var(--gold-grad); 
     border: 2px solid var(--gold); 
@@ -147,6 +170,7 @@ body {
     cursor: pointer; 
 }
 
+/* --- EFFECTS --- */
 .hint-glow { animation: pulse-gold 0.8s infinite alternate; z-index: 100; }
 @keyframes pulse-gold {
     from { filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px var(--gold)); transform: scale(1); }
