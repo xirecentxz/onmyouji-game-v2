@@ -4,12 +4,11 @@
     --ink: #3e2723;
 }
 
-/* --- DASAR & LAYOUT UTAMA --- */
 body {
     margin: 0; padding: 0;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
     background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
-    overflow: hidden; /* Mengunci layar agar tidak bisa di-scroll */
+    overflow: hidden; 
     touch-action: manipulation;
 }
 
@@ -17,14 +16,14 @@ body {
     display: flex; 
     flex-direction: column; 
     height: 100vh; 
-    max-width: 500px; /* KUNCI lebar maksimal game agar tidak melebar di PC */
-    margin: 0 auto;   /* Tengahkan game */
+    max-width: 500px; 
+    margin: 0 auto;   
     padding: 10px;
     box-sizing: border-box;
     position: relative;
 }
 
-/* --- NAVIGATION & OVERLAYS --- */
+/* --- OVERLAYS --- */
 .full-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
@@ -38,17 +37,21 @@ body {
     display: flex; justify-content: center; align-items: center; 
 }
 
-/* FIX MODAL RAKSASA */
+/* FIX MODAL UNTUK HP */
 .modal-box { 
     background: #111 url('../assets/Gulungan.webp') no-repeat center; 
-    background-size: 100% 100%; 
+    background-size: contain; /* Gambar gulungan tetap di dalam kotak */
     border: 2px solid var(--gold); 
-    width: 90%; 
-    max-width: 340px; 
+    width: 85%; 
+    max-width: 320px; 
+    min-height: 260px;
     padding: 40px 20px;
     border-radius: 20px; 
     box-shadow: 0 0 30px rgba(0,0,0,0.8);
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .d-none { display: none !important; }
@@ -60,7 +63,6 @@ body {
 .icon-header { width: 35px !important; height: auto; }
 .icon-jam { width: 22px !important; height: auto; }
 
-/* --- RITUAL AREA --- */
 .ritual-center { 
     flex: 1; 
     display: flex; 
@@ -86,7 +88,6 @@ body {
 .kanji-main { font-size: 2.2rem; color: var(--ink); font-weight: 800; margin: 0; }
 .meaning-sub { color: #5d4037; font-style: italic; font-weight: bold; font-size: 0.75rem; }
 
-/* SLOT JAWABAN */
 .answer-row { min-height: 55px; display: flex; justify-content: center; gap: 5px; }
 .letter-slot { 
     width: 38px; height: 50px; 
@@ -97,7 +98,6 @@ body {
     color: #222; font-weight: bold;
 }
 
-/* --- FOOTER KARTU (HAND) --- */
 .hand-footer {
     width: 100%;
     padding-bottom: 20px;
@@ -128,7 +128,6 @@ body {
 .card .kana { font-size: 1.2rem; font-weight: bold; }
 .card .romaji { font-size: 8px; opacity: 0.7; font-weight: bold; }
 
-/* --- BUTTONS --- */
 .btn-gold-oval { 
     background: var(--gold-grad); 
     border: 2px solid var(--gold); 
@@ -137,7 +136,6 @@ body {
     font-weight: bold; 
     font-size: 11px; 
     padding: 5px 15px; 
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
 
 .btn-segel-main { 
@@ -147,18 +145,14 @@ body {
     height: 50px; 
     border: none; 
     cursor: pointer; 
-    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
 }
-.btn-segel-main:active { transform: scale(0.95); }
 
-/* --- EFEK HINT --- */
 .hint-glow { animation: pulse-gold 0.8s infinite alternate; z-index: 100; }
 @keyframes pulse-gold {
     from { filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px var(--gold)); transform: scale(1); }
     to { filter: drop-shadow(0 0 15px #fff) drop-shadow(0 0 25px var(--gold)); transform: scale(1.05); }
 }
 
-/* --- EFEK GETAR (ERROR) --- */
 .shake { animation: shake-anim 0.3s; }
 @keyframes shake-anim {
     0%, 100% { transform: translateX(0); }
