@@ -97,7 +97,7 @@
         { "kanji": "読み", "reading": "よみ", "reading_romaji": "yomi", "meaning": "membaca" },
         { "kanji": "書く", "reading": "かく", "reading_romaji": "kaku", "meaning": "menulis" },
         { "kanji": "話す", "reading": "はなす", "reading_romaji": "hanasu", "meaning": "berbicara" },
-        { "kanji": "聞く", "reading": "きく", "reading_romaji": "kiku", "meaning": "mendengar" },
+        { "kanji": "聞く", "reading": "きiku", "reading_romaji": "kiku", "meaning": "mendengar" },
         { "kanji": "言う", "reading": "いう", "reading_romaji": "iu", "meaning": "berkata" },
         { "kanji": "本", "reading": "ほん", "reading_romaji": "hon", "meaning": "buku" },
         { "kanji": "本棚", "reading": "ほんだな", "reading_romaji": "hondana", "meaning": "rak buku" },
@@ -136,7 +136,7 @@
         { "kanji": "牛", "reading": "うし", "reading_romaji": "ushi", "meaning": "sapi" },
         { "kanji": "虫", "reading": "むし", "reading_romaji": "mushi", "meaning": "serangga" },
         { "kanji": "花", "reading": "はな", "reading_romaji": "hana", "meaning": "bunga" },
-        { "kanji": "空", "reading": "そら", "reading_romaji": "sora", "meaning": "langit" },
+        { "kanji": "そら", "reading": "そら", "reading_romaji": "sora", "meaning": "langit" },
         { "kanji": "海", "reading": "うみ", "reading_romaji": "umi", "meaning": "laut" },
         { "kanji": "雨", "reading": "あめ", "reading_romaji": "ame", "meaning": "hujan" },
         { "kanji": "川", "reading": "かわ", "reading_romaji": "kawa", "meaning": "sungai" },
@@ -208,6 +208,36 @@
         { "kanji": "北", "reading": "きた", "reading_romaji": "kita", "meaning": "utara" },
         { "kanji": "東", "reading": "ひがし", "reading_romaji": "higashi", "meaning": "timur" },
         { "kanji": "西", "reading": "にし", "reading_romaji": "nishi", "meaning": "barat" }
+      ]
+    },
+    "11": {
+      "category": "Segel Pamungkas (Ujian Ketahanan)",
+      "words": [
+        { "kanji": "先生", "reading": "せんせい", "reading_romaji": "sensei", "meaning": "guru" },
+        { "kanji": "学生", "reading": "がくせい", "reading_romaji": "gakusei", "meaning": "murid" },
+        { "kanji": "学校", "reading": "가っこう", "reading_romaji": "gakkou", "meaning": "sekolah" },
+        { "kanji": "明日", "reading": "あした", "reading_romaji": "ashita", "meaning": "besok" },
+        { "kanji": "今日", "reading": "きょう", "reading_romaji": "kyou", "meaning": "hari ini" },
+        { "kanji": "昨日", "reading": "きのう", "reading_romaji": "kinou", "meaning": "kemarin" },
+        { "kanji": "毎日", "reading": "まいにち", "reading_romaji": "mainichi", "meaning": "setiap hari" },
+        { "kanji": "水", "reading": "みず", "reading_romaji": "mizu", "meaning": "air" },
+        { "kanji": "火", "reading": "ひ", "reading_romaji": "hi", "meaning": "api" },
+        { "kanji": "木", "reading": "き", "reading_romaji": "ki", "meaning": "pohon" },
+        { "kanji": "金", "reading": "かね", "reading_romaji": "kane", "meaning": "uang/emas" },
+        { "kanji": "土", "reading": "つち", "reading_romaji": "tsuchi", "meaning": "tanah" },
+        { "kanji": "本", "reading": "ほん", "reading_romaji": "hon", "meaning": "buku" },
+        { "kanji": "休み", "reading": "やすみ", "reading_romaji": "yasumi", "meaning": "libur" },
+        { "kanji": "言う", "reading": "いう", "reading_romaji": "iu", "meaning": "berkata" },
+        { "kanji": "見る", "reading": "みる", "reading_romaji": "miru", "meaning": "melihat" },
+        { "kanji": "食べる", "reading": "たべる", "reading_romaji": "taberu", "meaning": "makan" },
+        { "kanji": "飲む", "reading": "のむ", "reading_romaji": "nomu", "meaning": "minum" },
+        { "kanji": "大きい", "reading": "おおきい", "reading_romaji": "ookii", "meaning": "besar" },
+        { "kanji": "小さい", "reading": "ちいさい", "reading_romaji": "chiisai", "meaning": "kecil" },
+        { "kanji": "高い", "reading": "たかい", "reading_romaji": "takai", "meaning": "mahal/tinggi" },
+        { "kanji": "安い", "reading": "やすい", "reading_romaji": "yasui", "meaning": "murah" },
+        { "kanji": "新しい", "reading": "あたらしい", "reading_romaji": "atarashii", "meaning": "baru" },
+        { "kanji": "古い", "reading": "ふるい", "reading_romaji": "furui", "meaning": "lama" },
+        { "kanji": "友達", "reading": "ともだち", "reading_romaji": "tomodachi", "meaning": "teman" }
       ]
     }
   }
