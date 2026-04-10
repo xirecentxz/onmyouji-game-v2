@@ -36,13 +36,18 @@ function loadQuestion() {
     const stageData = state.allData.levels[state.currentStage];
     const config = STAGE_CONFIG[state.currentStage];
     
+    // FIX: Mengisi kantong soal hanya jika kosong (awal ritual)
+    // Ini mencegah kata yang sama muncul berulang kali dalam satu sesi
     if (state.questionPool.length === 0) {
-        let allWords = [...stageData.words];
-        shuffle(allWords);
+        let allWords = [...stageData.words]; // Ambil copy data dari database
+        shuffle(allWords); // Acak urutannya
+        // Ambil hanya sejumlah target yang ditentukan di constants.js
         state.questionPool = allWords.slice(0, config.target);
     }
     
+    // Ambil soal paling atas dari kantong
     state.currentQuestion = state.questionPool.pop();
+    
     document.getElementById('kanji-question').innerText = state.currentQuestion.kanji;
     
     // DEFAULT: Kosongkan arti kanji saat soal baru dimuat
@@ -73,7 +78,7 @@ window.toggleRomaji = () => {
     if(btn) btn.classList.toggle('btn-warning'); 
     
     renderHand();
-    renderWordZone(); // Sekarang memicu kemunculan arti kanji juga
+    renderWordZone(); 
 };
 
 window.showHint = () => {
@@ -125,7 +130,6 @@ function renderHand() {
     state.hand.forEach((char, i) => {
         const card = document.createElement('div');
         card.className = 'card';
-        // Munculkan cara baca (kana) di bawah kartu jika Romaji ON
         const romaji = state.isRomajiVisible ? `<div class="romaji">${ROMAJI_MAP[char] || ''}</div>` : '';
         card.innerHTML = `<div class="kana">${char}</div>${romaji}`;
         card.onclick = () => {
@@ -140,7 +144,6 @@ function renderHand() {
 }
 
 function renderWordZone() {
-    // LOGIKA ARTI KANJI: Hanya muncul jika tombol Romaji aktif
     const meaningLabel = document.getElementById('kanji-meaning');
     if (meaningLabel) {
         meaningLabel.innerText = state.isRomajiVisible ? state.currentQuestion.meaning : "";
