@@ -15,7 +15,6 @@ window.backToHome = () => {
 window.startMode = (mode, stage) => {
     state.gameMode = mode;
     state.currentStage = stage;
-    // Tutup modal jika sedang terbuka (untuk fitur retry)
     document.getElementById('modal-overlay').classList.replace('d-flex', 'd-none');
     document.getElementById('level-selector').classList.add('d-none');
     startGame();
@@ -45,7 +44,10 @@ function loadQuestion() {
     
     state.currentQuestion = state.questionPool.pop();
     document.getElementById('kanji-question').innerText = state.currentQuestion.kanji;
-    document.getElementById('kanji-meaning').innerText = state.currentQuestion.meaning;
+    
+    // DEFAULT: Kosongkan arti kanji saat soal baru dimuat
+    document.getElementById('kanji-meaning').innerText = ""; 
+    
     document.getElementById('stage-banner').innerText = `Stage ${state.currentStage}: ${stageData.category}`;
     
     state.selectedLetters = [];
@@ -69,8 +71,9 @@ window.toggleRomaji = () => {
     state.isRomajiVisible = !state.isRomajiVisible;
     const btn = document.getElementById('romaji-toggle-btn');
     if(btn) btn.classList.toggle('btn-warning'); 
+    
     renderHand();
-    renderWordZone();
+    renderWordZone(); // Sekarang memicu kemunculan arti kanji juga
 };
 
 window.showHint = () => {
@@ -122,6 +125,7 @@ function renderHand() {
     state.hand.forEach((char, i) => {
         const card = document.createElement('div');
         card.className = 'card';
+        // Munculkan cara baca (kana) di bawah kartu jika Romaji ON
         const romaji = state.isRomajiVisible ? `<div class="romaji">${ROMAJI_MAP[char] || ''}</div>` : '';
         card.innerHTML = `<div class="kana">${char}</div>${romaji}`;
         card.onclick = () => {
@@ -136,6 +140,12 @@ function renderHand() {
 }
 
 function renderWordZone() {
+    // LOGIKA ARTI KANJI: Hanya muncul jika tombol Romaji aktif
+    const meaningLabel = document.getElementById('kanji-meaning');
+    if (meaningLabel) {
+        meaningLabel.innerText = state.isRomajiVisible ? state.currentQuestion.meaning : "";
+    }
+
     const zone = document.getElementById('word-zone');
     zone.innerHTML = '';
     for (let i = 0; i < 5; i++) {
@@ -168,8 +178,11 @@ function renderSupportButtons() {
 }
 
 function updateUI() {
-    document.getElementById('hp-progress').style.width = Math.max(0, state.yokaiHP) + "%";
-    document.getElementById('time-val').innerText = state.timeLeft + "s";
+    const hpProgress = document.getElementById('hp-progress');
+    if (hpProgress) hpProgress.style.width = Math.max(0, state.yokaiHP) + "%";
+    
+    const timeVal = document.getElementById('time-val');
+    if (timeVal) timeVal.innerText = state.timeLeft + "s";
 }
 
 function startTimer() {
