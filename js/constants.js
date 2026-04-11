@@ -8,7 +8,7 @@ export const STAGE_CONFIG = {
     7: { target: 5,  dmg: 20 },
     8: { target: 10, dmg: 10 },
     9: { target: 15, dmg: 6.7 },
-    10: { target: 5,  dmg: 20 },
+    10: { target: 10,  dmg: 10 },
     11: { target: 25, dmg: 4 },
 };
 
