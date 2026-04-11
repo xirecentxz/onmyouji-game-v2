@@ -155,7 +155,15 @@
         { "kanji": "国", "reading": "くに", "reading_romaji": "kuni", "meaning": "negara" },
         { "kanji": "田舎", "reading": "いなか", "reading_romaji": "inaka", "meaning": "desa" },
         { "kanji": "入り口", "reading": "いりぐち", "reading_romaji": "iriguchi", "meaning": "pintu masuk" },
-        { "kanji": "出口", "reading": "でぐち", "reading_romaji": "deguchi", "meaning": "pintu keluar" }
+        { "kanji": "出口", "reading": "でぐち", "reading_romaji": "deguchi", "meaning": "pintu keluar" },
+        { "kanji": "飛行機", "reading": "ひこうき", "reading_romaji": "hikouki", "meaning": "pesawat" },
+        { "kanji": "電車", "reading": "でんしゃ", "reading_romaji": "densha", "meaning": "kereta" },
+        { "kanji": "地下鉄", "reading": "ちかてつ", "reading_romaji": "chikatetsu", "meaning": "kereta bawah tanah" },
+        { "kanji": "新幹線", "reading": "しんかんせん", "reading_romaji": "shinkansen", "meaning": "kereta cepat" },
+        { "kanji": "船", "reading": "ふね", "reading_romaji": "fune", "meaning": "kapal laut" },
+        { "kanji": "空港", "reading": "くうこう", "reading_romaji": "kuukou", "meaning": "bandara" },
+        { "kanji": "病院", "reading": "びょういん", "reading_romaji": "byouin", "meaning": "rumah sakit" },
+        { "kanji": "乗り換え", "reading": "のりかえ", "reading_romaji": "norikae", "meaning": "transit" }
       ]
     },
     "8": {
