@@ -207,7 +207,10 @@
         { "kanji": "後", "reading": "うしろ", "reading_romaji": "ushiro", "meaning": "belakang" },
         { "kanji": "北", "reading": "きた", "reading_romaji": "kita", "meaning": "utara" },
         { "kanji": "東", "reading": "ひがし", "reading_romaji": "higashi", "meaning": "timur" },
-        { "kanji": "西", "reading": "にし", "reading_romaji": "nishi", "meaning": "barat" }
+        { "kanji": "南", "reading": "みなみ", "reading_romaji": "minami", "meaning": "selatan" },
+        { "kanji": "西", "reading": "にし", "reading_romaji": "nishi", "meaning": "barat" },
+        { "kanji": "横", "reading": "よこ", "reading_romaji": "yoko", "meaning": "samping" },
+        { "kanji": "内", "reading": "うち", "reading_romaji": "uchi", "meaning": "dalam" }
       ]
     },
     "11": {
