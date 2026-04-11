@@ -218,7 +218,9 @@
         { "kanji": "南", "reading": "みなみ", "reading_romaji": "minami", "meaning": "selatan" },
         { "kanji": "西", "reading": "にし", "reading_romaji": "nishi", "meaning": "barat" },
         { "kanji": "横", "reading": "よこ", "reading_romaji": "yoko", "meaning": "samping" },
-        { "kanji": "内", "reading": "うち", "reading_romaji": "uchi", "meaning": "dalam" }
+        { "kanji": "内", "reading": "うち", "reading_romaji": "uchi", "meaning": "dalam" },
+        { "kanji": "右側", "reading": "みぎがわ", "reading_romaji": "migigawa", "meaning": "sebelah kanan" },
+        { "kanji": "左側", "reading": "ひだりがわ", "reading_romaji": "hidarigawa", "meaning": "sebelah kiri" }
       ]
     },
     "11": {
