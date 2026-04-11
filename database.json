@@ -63,6 +63,8 @@
         { "kanji": "毎日", "reading": "まいにち", "reading_romaji": "mainichi", "meaning": "setiap hari" },
         { "kanji": "明日", "reading": "あした", "reading_romaji": "ashita", "meaning": "besok" },
         { "kanji": "今晩", "reading": "こんばん", "reading_romaji": "konban", "meaning": "malam ini" },
+        { "kanji": "朝", "reading": "あさ", "reading_romaji": "asa", "meaning": "pagi" },
+        { "kanji": "今朝", "reading": "けさ", "reading_romaji": "kesa", "meaning": "pagi ini" },
         { "kanji": "休日", "reading": "きゅうじつ", "reading_romaji": "kyuujitsu", "meaning": "hari libur" }
       ]
     },
