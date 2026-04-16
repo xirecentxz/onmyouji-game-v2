@@ -82,7 +82,7 @@
         { "kanji": "安い", "reading": "やすい", "reading_romaji": "yasui", "meaning": "murah" },
         { "kanji": "安全な", "reading": "あんぜんあ", "reading_romaji": "anzenna", "meaning": "aman" },
         { "kanji": "安心", "reading": "あんしん", "reading_romaji": "anshin", "meaning": "aman" },
-        { "kanji": "不安な", "reading": "ふあんあ", "reading_romaji": "fuanna", "meaning": "tidak nyaman" }
+        { "kanji": "不安な", "reading": "ふあんな", "reading_romaji": "fuanna", "meaning": "tidak nyaman" }
       ]
     },
     "4": {
