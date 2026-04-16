@@ -249,7 +249,7 @@
         { "kanji": "一つ目", "reading": "ひとつめ", "reading_romaji": "hitotsume", "meaning": "yang pertama" },
         { "kanji": "目上", "reading": "めうえ", "reading_romaji": "meue", "meaning": "atasan" },
         { "kanji": "目下", "reading": "めした", "reading_romaji": "meshita", "meaning": "bawahan" },
-        
+      // --- DB ---  
         { "kanji": "目的", "reading": "もくてき", "reading_romaji": "mokuteki", "meaning": "tujuan" },
         { "kanji": "口", "reading": "くち", "reading_romaji": "kuchi", "meaning": "mulut" },
         { "kanji": "入り口", "reading": "iriguchi", "reading_romaji": "iriguchi", "meaning": "pintu masuk" },
@@ -270,7 +270,7 @@
         { "kanji": "休日", "reading": "きゅうじつ", "reading_romaji": "kyuujitsu", "meaning": "hari libur" },
         { "kanji": "有休", "reading": "ゆうきゅう", "reading_romaji": "yuukyuu", "meaning": "cuti" },
         { "kanji": "定休日", "reading": "ていきゅうび", "reading_romaji": "teikyuubi", "meaning": "hari libur tetap" },
-
+// --- DB ---
         { "kanji": "本", "reading": "ほん", "reading_romaji": "hon", "meaning": "buku" },
         { "kanji": "山本", "reading": "やまもと", "reading_romaji": "yamamoto", "meaning": "yamamoto-san" },
         { "kanji": "本当", "reading": "ほんとう", "reading_romaji": "hontou", "meaning": "benar-benar" },
