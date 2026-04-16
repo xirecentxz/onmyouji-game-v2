@@ -35,7 +35,7 @@
       "words": [
         { "kanji": "目的", "reading": "もくてき", "reading_romaji": "mokuteki", "meaning": "tujuan" },
         { "kanji": "口", "reading": "くち", "reading_romaji": "kuchi", "meaning": "mulut" },
-        { "kanji": "入り口", "reading": "iriguchi", "reading_romaji": "iriguchi", "meaning": "pintu masuk" },
+        { "kanji": "入り口", "reading": "いりぐち", "reading_romaji": "iriguchi", "meaning": "pintu masuk" },
         { "kanji": "出口", "reading": "でぐち", "reading_romaji": "deguchi", "meaning": "pintu keluar" },
         { "kanji": "東口", "reading": "ひがしぐち", "reading_romaji": "higashi guchi", "meaning": "pintu timur" },
         { "kanji": "人口", "reading": "じんこう", "reading_romaji": "jinkou", "meaning": "penduduk" },
