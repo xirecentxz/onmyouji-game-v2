@@ -113,13 +113,20 @@ body {
 .btn-gold-oval { 
     background: var(--gold-grad); 
     border: 2px solid var(--gold); 
-    border-radius: 20px; 
+    border-radius: 50%; /* Membuat tombol bulat sempurna */
     color: var(--ink); 
     font-weight: bold; 
-    font-size: 14px; 
-    padding: 8px 20px; 
+    font-size: 16px; 
+    
+    /* Ukuran tetap agar angka 1 dan 11 besarnya sama */
+    width: 50px; 
+    height: 50px; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.2s;
-    min-width: 50px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
 
 .btn-gold-oval:hover:not(:disabled) {
@@ -128,15 +135,12 @@ body {
     color: #000;
 }
 
-/* Tampilan untuk tombol yang terkunci (Stage 12-15) */
 .btn-gold-oval:disabled {
-    background: #444 !important;
-    border-color: #666 !important;
-    color: #888 !important;
-    cursor: not-allowed;
-    filter: grayscale(1);
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: #444 !important;
+    color: #666 !important;
     opacity: 0.5;
-    box-shadow: none !important;
+    filter: grayscale(1);
 }
 
 .btn-start-custom {
