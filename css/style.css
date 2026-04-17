@@ -4,332 +4,157 @@
     --ink: #3e2723;
 }
 
-/* ============================================================
-   DASAR & LAYOUT UTAMA
-   ============================================================ */
+/* --- DASAR & LAYOUT UTAMA --- */
 body {
     margin: 0; padding: 0;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
-    background-size: cover;
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
-    height: 100svh;
+    background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
+    height: 100svh; width: 100%;
     touch-action: manipulation;
-    overflow: hidden;
+    overflow: hidden; /* Mengunci layar agar tidak scroll liar */
 }
 
 .game-layout {
-    display: flex;
-    flex-direction: column;
-    height: 100svh;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 8px 12px;
+    display: flex; 
+    flex-direction: column; 
+    height: 100svh; 
+    max-width: 1200px; /* Diperlebar untuk mode laptop */
+    margin: 0 auto;   
+    padding: 10px;
     box-sizing: border-box;
     position: relative;
-    overflow: hidden;
 }
 
-/* ============================================================
-   OVERLAYS & MODALS
-   ============================================================ */
-.full-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
-    backdrop-filter: blur(8px); z-index: 1050;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
+/* --- HEADER (FLOATING HUD) --- */
+header {
+    position: absolute;
+    top: 10px; left: 0; width: 100%;
+    z-index: 100;
+    padding: 0 20px;
 }
 
-.overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85); z-index: 3000;
-    display: flex; justify-content: center; align-items: center;
-}
-
-.modal-box {
-    background: #111 url('../assets/Gulungan.webp') no-repeat center;
-    background-size: 100% 100%;
-    border: 2px solid var(--gold);
-    width: 90%; max-width: 400px; min-height: 260px;
-    padding: 40px 20px; border-radius: 20px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.8);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-}
-
-.d-none { display: none !important; }
-
-/* ============================================================
-   HEADER / ICON
-   ============================================================ */
-.main-logo {
-    width: clamp(80px, 12vw, 130px) !important;
-    height: auto;
-    animation: floating 3s infinite ease-in-out;
-}
-@keyframes floating {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-8px); }
-}
-
-.icon-header { width: clamp(28px, 4vw, 38px) !important; height: auto; }
-.icon-jam    { width: clamp(18px, 3vw, 24px) !important; height: auto; }
-
-/* ============================================================
-   AREA TENGAH — Gulungan + Slot Jawaban
-   ============================================================ */
-.ritual-center {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: clamp(8px, 2vh, 18px);
-    min-height: 0;
+/* --- RITUAL CENTER (AREA UTAMA) --- */
+.ritual-center { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; /* Memastikan konten di tengah vertikal */
+    align-items: center; 
+    gap: 10px;
+    padding-top: 60px; /* Memberi ruang untuk header melayang */
 }
 
 .scroll-box {
-    background: url('../assets/Gulungan.webp') no-repeat center;
+    background: url('../assets/Gulungan.webp') no-repeat center; 
     background-size: 100% 100%;
-    width: clamp(260px, 48vw, 520px);
-    aspect-ratio: 2 / 1.05;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    padding: 10px 10%;
-    box-sizing: border-box;
+    width: clamp(280px, 70vw, 550px); 
+    aspect-ratio: 2/1.1; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    padding: 10px 10%; box-sizing: border-box;
 }
 
-.kanji-main {
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    color: var(--ink); font-weight: 800; margin: 0;
-}
-.meaning-sub {
-    color: #5d4037; font-style: italic; font-weight: bold;
-    font-size: clamp(0.7rem, 1.8vw, 0.95rem);
+.kanji-main { font-size: clamp(2rem, 6vw, 4rem); color: var(--ink); font-weight: 800; margin: 0; }
+.meaning-sub { color: #5d4037; font-style: italic; font-weight: bold; font-size: 0.9rem; }
+
+/* --- FIELD (WORD ZONE) --- */
+.answer-row { 
+    min-height: 70px; 
+    display: flex; 
+    justify-content: center; 
+    gap: 8px; 
+    flex-wrap: wrap; /* Fleksibel jika field ditambah di masa depan */
 }
 
-/* Slot kotak jawaban */
-.answer-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: clamp(4px, 1vw, 8px);
-    flex-wrap: nowrap;
-    min-height: clamp(52px, 9vw, 72px);
-}
-
-.letter-slot {
-    width: clamp(44px, 7vw, 66px);
-    height: clamp(52px, 8.5vw, 76px);
+.letter-slot { 
+    width: clamp(40px, 9vw, 55px); 
+    height: clamp(50px, 11vw, 65px); 
+    /* FIXED: Menggunakan asset kotak kecil sesuai desain temanmu */
     background: url('../assets/KotakKata.webp') no-repeat center;
-    background-size: 100% 100%;
-    display: flex; align-items: center; justify-content: center;
-    color: #222; font-weight: bold;
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-    flex-shrink: 0;
+    background-size: 100% 100%; 
+    display: flex; align-items: center; justify-content: center; 
+    color: #222; font-weight: bold; font-size: 1.4rem;
 }
 
-/* ============================================================
-   FOOTER — Kartu Tangan  (DESKTOP: 1 baris x 10)
-   ============================================================ */
-.hand-footer {
+/* --- BUTTONS & FOOTER --- */
+.action-footer {
     width: 100%;
-    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding-bottom: clamp(6px, 2vh, 14px);
+    gap: 10px;
+    padding: 15px 0;
+    z-index: 10;
 }
 
-/* 
-   Desktop: 10 kolom fixed dengan 1fr per kolom.
-   Gap total (9 gaps) + padding diperhitungkan otomatis oleh grid.
-   Kartu proporsional mengikuti lebar kolom.
-*/
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: clamp(5px, 0.8vw, 10px);
-    width: 100%;
-    max-width: 980px;
-}
-
-/*
-   KUNCI: visibility:hidden bukan display:none
-   Kartu hilang dari pandangan tapi SLOT-nya tetap ada di grid
-   sehingga kartu lain TIDAK membesar / bergeser.
-*/
-.card {
-    background: url('../assets/KertasJimat.webp') no-repeat center !important;
-    background-size: 100% 100% !important;
-    aspect-ratio: 2 / 3.2;
-    width: 100%;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    color: #222; cursor: pointer;
-    transition: transform 0.12s, filter 0.2s;
-    box-sizing: border-box;
-    border: none; outline: none; background-color: transparent;
-    padding: 0;
-}
-
-.card.played {
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.card:active { transform: scale(0.93); filter: brightness(0.8); }
-.card:hover  { transform: scale(1.05); filter: brightness(1.1); }
-
-.card .kana {
-    font-size: clamp(1rem, 2vw, 1.6rem);
-    font-weight: bold;
-    line-height: 1;
-}
-.card .romaji {
-    font-size: clamp(8px, 1.2vw, 11px);
-    opacity: 0.8;
-    font-weight: bold;
-    margin-top: 2px;
-}
-
-/* ============================================================
-   TOMBOL-TOMBOL
-   ============================================================ */
-.btn-gold-oval {
-    background: var(--gold-grad);
-    border: 2px solid var(--gold);
-    border-radius: 50%;
-    color: var(--ink);
-    font-weight: bold;
-    font-size: clamp(13px, 1.8vw, 16px);
-    width: clamp(44px, 5.5vw, 54px);
-    height: clamp(44px, 5.5vw, 54px);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-    cursor: pointer;
-}
-.btn-gold-oval:hover:not(:disabled) { transform: scale(1.1); background: #fff; color: #000; }
-.btn-gold-oval:disabled {
-    background: rgba(255,255,255,0.1) !important;
-    border-color: #444 !important;
-    color: #666 !important;
-    opacity: 0.5; filter: grayscale(1);
-}
-
-.btn-start-custom {
-    background: var(--gold-grad) !important;
-    border: 3px solid var(--gold) !important;
-    color: var(--ink) !important;
-    box-shadow: 0 4px 15px rgba(212,175,55,0.6) !important;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    font-weight: 800; padding: 10px 30px;
-    border-radius: 30px; text-transform: uppercase;
-    cursor: pointer;
-}
-
-.btn-segel-main {
-    background: url('../assets/SegelButton.webp') no-repeat center;
-    background-size: 100% 100%;
-    width: clamp(140px, 18vw, 180px);
-    height: clamp(48px, 6vw, 62px);
+.btn-segel-main { 
+    background: url('../assets/SegelButton.webp') no-repeat center; 
+    background-size: 100% 100%; 
+    width: clamp(140px, 20vw, 180px); 
+    height: clamp(45px, 8vw, 60px); 
     border: none; cursor: pointer; transition: transform 0.1s;
 }
-.btn-segel-main:active { transform: scale(0.9); }
 
-/* ============================================================
-   EFEK ANIMASI
-   ============================================================ */
-.hint-glow { animation: pulse-gold 0.8s infinite alternate; z-index: 100; }
-@keyframes pulse-gold {
-    from { filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px var(--gold)); }
-    to   { filter: drop-shadow(0 0 15px #fff) drop-shadow(0 0 25px var(--gold)); }
+/* --- KARTU TANGAN (RESPONSIVE GRID) --- */
+.hand-footer {
+    width: 100%;
+    padding-bottom: 20px;
 }
 
+.card-grid {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+/* LAPTOP ORIENTED (10x1) */
+@media (min-width: 769px) {
+    .card-grid {
+        grid-template-columns: repeat(10, 1fr); /* 10 kartu dalam 1 baris */
+        max-width: 900px;
+    }
+}
+
+/* MOBILE ORIENTED (5x2) */
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: repeat(5, 1fr); /* 5 kartu per baris, otomatis jadi 2 baris */
+        max-width: 450px;
+    }
+}
+
+.card {
+    /* FIXED: Menggunakan asset jimat panjang sesuai desain temanmu */
+    background: url('../assets/KertasJimat.webp') no-repeat center !important;
+    background-size: 100% 100% !important; 
+    aspect-ratio: 2/3.2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #222; cursor: pointer; transition: transform 0.1s;
+}
+
+.card:active { transform: scale(0.9); }
+.card .kana { font-size: clamp(1.1rem, 3.5vw, 1.6rem); font-weight: bold; }
+.card .romaji { font-size: 9px; opacity: 0.8; font-weight: bold; }
+
+/* --- GLOBAL CLASSES --- */
+.btn-gold-oval { 
+    background: var(--gold-grad); 
+    border: 2px solid var(--gold); 
+    border-radius: 20px; 
+    color: var(--ink); 
+    font-weight: bold; font-size: 13px; 
+    padding: 5px 15px; transition: all 0.2s;
+}
+
+.icon-header { width: 40px !important; }
+.icon-jam { width: 22px !important; }
+.d-none { display: none !important; }
+
+/* Efek Shake & Glow tetap sama */
 .shake { animation: shake-anim 0.3s; }
 @keyframes shake-anim {
     0%, 100% { transform: translateX(0); }
-    25%       { transform: translateX(-5px); }
-    75%       { transform: translateX(5px); }
-}
-
-/* ============================================================
-   RESPONSIVE — TABLET  (<= 768px)
-   ============================================================ */
-@media (max-width: 768px) {
-    .scroll-box { width: clamp(240px, 78vw, 420px); }
-    .letter-slot {
-        width: clamp(38px, 8.5vw, 56px);
-        height: clamp(46px, 10vw, 66px);
-    }
-    .card .kana   { font-size: clamp(0.9rem, 3.5vw, 1.3rem); }
-    .card .romaji { font-size: clamp(7px, 2vw, 10px); }
-}
-
-/* ============================================================
-   RESPONSIVE — HP PORTRAIT  (<= 520px)
-   KARTU: 2 BARIS x 5 KOLOM  (lebih besar, mudah disentuh)
-   ============================================================ */
-@media (max-width: 520px) {
-    .game-layout { padding: 6px 8px; }
-
-    .ritual-center { gap: clamp(5px, 1.5vh, 10px); }
-
-    .scroll-box { width: clamp(220px, 88vw, 360px); }
-    .kanji-main  { font-size: clamp(1.8rem, 8vw, 2.6rem); }
-    .meaning-sub { font-size: clamp(0.65rem, 3vw, 0.85rem); }
-
-    .letter-slot {
-        width: clamp(34px, 9vw, 50px);
-        height: clamp(42px, 11vw, 58px);
-        font-size: clamp(0.85rem, 4vw, 1.1rem);
-    }
-
-    /* 2 baris x 5 kolom */
-    .card-grid {
-        grid-template-columns: repeat(5, 1fr);
-        gap: clamp(6px, 2.5vw, 12px);
-        max-width: 100%;
-    }
-
-    /* 
-       Kartu HP: lebar ~(100vw - 16px - 4*gap) / 5
-       Di HP 390px + gap 10px → (390-16-40)/5 ≈ 67px lebar, tinggi ~107px
-       Sangat nyaman disentuh jari.
-    */
-    .card {
-        aspect-ratio: 2 / 3;
-        min-height: 85px;
-    }
-    .card .kana   { font-size: clamp(1.2rem, 6vw, 1.7rem); }
-    .card .romaji { font-size: clamp(9px, 2.8vw, 13px); }
-}
-
-/* ============================================================
-   HP SANGAT KECIL  (<= 360px)
-   ============================================================ */
-@media (max-width: 360px) {
-    .scroll-box { width: 93vw; }
-    .letter-slot {
-        width: clamp(30px, 9.5vw, 44px);
-        height: clamp(38px, 11.5vw, 52px);
-    }
-    .card-grid { gap: 5px; }
-    .card .kana { font-size: clamp(1rem, 5.5vw, 1.4rem); }
-}
-
-/* ============================================================
-   LANDSCAPE HP  (tinggi < 500px)
-   Tetap 10 kolom karena lebar layar cukup, tapi kartu lebih pipih
-   ============================================================ */
-@media (max-height: 500px) and (orientation: landscape) {
-    .scroll-box  { width: clamp(180px, 38vw, 300px); }
-    .ritual-center { gap: 4px; }
-    .card-grid {
-        grid-template-columns: repeat(10, 1fr);
-    }
-    .card { aspect-ratio: 2 / 2.2; min-height: 48px; }
-    .card .kana   { font-size: clamp(0.8rem, 2.5vw, 1.1rem); }
-    .card .romaji { font-size: 7px; }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }
