@@ -4,154 +4,142 @@
     --ink: #3e2723;
 }
 
-/* --- DASAR & LAYOUT UTAMA --- */
+/* --- DASAR & LAYOUT --- */
 body {
     margin: 0; padding: 0;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
     background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
     height: 100svh; width: 100%;
     touch-action: manipulation;
-    overflow: hidden; /* Mengunci layar agar tidak scroll liar */
+    overflow: hidden; /* Mengunci agar tidak ada scroll liar di HP */
 }
 
 .game-layout {
-    display: flex; 
-    flex-direction: column; 
-    height: 100svh; 
-    max-width: 1200px; /* Diperlebar untuk mode laptop */
-    margin: 0 auto;   
-    padding: 10px;
-    box-sizing: border-box;
-    position: relative;
+    display: flex; flex-direction: column; 
+    height: 100svh; max-width: 900px; /* Batasan lebar agar web tidak terlalu besar */
+    margin: 0 auto; position: relative;
 }
 
-/* --- HEADER (FLOATING HUD) --- */
+/* --- HOME SCREEN --- */
+#homepage-screen .main-logo {
+    width: clamp(180px, 40vw, 300px); /* Memperkecil logo agar proporsional */
+    height: auto;
+}
+
+/* --- HEADER (HUD) --- */
 header {
-    position: absolute;
-    top: 10px; left: 0; width: 100%;
+    padding: 5px 15px;
     z-index: 100;
-    padding: 0 20px;
+    height: 50px;
+    display: flex; align-items: center;
 }
 
-/* --- RITUAL CENTER (AREA UTAMA) --- */
-.ritual-center { 
-    flex: 1; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; /* Memastikan konten di tengah vertikal */
-    align-items: center; 
-    gap: 10px;
-    padding-top: 60px; /* Memberi ruang untuk header melayang */
+.icon-header { width: 35px !important; }
+.icon-jam { width: 20px !important; }
+
+/* --- RITUAL CENTER (AREA VERTIKAL RAPAT) --- */
+.ritual-center {
+    flex: 1;
+    display: flex; flex-direction: column;
+    justify-content: flex-start; /* Tarik ke atas agar area kartu di bawah luas */
+    align-items: center;
+    gap: 4px; /* Jarak antar elemen sangat rapat */
+    padding-top: 5px;
+}
+
+#stage-banner {
+    font-size: 11px; color: var(--gold);
+    background: rgba(0,0,0,0.6);
+    padding: 2px 12px; border-radius: 10px;
+    border: 1px solid var(--gold);
 }
 
 .scroll-box {
-    background: url('../assets/Gulungan.webp') no-repeat center; 
+    background: url('../assets/Gulungan.webp') no-repeat center;
     background-size: 100% 100%;
-    width: clamp(280px, 70vw, 550px); 
-    aspect-ratio: 2/1.1; 
-    display: flex; flex-direction: column; justify-content: center; align-items: center; 
-    padding: 10px 10%; box-sizing: border-box;
+    width: clamp(240px, 65vw, 420px); /* Ukuran gulungan lebih kompak */
+    aspect-ratio: 2/1.1;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 5px 10%;
 }
 
-.kanji-main { font-size: clamp(2rem, 6vw, 4rem); color: var(--ink); font-weight: 800; margin: 0; }
-.meaning-sub { color: #5d4037; font-style: italic; font-weight: bold; font-size: 0.9rem; }
+.kanji-main { font-size: clamp(1.8rem, 6vw, 3.2rem); color: var(--ink); font-weight: 800; }
 
-/* --- FIELD (WORD ZONE) --- */
+/* --- FIELD INPUT (WORD ZONE) --- */
 .answer-row { 
-    min-height: 70px; 
-    display: flex; 
-    justify-content: center; 
-    gap: 8px; 
-    flex-wrap: wrap; /* Fleksibel jika field ditambah di masa depan */
+    display: flex; justify-content: center; 
+    gap: 6px; margin: 2px 0 !important; 
 }
 
 .letter-slot { 
-    width: clamp(40px, 9vw, 55px); 
-    height: clamp(50px, 11vw, 65px); 
-    /* FIXED: Menggunakan asset kotak kecil sesuai desain temanmu */
-    background: url('../assets/KotakKata.webp') no-repeat center;
-    background-size: 100% 100%; 
-    display: flex; align-items: center; justify-content: center; 
+    width: clamp(38px, 9vw, 50px); 
+    height: clamp(48px, 11vw, 60px); 
+    background: url('../assets/KotakKata.webp') no-repeat center; /* Aset field yang benar */
+    background-size: 100% 100%;
+    display: flex; align-items: center; justify-content: center;
     color: #222; font-weight: bold; font-size: 1.4rem;
 }
 
-/* --- BUTTONS & FOOTER --- */
+/* --- TOMBOL AKSI --- */
 .action-footer {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 0;
-    z-index: 10;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 6px; padding: 5px 0;
 }
 
-.btn-segel-main { 
-    background: url('../assets/SegelButton.webp') no-repeat center; 
-    background-size: 100% 100%; 
-    width: clamp(140px, 20vw, 180px); 
-    height: clamp(45px, 8vw, 60px); 
-    border: none; cursor: pointer; transition: transform 0.1s;
+#support-container { gap: 5px !important; margin-bottom: 2px; }
+
+.btn-segel-main {
+    background: url('../assets/SegelButton.webp') no-repeat center;
+    background-size: 100% 100%;
+    width: clamp(120px, 20vw, 160px);
+    height: clamp(40px, 8vw, 55px);
+    border: none; cursor: pointer;
 }
 
-/* --- KARTU TANGAN (RESPONSIVE GRID) --- */
+/* --- AREA KARTU TANGAN (RESPONSIVE) --- */
 .hand-footer {
-    width: 100%;
-    padding-bottom: 20px;
+    width: 100%; padding-bottom: 15px;
+    background: rgba(0,0,0,0.3); /* Memberi batas visual area kartu */
 }
 
 .card-grid {
-    display: grid;
-    gap: 8px;
-    width: 100%;
-    margin: 0 auto;
+    display: grid; gap: 6px; padding: 0 10px;
     justify-content: center;
 }
 
-/* LAPTOP ORIENTED (10x1) */
+/* LAPTOP: 10 Kartu Sejajar */
 @media (min-width: 769px) {
-    .card-grid {
-        grid-template-columns: repeat(10, 1fr); /* 10 kartu dalam 1 baris */
-        max-width: 900px;
-    }
+    .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 850px; }
 }
 
-/* MOBILE ORIENTED (5x2) */
+/* HP: 5x2 (Dua Baris) Agar tidak terpotong */
 @media (max-width: 768px) {
-    .card-grid {
-        grid-template-columns: repeat(5, 1fr); /* 5 kartu per baris, otomatis jadi 2 baris */
-        max-width: 450px;
-    }
+    .card-grid { grid-template-columns: repeat(5, 1fr); max-width: 420px; }
+    .card { height: clamp(75px, 18vh, 95px); } /* Menjaga ukuran kartu di layar HP panjang */
 }
 
 .card {
-    /* FIXED: Menggunakan asset jimat panjang sesuai desain temanmu */
-    background: url('../assets/KertasJimat.webp') no-repeat center !important;
-    background-size: 100% 100% !important; 
+    background: url('../assets/KertasJimat.webp') no-repeat center !important; /* Aset jimat yang benar */
+    background-size: 100% 100% !important;
     aspect-ratio: 2/3.2;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     color: #222; cursor: pointer; transition: transform 0.1s;
 }
 
-.card:active { transform: scale(0.9); }
-.card .kana { font-size: clamp(1.1rem, 3.5vw, 1.6rem); font-weight: bold; }
-.card .romaji { font-size: 9px; opacity: 0.8; font-weight: bold; }
+.card .kana { font-size: 1.3rem; font-weight: bold; }
 
-/* --- GLOBAL CLASSES --- */
-.btn-gold-oval { 
-    background: var(--gold-grad); 
-    border: 2px solid var(--gold); 
-    border-radius: 20px; 
-    color: var(--ink); 
-    font-weight: bold; font-size: 13px; 
-    padding: 5px 15px; transition: all 0.2s;
+/* --- GLOBAL UI --- */
+.btn-gold-oval {
+    background: var(--gold-grad); border: 2px solid var(--gold);
+    border-radius: 20px; color: var(--ink); font-weight: bold;
+    font-size: 12px; padding: 3px 12px;
 }
 
-.icon-header { width: 40px !important; }
-.icon-jam { width: 22px !important; }
-.d-none { display: none !important; }
+.full-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); z-index: 1000;
+}
 
-/* Efek Shake & Glow tetap sama */
 .shake { animation: shake-anim 0.3s; }
 @keyframes shake-anim {
     0%, 100% { transform: translateX(0); }
