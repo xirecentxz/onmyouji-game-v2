@@ -2,32 +2,41 @@
     --gold: #d4af37;
     --gold-grad: linear-gradient(to bottom, #fff3e0, #ffcc80);
     --ink: #3e2723;
+
+    /* Jumlah kartu tangan (fixed) */
+    --hand-cols: 10;
+
+    /* Ukuran kartu tangan — dihitung dari lebar viewport, bukan grid */
+    --card-w: clamp(55px, calc((100vw - 80px) / var(--hand-cols)), 80px);
+    --card-h: calc(var(--card-w) * 1.6);
+
+    /* Ukuran kartu jawaban (gulungan atas) */
+    --slot-w: clamp(38px, 7vw, 52px);
+    --slot-h: calc(var(--slot-w) * 1.3);
 }
 
 /* --- DASAR & LAYOUT UTAMA --- */
 body {
     margin: 0; padding: 0;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
-    background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
-    height: 100svh; 
+    background-size: cover;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    height: 100svh;
     touch-action: manipulation;
 }
 
 .game-layout {
-    display: flex; 
-    flex-direction: column; 
-    height: 100svh; 
-    max-width: 800px; 
-    margin: 0 auto;   
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 8px 10px;
     box-sizing: border-box;
     position: relative;
-    overflow-y: auto; 
-    overflow-x: hidden;
-    scrollbar-width: none;  
+    overflow: hidden; /* Tidak boleh scroll — semua harus muat */
 }
-
-.game-layout::-webkit-scrollbar { display: none; }
 
 /* --- OVERLAYS --- */
 .full-overlay {
@@ -37,21 +46,21 @@ body {
     display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
 
-.overlay { 
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.85); z-index: 3000; 
-    display: flex; justify-content: center; align-items: center; 
+.overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); z-index: 3000;
+    display: flex; justify-content: center; align-items: center;
 }
 
-.modal-box { 
-    background: #111 url('../assets/Gulungan.webp') no-repeat center; 
-    background-size: 100% 100%; 
-    border: 2px solid var(--gold); 
-    width: 90%; 
-    max-width: 400px; 
+.modal-box {
+    background: #111 url('../assets/Gulungan.webp') no-repeat center;
+    background-size: 100% 100%;
+    border: 2px solid var(--gold);
+    width: 90%;
+    max-width: 400px;
     min-height: 260px;
     padding: 40px 20px;
-    border-radius: 20px; 
+    border-radius: 20px;
     box-shadow: 0 0 30px rgba(0,0,0,0.8);
     display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
@@ -59,72 +68,139 @@ body {
 .d-none { display: none !important; }
 
 /* --- UI ELEMENTS --- */
-.main-logo { width: clamp(100px, 20vw, 150px) !important; height: auto; animation: floating 3s infinite ease-in-out; }
-@keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.main-logo {
+    width: clamp(80px, 15vw, 130px) !important;
+    height: auto;
+    animation: floating 3s infinite ease-in-out;
+}
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
 
-.icon-header { width: 35px !important; height: auto; }
-.icon-jam { width: 22px !important; height: auto; }
+.icon-header { width: clamp(28px, 4vw, 38px) !important; height: auto; }
+.icon-jam { width: clamp(18px, 3vw, 24px) !important; height: auto; }
 
-.ritual-center { 
-    flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: clamp(5px, 2vh, 15px); 
+/* --- AREA TENGAH (Gulungan + Slot Jawaban) --- */
+.ritual-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(6px, 1.5vh, 14px);
+    min-height: 0; /* Penting agar flex child tidak overflow */
 }
 
 .scroll-box {
-    background: url('../assets/Gulungan.webp') no-repeat center; 
+    background: url('../assets/Gulungan.webp') no-repeat center;
     background-size: 100% 100%;
-    width: clamp(250px, 60vw, 450px); 
-    aspect-ratio: 2/1.1; 
-    display: flex; flex-direction: column; justify-content: center; align-items: center; 
-    padding: 10px 10%; box-sizing: border-box;
+    width: clamp(220px, 55vw, 420px);
+    aspect-ratio: 2 / 1.1;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 10px 10%;
+    box-sizing: border-box;
 }
 
-.kanji-main { font-size: clamp(1.8rem, 5vw, 3rem); color: var(--ink); font-weight: 800; margin: 0; }
-.meaning-sub { color: #5d4037; font-style: italic; font-weight: bold; font-size: clamp(0.7rem, 2vw, 0.9rem); }
+.kanji-main {
+    font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+    color: var(--ink); font-weight: 800; margin: 0;
+}
+.meaning-sub {
+    color: #5d4037; font-style: italic; font-weight: bold;
+    font-size: clamp(0.65rem, 1.8vw, 0.85rem);
+}
 
-.answer-row { min-height: 60px; display: flex; justify-content: center; gap: 5px; flex-wrap: wrap; }
-.letter-slot { 
-    width: clamp(35px, 8vw, 45px); height: clamp(45px, 10vw, 55px); 
+/* --- SLOT JAWABAN --- */
+.answer-row {
+    min-height: var(--slot-h);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: nowrap; /* Tidak wrap — biarkan slot tetap sebaris */
+}
+
+.letter-slot {
+    width: var(--slot-w);
+    height: var(--slot-h);
     background: url('../assets/KotakKata.webp') no-repeat center;
-    background-size: 100% 100%; 
-    display: flex; align-items: center; justify-content: center; 
-    color: #222; font-weight: bold; font-size: clamp(1rem, 3vw, 1.3rem);
+    background-size: 100% 100%;
+    display: flex; align-items: center; justify-content: center;
+    color: #222; font-weight: bold;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    flex-shrink: 0; /* Slot tidak boleh menyusut */
 }
 
-.hand-footer { width: 100%; padding-bottom: 20px; }
+/* --- AREA BAWAH (Tangan Kartu) --- */
+.hand-footer {
+    width: 100%;
+    flex-shrink: 0; /* Footer tidak boleh dikompres oleh flex */
+    padding-bottom: clamp(6px, 2vh, 16px);
+}
+
+/*
+  KUNCI UTAMA: Grid kartu tangan menggunakan kolom TETAP (10 kolom).
+  Ukuran kartu ditentukan oleh --card-w yang sudah dihitung dari viewport,
+  bukan oleh grid. Dengan begitu, menghilangkan kartu tidak mengubah ukuran
+  kartu yang tersisa.
+*/
 .card-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); gap: 10px; width: 100%; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(var(--hand-cols), var(--card-w));
+    justify-content: center;  /* Pusatkan grid di tengah */
+    gap: clamp(3px, 1vw, 8px);
+    width: 100%;
 }
 
+/*
+  Slot kosong (kartu sudah diklik): gunakan div dengan class .card-empty
+  atau sembunyikan kartu dengan visibility:hidden (bukan display:none!)
+  agar slot tetap "ada" di grid dan ukuran kartu lain tidak berubah.
+*/
 .card {
     background: url('../assets/KertasJimat.webp') no-repeat center !important;
-    background-size: 100% 100% !important; 
-    aspect-ratio: 2/3.2;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    color: #222; cursor: pointer; transition: transform 0.1s, filter 0.2s;
+    background-size: 100% 100% !important;
+    width: var(--card-w);
+    height: var(--card-h);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: #222; cursor: pointer;
+    transition: transform 0.1s, filter 0.2s;
+    flex-shrink: 0;
+    box-sizing: border-box;
 }
 
-.card:active { transform: scale(0.95); filter: brightness(0.8); }
-.card .kana { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: bold; }
-.card .romaji { font-size: 9px; opacity: 0.8; font-weight: bold; }
+/* Gunakan visibility:hidden pada kartu yang sudah dimainkan, BUKAN display:none */
+.card.played {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.card:active { transform: scale(0.93); filter: brightness(0.8); }
+
+.card .kana {
+    font-size: clamp(0.95rem, 2.2vw, 1.3rem);
+    font-weight: bold;
+}
+.card .romaji {
+    font-size: clamp(8px, 1.5vw, 10px);
+    opacity: 0.8;
+    font-weight: bold;
+}
 
 /* --- BUTTONS --- */
-
-/* Class untuk tombol Stage 1-11 yang tadi hilang */
-.btn-gold-oval { 
-    background: var(--gold-grad); 
-    border: 2px solid var(--gold); 
-    border-radius: 50%; /* Membuat tombol bulat sempurna */
-    color: var(--ink); 
-    font-weight: bold; 
-    font-size: 16px; 
-    
-    /* Ukuran tetap agar angka 1 dan 11 besarnya sama */
-    width: 50px; 
-    height: 50px; 
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn-gold-oval {
+    background: var(--gold-grad);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    color: var(--ink);
+    font-weight: bold;
+    font-size: clamp(13px, 2vw, 16px);
+    width: clamp(42px, 6vw, 52px);
+    height: clamp(42px, 6vw, 52px);
+    display: flex; align-items: center; justify-content: center;
     transition: all 0.2s;
     box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
@@ -136,7 +212,7 @@ body {
 }
 
 .btn-gold-oval:disabled {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(255,255,255,0.1) !important;
     border-color: #444 !important;
     color: #666 !important;
     opacity: 0.5;
@@ -147,13 +223,21 @@ body {
     background: var(--gold-grad) !important;
     border: 3px solid var(--gold) !important;
     color: var(--ink) !important;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6) !important;
-    font-size: 1.2rem; font-weight: 800; padding: 10px 30px; border-radius: 30px; text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(212,175,55,0.6) !important;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 800;
+    padding: 10px 30px;
+    border-radius: 30px;
+    text-transform: uppercase;
 }
 
-.btn-segel-main { 
-    background: url('../assets/SegelButton.webp') no-repeat center; 
-    background-size: 100% 100%; width: 160px; height: 55px; border: none; cursor: pointer; transition: transform 0.1s;
+.btn-segel-main {
+    background: url('../assets/SegelButton.webp') no-repeat center;
+    background-size: 100% 100%;
+    width: clamp(130px, 20vw, 170px);
+    height: clamp(45px, 7vw, 58px);
+    border: none; cursor: pointer;
+    transition: transform 0.1s;
 }
 .btn-segel-main:active { transform: scale(0.9); }
 
@@ -161,12 +245,47 @@ body {
 .hint-glow { animation: pulse-gold 0.8s infinite alternate; z-index: 100; }
 @keyframes pulse-gold {
     from { filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px var(--gold)); }
-    to { filter: drop-shadow(0 0 15px #fff) drop-shadow(0 0 25px var(--gold)); }
+    to   { filter: drop-shadow(0 0 15px #fff) drop-shadow(0 0 25px var(--gold)); }
 }
 
 .shake { animation: shake-anim 0.3s; }
 @keyframes shake-anim {
     0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+    25%       { transform: translateX(-5px); }
+    75%       { transform: translateX(5px); }
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* Tablet/medium screen */
+@media (max-width: 700px) {
+    :root {
+        --hand-cols: 10;
+        --card-w: clamp(48px, calc((100vw - 60px) / var(--hand-cols)), 68px);
+    }
+}
+
+/* HP kecil (≤ 400px lebar) */
+@media (max-width: 400px) {
+    :root {
+        --card-w: clamp(38px, calc((100vw - 40px) / var(--hand-cols)), 55px);
+    }
+    .scroll-box {
+        width: clamp(190px, 80vw, 300px);
+    }
+}
+
+/* Landscape HP */
+@media (max-height: 500px) and (orientation: landscape) {
+    :root {
+        --card-w: clamp(36px, calc((100vw - 60px) / var(--hand-cols)), 52px);
+    }
+    .scroll-box {
+        width: clamp(160px, 35vw, 280px);
+    }
+    .ritual-center {
+        gap: 4px;
+    }
 }
