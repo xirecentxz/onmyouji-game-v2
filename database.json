@@ -103,6 +103,7 @@
         { "kanji": "大きい", "reading": "おおきい", "reading_romaji": "ookii", "meaning": "besar" },
         { "kanji": "大人", "reading": "おとな", "reading_romaji": "otona", "meaning": "dewasa" },
         { "kanji": "大学", "reading": "だいがく", "reading_romaji": "daigaku", "meaning": "universitas" },
+        { "kanji": "大丈夫", "reading": "だいじょうぶ", "reading_romaji": "daijoubu", "meaning": "baik-baik saja" },
         { "kanji": "大切な", "reading": "たいせつな", "reading_romaji": "taisetsuna", "meaning": "penting" },
         { "kanji": "太い", "reading": "ふとい", "reading_romaji": "futoi", "meaning": "gemuk" },
         { "kanji": "太る", "reading": "ふとる", "reading_romaji": "futoru", "meaning": "menjadi gemuk" },
