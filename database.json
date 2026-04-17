@@ -90,7 +90,7 @@
       "words": [
         { "kanji": "上", "reading": "うえ", "reading_romaji": "ue", "meaning": "atas" },
         { "kanji": "上げる", "reading": "あげる", "reading_romaji": "ageru", "meaning": "meningkat" },
-        { "kanji": "上がる", "reading": "上がる", "reading_romaji": "agaru", "meaning": "naik" },
+        { "kanji": "上がる", "reading": "あがる", "reading_romaji": "agaru", "meaning": "naik" },
         { "kanji": "上手な", "reading": "じょうずな", "reading_romaji": "jouzuna", "meaning": "pandai" },
         { "kanji": "下", "reading": "した", "reading_romaji": "shita", "meaning": "bawah" },
         { "kanji": "下がる", "reading": "さがる", "reading_romaji": "sagaru", "meaning": "turun" },
