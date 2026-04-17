@@ -185,3 +185,13 @@ body {
     25% { transform: translateX(-5px); }
     75% { transform: translateX(5px); }
 }
+
+/* --- HIDE SCROLLBAR TAPI TETAP BISA SCROLL --- */
+.game-layout::-webkit-scrollbar {
+    display: none; /* Untuk Chrome, Safari, Edge, Opera */
+}
+
+.game-layout {
+    -ms-overflow-style: none;  /* Untuk Internet Explorer dan Edge versi lama */
+    scrollbar-width: none;  /* Untuk Firefox */
+}
