@@ -17,7 +17,6 @@ body {
     display: flex; 
     flex-direction: column; 
     height: 100svh; 
-    /* Lebar maksimal ditingkatkan agar di PC lebih lega */
     max-width: 800px; 
     margin: 0 auto;   
     padding: 10px;
@@ -25,15 +24,10 @@ body {
     position: relative;
     overflow-y: auto; 
     overflow-x: hidden;
-    
-    /* Sembunyikan scrollbar */
-    -ms-overflow-style: none;  
     scrollbar-width: none;  
 }
 
-.game-layout::-webkit-scrollbar {
-    display: none; 
-}
+.game-layout::-webkit-scrollbar { display: none; }
 
 /* --- OVERLAYS --- */
 .full-overlay {
@@ -49,7 +43,6 @@ body {
     display: flex; justify-content: center; align-items: center; 
 }
 
-/* MODAL BOX */
 .modal-box { 
     background: #111 url('../assets/Gulungan.webp') no-repeat center; 
     background-size: 100% 100%; 
@@ -60,10 +53,7 @@ body {
     padding: 40px 20px;
     border-radius: 20px; 
     box-shadow: 0 0 30px rgba(0,0,0,0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
 
 .d-none { display: none !important; }
@@ -76,26 +66,16 @@ body {
 .icon-jam { width: 22px !important; height: auto; }
 
 .ritual-center { 
-    flex: 1; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-    gap: clamp(5px, 2vh, 15px); 
+    flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: clamp(5px, 2vh, 15px); 
 }
 
-/* Ukuran Gulungan yang Dinamis */
 .scroll-box {
     background: url('../assets/Gulungan.webp') no-repeat center; 
     background-size: 100% 100%;
     width: clamp(250px, 60vw, 450px); 
     aspect-ratio: 2/1.1; 
-    display: flex; 
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    padding: 10px 10%; 
-    box-sizing: border-box;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    padding: 10px 10%; box-sizing: border-box;
 }
 
 .kanji-main { font-size: clamp(1.8rem, 5vw, 3rem); color: var(--ink); font-weight: 800; margin: 0; }
@@ -103,41 +83,24 @@ body {
 
 .answer-row { min-height: 60px; display: flex; justify-content: center; gap: 5px; flex-wrap: wrap; }
 .letter-slot { 
-    width: clamp(35px, 8vw, 45px); 
-    height: clamp(45px, 10vw, 55px); 
+    width: clamp(35px, 8vw, 45px); height: clamp(45px, 10vw, 55px); 
     background: url('../assets/KotakKata.webp') no-repeat center;
     background-size: 100% 100%; 
     display: flex; align-items: center; justify-content: center; 
-    color: #222; font-weight: bold;
-    font-size: clamp(1rem, 3vw, 1.3rem);
+    color: #222; font-weight: bold; font-size: clamp(1rem, 3vw, 1.3rem);
 }
 
-.hand-footer {
-    width: 100%;
-    padding-bottom: 20px;
-}
-
-/* GRID KARTU RESPONSIF */
+.hand-footer { width: 100%; padding-bottom: 20px; }
 .card-grid {
-    display: grid; 
-    /* Kartu akan berjajar ke kanan sebanyak mungkin, minimal lebar 85px */
-    grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); 
-    gap: 10px;
-    width: 100%; 
-    margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); gap: 10px; width: 100%; margin: 0 auto;
 }
 
 .card {
     background: url('../assets/KertasJimat.webp') no-repeat center !important;
     background-size: 100% 100% !important; 
     aspect-ratio: 2/3.2;
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center;
-    color: #222; 
-    cursor: pointer; 
-    transition: transform 0.1s, filter 0.2s;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #222; cursor: pointer; transition: transform 0.1s, filter 0.2s;
 }
 
 .card:active { transform: scale(0.95); filter: brightness(0.8); }
@@ -145,26 +108,48 @@ body {
 .card .romaji { font-size: 9px; opacity: 0.8; font-weight: bold; }
 
 /* --- BUTTONS --- */
+
+/* Class untuk tombol Stage 1-11 yang tadi hilang */
+.btn-gold-oval { 
+    background: var(--gold-grad); 
+    border: 2px solid var(--gold); 
+    border-radius: 20px; 
+    color: var(--ink); 
+    font-weight: bold; 
+    font-size: 14px; 
+    padding: 8px 20px; 
+    transition: all 0.2s;
+    min-width: 50px;
+}
+
+.btn-gold-oval:hover:not(:disabled) {
+    transform: scale(1.1);
+    background: #fff;
+    color: #000;
+}
+
+/* Tampilan untuk tombol yang terkunci (Stage 12-15) */
+.btn-gold-oval:disabled {
+    background: #444 !important;
+    border-color: #666 !important;
+    color: #888 !important;
+    cursor: not-allowed;
+    filter: grayscale(1);
+    opacity: 0.5;
+    box-shadow: none !important;
+}
+
 .btn-start-custom {
     background: var(--gold-grad) !important;
     border: 3px solid var(--gold) !important;
     color: var(--ink) !important;
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6) !important;
-    font-size: 1.2rem;
-    font-weight: 800;
-    padding: 10px 30px;
-    border-radius: 30px;
-    text-transform: uppercase;
+    font-size: 1.2rem; font-weight: 800; padding: 10px 30px; border-radius: 30px; text-transform: uppercase;
 }
 
 .btn-segel-main { 
     background: url('../assets/SegelButton.webp') no-repeat center; 
-    background-size: 100% 100%; 
-    width: 160px; 
-    height: 55px; 
-    border: none; 
-    cursor: pointer;
-    transition: transform 0.1s;
+    background-size: 100% 100%; width: 160px; height: 55px; border: none; cursor: pointer; transition: transform 0.1s;
 }
 .btn-segel-main:active { transform: scale(0.9); }
 
