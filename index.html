@@ -1,168 +1,111 @@
-:root {
-    --gold: #d4af37;
-    --gold-grad: linear-gradient(to bottom, #fff3e0, #ffcc80);
-    --ink: #3e2723;
-}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Onmyoji Kanji Seal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-/* --- DASAR & LAYOUT UTAMA --- */
-body {
-    margin: 0; padding: 0;
-    background: #000 url('../assets/BG1.webp') no-repeat center fixed;
-    background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
-    height: 100svh; 
-    touch-action: manipulation;
-}
+    <div id="homepage-screen" class="full-overlay container-fluid d-flex flex-column justify-content-center align-items-center text-center">
+        <img src="assets/badge.webp" class="main-logo mb-3" alt="Logo">
+        <h1 class="game-title display-4 fw-bold text-white">ONMYOJI</h1>
+        <p class="game-subtitle lead text-gold">KANJI SEAL RITUAL</p>
+        <button class="btn btn-start-custom mt-4 px-5 py-2 rounded-pill fw-bold shadow" onclick="showLevelSelector()">MULAI RITUAL</button>
+    </div>
 
-.game-layout {
-    display: flex; 
-    flex-direction: column; 
-    height: 100svh; 
-    max-width: 800px; 
-    margin: 0 auto;   
-    padding: 10px;
-    box-sizing: border-box;
-    position: relative;
-    overflow-y: auto; 
-    overflow-x: hidden;
-    scrollbar-width: none;  
-}
+    <div id="level-selector" class="full-overlay d-none text-center">
+        <h2 class="text-gold mb-4">PILIH GULUNGAN SEGEL</h2>
+        <div class="container overflow-auto" style="max-height: 75vh;">
+            <div class="row g-3 justify-content-center">
+                <div class="col-12">
+                    <button class="btn btn-outline-info w-75 py-3 fw-bold" onclick="startMode('tutorial', 1)">📖 TUTORIAL (No Time Limit)</button>
+                </div>
 
-.game-layout::-webkit-scrollbar { display: none; }
+                <div class="col-12 mt-4"><h5 class="text-white-50 small">MAIN STORY</h5></div>
+                
+                <div class="col-12 d-flex flex-wrap justify-content-center gap-2 mb-2">
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 1)">1</button>
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 2)">2</button>
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 3)">3</button>
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 4)">4</button>
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 5)">5</button>
+                </div>
+                
+                <div class="col-12 d-flex flex-wrap justify-content-center gap-2">
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 6)">6</button>
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 7)">7</button>
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 8)">8</button>
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 9)">9</button>
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 10)">10</button>
+                </div>
 
-/* --- OVERLAYS --- */
-.full-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
-    backdrop-filter: blur(8px); z-index: 1050;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-}
+                <div class="col-12 d-flex flex-wrap justify-content-center gap-2 mt-2">
+                    <button class="btn btn-gold-oval" onclick="startMode('story', 11)">11</button> 
+                    <button class="btn btn-gold-oval opacity-50" disabled title="Coming Soon">12</button>
+                    <button class="btn btn-gold-oval opacity-50" disabled title="Coming Soon">13</button>
+                    <button class="btn btn-gold-oval opacity-50" disabled title="Coming Soon">14</button>
+                    <button class="btn btn-gold-oval opacity-50" disabled title="Coming Soon">15</button>
+                </div>
 
-.overlay { 
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.85); z-index: 3000; 
-    display: flex; justify-content: center; align-items: center; 
-}
+                <div class="col-12 mt-4">
+                    <button class="btn btn-danger w-75 py-3 fw-bold shadow" onclick="startMode('challenge', 1)">🔥 CHALLENGE (Sudden Death)</button>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-link text-white mt-4" onclick="backToHome()">Kembali</button>
+    </div>
 
-.modal-box { 
-    background: #111 url('../assets/Gulungan.webp') no-repeat center; 
-    background-size: 100% 100%; 
-    border: 2px solid var(--gold); 
-    width: 90%; 
-    max-width: 400px; 
-    min-height: 260px;
-    padding: 40px 20px;
-    border-radius: 20px; 
-    box-shadow: 0 0 30px rgba(0,0,0,0.8);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-}
+    <div id="game-screen" style="display: none;">
+        <div class="game-layout container-fluid">
+            <header class="row align-items-center py-2 gx-0">
+                <div class="col-2 text-start"><img src="assets/badge.webp" class="icon-header"></div>
+                <div class="col-8 px-2">
+                    <div class="progress bg-dark border border-warning" style="height: 12px; border-radius: 6px;">
+                        <div id="hp-progress" class="progress-bar bg-danger" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div class="col-2 text-end text-gold fw-bold small d-flex align-items-center justify-content-end gap-1">
+                    <img src="assets/jam.webp" class="icon-jam"> <span id="time-val">90s</span>
+                </div>
+            </header>
 
-.d-none { display: none !important; }
+            <main class="ritual-center text-center">
+                <div id="stage-banner" class="badge rounded-pill bg-dark border border-gold px-3 mb-2 small">Stage 1</div>
+                <div class="scroll-box mx-auto">
+                    <div id="kanji-question" class="kanji-main"></div>
+                    <div id="kanji-meaning" class="meaning-sub"></div>
+                </div>
+                
+                <div id="word-zone" class="answer-row d-flex justify-content-center gap-1 my-3">
+                    </div>
 
-/* --- UI ELEMENTS --- */
-.main-logo { width: clamp(100px, 20vw, 150px) !important; height: auto; animation: floating 3s infinite ease-in-out; }
-@keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+                <div class="action-footer container">
+                    <div id="support-container" class="d-flex justify-content-center gap-2 mb-2"></div>
+                    <button id="confirm-btn" class="btn-segel-main" onclick="confirmWord()"></button>
+                    <div class="d-flex justify-content-center gap-2 mt-2">
+                        <button class="btn btn-gold-oval btn-sm px-3" onclick="clearWord()">Hapus</button>
+                        <button class="btn btn-gold-oval btn-sm px-3" onclick="showHint()">Hint</button>
+                        <button id="romaji-toggle-btn" class="btn btn-gold-oval btn-sm px-3" onclick="toggleRomaji()">Romaji</button>
+                    </div>
+                </div>
+            </main>
 
-.icon-header { width: 35px !important; height: auto; }
-.icon-jam { width: 22px !important; height: auto; }
+            <footer class="hand-footer"><div id="player-hand" class="card-grid mx-auto"></div></footer>
+        </div>
+    </div>
 
-.ritual-center { 
-    flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: clamp(5px, 2vh, 15px); 
-}
+    <div id="modal-overlay" class="overlay d-none">
+        <div class="modal-box p-4 rounded-4 shadow border border-warning text-center">
+            <h2 id="modal-title" class="mb-3 fw-bold">HASIL RITUAL</h2>
+            <p id="modal-desc" class="small mb-4 text-white"></p>
+            <div id="modal-buttons-area" class="d-grid gap-2"></div>
+        </div>
+    </div>
 
-.scroll-box {
-    background: url('../assets/Gulungan.webp') no-repeat center; 
-    background-size: 100% 100%;
-    width: clamp(250px, 60vw, 450px); 
-    aspect-ratio: 2/1.1; 
-    display: flex; flex-direction: column; justify-content: center; align-items: center; 
-    padding: 10px 10%; box-sizing: border-box;
-}
-
-.kanji-main { font-size: clamp(1.8rem, 5vw, 3rem); color: var(--ink); font-weight: 800; margin: 0; }
-.meaning-sub { color: #5d4037; font-style: italic; font-weight: bold; font-size: clamp(0.7rem, 2vw, 0.9rem); }
-
-.answer-row { min-height: 60px; display: flex; justify-content: center; gap: 5px; flex-wrap: wrap; }
-.letter-slot { 
-    width: clamp(35px, 8vw, 45px); height: clamp(45px, 10vw, 55px); 
-    background: url('../assets/KotakKata.webp') no-repeat center;
-    background-size: 100% 100%; 
-    display: flex; align-items: center; justify-content: center; 
-    color: #222; font-weight: bold; font-size: clamp(1rem, 3vw, 1.3rem);
-}
-
-.hand-footer { width: 100%; padding-bottom: 20px; }
-.card-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); gap: 10px; width: 100%; margin: 0 auto;
-}
-
-.card {
-    background: url('../assets/KertasJimat.webp') no-repeat center !important;
-    background-size: 100% 100% !important; 
-    aspect-ratio: 2/3.2;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    color: #222; cursor: pointer; transition: transform 0.1s, filter 0.2s;
-}
-
-.card:active { transform: scale(0.95); filter: brightness(0.8); }
-.card .kana { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: bold; }
-.card .romaji { font-size: 9px; opacity: 0.8; font-weight: bold; }
-
-/* --- BUTTONS --- */
-
-/* Class untuk tombol Stage 1-11 yang tadi hilang */
-.btn-gold-oval { 
-    background: var(--gold-grad); 
-    border: 2px solid var(--gold); 
-    border-radius: 20px; 
-    color: var(--ink); 
-    font-weight: bold; 
-    font-size: 14px; 
-    padding: 8px 20px; 
-    transition: all 0.2s;
-    min-width: 50px;
-}
-
-.btn-gold-oval:hover:not(:disabled) {
-    transform: scale(1.1);
-    background: #fff;
-    color: #000;
-}
-
-/* Tampilan untuk tombol yang terkunci (Stage 12-15) */
-.btn-gold-oval:disabled {
-    background: #444 !important;
-    border-color: #666 !important;
-    color: #888 !important;
-    cursor: not-allowed;
-    filter: grayscale(1);
-    opacity: 0.5;
-    box-shadow: none !important;
-}
-
-.btn-start-custom {
-    background: var(--gold-grad) !important;
-    border: 3px solid var(--gold) !important;
-    color: var(--ink) !important;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6) !important;
-    font-size: 1.2rem; font-weight: 800; padding: 10px 30px; border-radius: 30px; text-transform: uppercase;
-}
-
-.btn-segel-main { 
-    background: url('../assets/SegelButton.webp') no-repeat center; 
-    background-size: 100% 100%; width: 160px; height: 55px; border: none; cursor: pointer; transition: transform 0.1s;
-}
-.btn-segel-main:active { transform: scale(0.9); }
-
-/* --- EFFECTS --- */
-.hint-glow { animation: pulse-gold 0.8s infinite alternate; z-index: 100; }
-@keyframes pulse-gold {
-    from { filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px var(--gold)); }
-    to { filter: drop-shadow(0 0 15px #fff) drop-shadow(0 0 25px var(--gold)); }
-}
-
-.shake { animation: shake-anim 0.3s; }
-@keyframes shake-anim {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
