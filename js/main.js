@@ -28,31 +28,28 @@ async function startGame() {
         state.allData = await res.json();
     }
     resetState();
+    state.comboCount = 0; // Reset combo saat mulai game baru
     loadQuestion();
     if (state.gameMode !== 'tutorial') startTimer();
 }
 
 function loadQuestion() {
     const stageData = state.allData.levels[state.currentStage];
-    const config = STAGE_CONFIG[state.currentStage];
     
-    // FIX: Mengisi kantong soal hanya jika kosong (awal ritual)
-    // Ini mencegah kata yang sama muncul berulang kali dalam satu sesi
+    // Inisialisasi Pool Soal & Hitung Damage Otomatis
     if (state.questionPool.length === 0) {
-        let allWords = [...stageData.words]; // Ambil copy data dari database
-        shuffle(allWords); // Acak urutannya
-        // Ambil hanya sejumlah target yang ditentukan di constants.js
-        state.questionPool = allWords.slice(0, config.target);
+        let allWords = [...stageData.words];
+        shuffle(allWords);
+        state.questionPool = allWords; 
+        
+        // Damage = 100 HP / Total Kata di Stage
+        state.dynamicDmg = 100 / allWords.length;
     }
     
-    // Ambil soal paling atas dari kantong
     state.currentQuestion = state.questionPool.pop();
     
     document.getElementById('kanji-question').innerText = state.currentQuestion.kanji;
-    
-    // DEFAULT: Kosongkan arti kanji saat soal baru dimuat
     document.getElementById('kanji-meaning').innerText = ""; 
-    
     document.getElementById('stage-banner').innerText = `Stage ${state.currentStage}: ${stageData.category}`;
     
     state.selectedLetters = [];
@@ -63,6 +60,46 @@ function loadQuestion() {
 }
 
 // --- FITUR INTERAKSI ---
+window.confirmWord = () => {
+    if (!state.gameActive) return;
+    const answer = state.selectedLetters.join('');
+    
+    if (answer === state.currentQuestion.reading) {
+        // LOGIKA COMBO BONUS
+        state.comboCount++;
+        if (state.comboCount === 3) {
+            state.timeLeft += 3; // Bonus 3 detik
+            state.comboCount = 0; // Reset hitungan combo
+            
+            // Efek Visual Bonus Waktu
+            const timeDisplay = document.getElementById('time-val');
+            if(timeDisplay) {
+                timeDisplay.style.color = "#28a745"; 
+                setTimeout(() => timeDisplay.style.color = "", 500);
+            }
+        }
+
+        state.yokaiHP -= state.dynamicDmg;
+        updateUI();
+        
+        if (state.yokaiHP <= 0.1) {
+            state.gameActive = false;
+            showModal(true);
+        } else {
+            loadQuestion();
+        }
+    } else {
+        // SALAH = RESET COMBO
+        state.comboCount = 0;
+        
+        document.querySelector('.scroll-box').classList.add('shake');
+        setTimeout(() => document.querySelector('.scroll-box').classList.remove('shake'), 400);
+        state.timeLeft = Math.max(0, state.timeLeft - 10);
+        window.clearWord();
+        updateUI();
+    }
+};
+
 window.clearWord = () => {
     state.selectedLetters.forEach(char => {
         if (!['ゃ', 'ゅ', 'ょ', 'っ'].includes(char)) state.hand.push(char);
@@ -76,7 +113,6 @@ window.toggleRomaji = () => {
     state.isRomajiVisible = !state.isRomajiVisible;
     const btn = document.getElementById('romaji-toggle-btn');
     if(btn) btn.classList.toggle('btn-warning'); 
-    
     renderHand();
     renderWordZone(); 
 };
@@ -90,27 +126,6 @@ window.showHint = () => {
             setTimeout(() => card.classList.remove('hint-glow'), 2000);
         }
     });
-};
-
-window.confirmWord = () => {
-    if (!state.gameActive) return;
-    const answer = state.selectedLetters.join('');
-    if (answer === state.currentQuestion.reading) {
-        state.yokaiHP -= STAGE_CONFIG[state.currentStage].dmg;
-        updateUI();
-        if (state.yokaiHP <= 0) {
-            state.gameActive = false;
-            showModal(true);
-        } else {
-            loadQuestion();
-        }
-    } else {
-        document.querySelector('.scroll-box').classList.add('shake');
-        setTimeout(() => document.querySelector('.scroll-box').classList.remove('shake'), 400);
-        state.timeLeft = Math.max(0, state.timeLeft - 10);
-        window.clearWord();
-        updateUI();
-    }
 };
 
 // --- RENDER ENGINE ---
