@@ -257,7 +257,7 @@
         { "kanji": "一人", "reading": "ひとり", "reading_romaji": "hitori", "meaning": "satu orang" },
         { "kanji": "二日", "reading": "ふつか", "reading_romaji": "futsuka", "meaning": "tanggal 2" },
         { "kanji": "三つ", "reading": "みっつ", "reading_romaji": "mittsu", "meaning": "tiga buah" },
-        { "kanji": "やまかわ", "reading": "やまかわ", "reading_romaji": "yamakawa", "meaning": "yamakawa" },
+        { "kanji": "山川", "reading": "やまかわ", "reading_romaji": "yamakawa", "meaning": "yamakawa" },
         { "kanji": "目的", "reading": "もくてき", "reading_romaji": "mokuteki", "meaning": "tujuan" },
         { "kanji": "出口", "reading": "でぐち", "reading_romaji": "deguchi", "meaning": "pintu keluar" },
         { "kanji": "イギリス人", "reading": "いぎりすじん", "reading_romaji": "igirisujin", "meaning": "orang inggris" },
@@ -269,7 +269,7 @@
         { "kanji": "体", "reading": "からだ", "reading_romaji": "karada", "meaning": "badan" },
         { "kanji": "男の子", "reading": "おとこのこ", "reading_romaji": "otoko no ko", "meaning": "anak laki-laki" },
         { "kanji": "女の子", "reading": "おんなのこ", "reading_romaji": "onnanoko", "meaning": "anak perempuan" },
-        { "kanji": "安い", "reading": "安い", "reading_romaji": "yasui", "meaning": "murah" }
+        { "kanji": "安い", "reading": "やすい", "reading_romaji": "yasui", "meaning": "murah" }
       ]
     }
   }
