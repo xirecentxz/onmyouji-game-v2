@@ -1,7 +1,7 @@
 {
   "levels": {
     "1": {
-      "category": "Ritual Angka (Angka & Satuan)",
+      "category": "Pemula 1.1",
       "words": [
         { "kanji": "一", "reading": "ひとつ", "reading_romaji": "hito.tsu", "meaning": "satu" },
         { "kanji": "一つ", "reading": "ひとつ", "reading_romaji": "hitotsu", "meaning": "satu buah" },
@@ -31,7 +31,7 @@
       ]
     },
     "2": {
-      "category": "Segel Waktu (Waktu & Kalender)",
+      "category": "Pemula 1.2",
       "words": [
         { "kanji": "目的", "reading": "もくてき", "reading_romaji": "mokuteki", "meaning": "tujuan" },
         { "kanji": "口", "reading": "くち", "reading_romaji": "kuchi", "meaning": "mulut" },
@@ -56,7 +56,7 @@
       ]
     },
     "3": {
-      "category": "Ikatan Darah (Orang & Keluarga)",
+      "category": "Pemula 1.3",
       "words": [
         { "kanji": "本", "reading": "ほん", "reading_romaji": "hon", "meaning": "buku" },
         { "kanji": "山本", "reading": "やまもと", "reading_romaji": "yamamoto", "meaning": "yamamoto-san" },
