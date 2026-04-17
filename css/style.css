@@ -9,19 +9,21 @@ body {
     margin: 0; padding: 0;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
     background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
-    overflow: hidden; 
+    height: 100svh; 
     touch-action: manipulation;
 }
 
 .game-layout {
     display: flex; 
     flex-direction: column; 
-    height: 100vh; 
+    height: 100svh; 
     max-width: 500px; 
     margin: 0 auto;   
     padding: 10px;
     box-sizing: border-box;
     position: relative;
+    overflow-y: auto; 
+    overflow-x: hidden;
 }
 
 /* --- OVERLAYS --- */
@@ -70,7 +72,7 @@ body {
     flex-direction: column; 
     justify-content: center; 
     align-items: center; 
-    gap: 10px; 
+    gap: clamp(2px, 1.5vh, 10px); 
 }
 
 .scroll-box {
