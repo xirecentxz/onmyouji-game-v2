@@ -4,48 +4,75 @@
     --ink: #3e2723;
 }
 
-/* --- DASAR & LAYOUT UTAMA --- */
+/* --- DASAR & LAYOUT --- */
 body {
     margin: 0; padding: 0;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
     background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
     height: 100svh; width: 100%;
     touch-action: manipulation;
-    overflow: hidden; /* Mencegah layar bergeser saat ritual intens */
+    overflow: hidden;
 }
 
+/* Overlay Dasar untuk Home, Level Selector, dan Modal */
+.full-overlay {
+    position: fixed; top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Background gelap transparan */
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Class pembantu untuk JS */
+.d-flex { display: flex !important; }
+.d-none { display: none !important; }
+
+/* --- HOME SCREEN --- */
+#homepage-screen {
+    background: rgba(0,0,0,0.4) url('../assets/BG1.webp') no-repeat center;
+    background-size: cover;
+}
+
+#homepage-screen .main-logo {
+    width: clamp(150px, 35vw, 250px); /* Ukuran logo lebih terkendali */
+    height: auto; margin-bottom: 10px;
+}
+
+.game-title { font-size: clamp(2rem, 8vw, 4rem); letter-spacing: 5px; }
+.text-gold { color: var(--gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+
+/* --- LEVEL SELECTOR --- */
+#level-selector .container {
+    max-width: 600px;
+    padding: 20px;
+}
+
+.btn-gold-oval {
+    background: var(--gold-grad); border: 2px solid var(--gold);
+    border-radius: 50%; /* Bulat sempurna untuk angka stage */
+    width: 45px; height: 45px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink); font-weight: bold; cursor: pointer;
+}
+
+.btn-gold-oval:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* --- GAMEPLAY LAYOUT --- */
 .game-layout {
     display: flex; flex-direction: column; 
-    height: 100svh; max-width: 900px; /* Batasan agar tampilan di laptop tetap elegan */
+    height: 100svh; max-width: 900px; 
     margin: 0 auto; position: relative;
 }
 
-/* --- HEADER & HUD --- */
-header {
-    padding: 5px 15px;
-    z-index: 100;
-    height: 50px;
-    display: flex; align-items: center;
-}
-
+header { padding: 5px 15px; z-index: 100; height: 50px; display: flex; align-items: center; }
 .icon-header { width: 35px !important; }
-.icon-jam { width: 20px !important; }
 
-/* --- AREA PERMAINAN (KOMPAK) --- */
 .ritual-center {
-    flex: 1;
-    display: flex; flex-direction: column;
-    justify-content: flex-start; /* Menarik elemen ke atas untuk memberi ruang kartu di bawah */
-    align-items: center;
-    gap: 4px;
-    padding-top: 5px;
-}
-
-#stage-banner {
-    font-size: 11px; color: var(--gold);
-    background: rgba(0,0,0,0.6);
-    padding: 2px 12px; border-radius: 10px;
-    border: 1px solid var(--gold);
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: flex-start; align-items: center;
+    gap: 4px; padding-top: 5px;
 }
 
 .scroll-box {
@@ -54,59 +81,20 @@ header {
     width: clamp(240px, 65vw, 420px);
     aspect-ratio: 2/1.1;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: 5px 10%;
-}
-
-.kanji-main { font-size: clamp(1.8rem, 6vw, 3.2rem); color: var(--ink); font-weight: 800; }
-
-/* --- INPUT ZONE --- */
-.answer-row { 
-    display: flex; justify-content: center; 
-    gap: 6px; margin: 2px 0 !important; 
 }
 
 .letter-slot { 
-    width: clamp(38px, 9vw, 50px); 
-    height: clamp(48px, 11vw, 60px); 
+    width: clamp(38px, 9vw, 50px); height: clamp(48px, 11vw, 60px); 
     background: url('../assets/KotakKata.webp') no-repeat center;
-    background-size: 100% 100%;
-    display: flex; align-items: center; justify-content: center;
+    background-size: 100% 100%; display: flex; align-items: center; justify-content: center;
     color: #222; font-weight: bold; font-size: 1.4rem;
 }
 
-/* --- TOMBOL AKSI --- */
-.action-footer {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 6px; padding: 5px 0;
-}
+/* --- KARTU TANGAN --- */
+.hand-footer { width: 100%; padding-bottom: 15px; background: rgba(0,0,0,0.3); }
+.card-grid { display: grid; gap: 6px; padding: 0 10px; justify-content: center; }
 
-#support-container { gap: 5px !important; margin-bottom: 2px; }
-
-.btn-segel-main {
-    background: url('../assets/SegelButton.webp') no-repeat center;
-    background-size: 100% 100%;
-    width: clamp(120px, 20vw, 160px);
-    height: clamp(40px, 8vw, 55px);
-    border: none; cursor: pointer;
-}
-
-/* --- KARTU TANGAN (RESPONSIVE) --- */
-.hand-footer {
-    width: 100%; padding-bottom: 15px;
-    background: rgba(0,0,0,0.3);
-}
-
-.card-grid {
-    display: grid; gap: 6px; padding: 0 10px;
-    justify-content: center;
-}
-
-/* Tampilan Laptop (10 Kartu Sejajar) */
-@media (min-width: 769px) {
-    .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 850px; }
-}
-
-/* Tampilan HP (5x2 Kartu) */
+@media (min-width: 769px) { .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 850px; } }
 @media (max-width: 768px) {
     .card-grid { grid-template-columns: repeat(5, 1fr); max-width: 420px; }
     .card { height: clamp(75px, 18vh, 95px); }
@@ -115,53 +103,13 @@ header {
 .card {
     background: url('../assets/KertasJimat.webp') no-repeat center !important;
     background-size: 100% 100% !important;
-    aspect-ratio: 2/3.2;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    color: #222; cursor: pointer; transition: transform 0.1s;
+    aspect-ratio: 2/3.2; display: flex; align-items: center; justify-content: center;
+    color: #222; cursor: pointer;
 }
 
-.card .kana { font-size: 1.3rem; font-weight: bold; }
-
-/* --- UI GLOBAL & MODAL --- */
-.btn-gold-oval {
-    background: var(--gold-grad); border: 2px solid var(--gold);
-    border-radius: 20px; color: var(--ink); font-weight: bold;
-    font-size: 12px; padding: 3px 12px;
-}
-
-/* Full Overlay untuk Notifikasi Gagal/Berhasil */
-.full-overlay {
-    position: fixed; top: 0; left: 0; 
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 9999; 
-    display: none; /* Sembunyi otomatis saat awal */
-    justify-content: center; align-items: center;
-}
-
-/* Class wajib untuk fungsi JavaScript */
-.d-flex { display: flex !important; }
-.d-none { display: none !important; }
-
+/* --- MODAL BOX --- */
 .modal-box {
-    background: #1a1a1a;
-    border: 3px solid var(--gold);
-    color: white;
-    max-width: 400px; width: 90%;
-    padding: 30px; border-radius: 20px;
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-    text-align: center;
-    animation: modal-pop 0.3s ease-out;
-}
-
-@keyframes modal-pop {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-.shake { animation: shake-anim 0.3s; }
-@keyframes shake-anim {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+    background: #1a1a1a; border: 3px solid var(--gold);
+    color: white; max-width: 400px; width: 90%;
+    padding: 30px; border-radius: 20px; text-align: center;
 }
