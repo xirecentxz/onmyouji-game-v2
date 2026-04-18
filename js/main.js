@@ -82,7 +82,7 @@ window.confirmWord = () => {
     if (answer === state.currentQuestion.reading) {
         state.comboCount++;
         if (state.comboCount === 3) {
-            state.timeLeft += 5; 
+            state.timeLeft += 10; 
             state.comboCount = 0; 
             const timeDisplay = document.getElementById('time-val');
             if(timeDisplay) {
