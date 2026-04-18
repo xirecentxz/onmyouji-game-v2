@@ -4,7 +4,7 @@
     --ink: #3e2723;
 }
 
-/* --- DASAR --- */
+/* --- DASAR & LAYOUT --- */
 body {
     margin: 0; padding: 0;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
@@ -14,97 +14,135 @@ body {
 
 .game-layout {
     display: flex; flex-direction: column;
-    height: 100svh; max-width: 1000px;
+    height: 100svh; width: 100%; max-width: 1000px;
     margin: 0 auto; position: relative;
 }
 
-/* --- HEADER: AVATAR - HP - TIMER --- */
+/* --- HEADER (FIXED HUD) --- */
 header {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 20px; height: 60px; z-index: 100;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 15px; 
+    height: 60px; /* Mengunci tinggi header agar tidak berantakan */
+    box-sizing: border-box;
+    z-index: 100;
 }
 
+/* FIX AVATAR RAKSASA */
+.avatar-container {
+    width: 45px; height: 45px;
+    background: var(--gold-grad);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; /* Mencegah ukuran berubah-ubah */
+}
+
+.icon-header { 
+    width: 32px !important; 
+    height: 32px !important; 
+    object-fit: contain; 
+}
+
+/* FIX HP BAR MELUBER */
 .hp-container {
-    flex: 1; max-width: 400px; margin: 0 15px;
-    height: 12px; background: rgba(0,0,0,0.5);
-    border-radius: 10px; border: 1px solid var(--gold); overflow: hidden;
+    flex: 1; 
+    margin: 0 15px;
+    max-width: 300px; /* Membatasi lebar HP Bar di monitor laptop */
+    height: 14px; 
+    background: rgba(0,0,0,0.6);
+    border-radius: 10px; 
+    border: 1px solid var(--gold); 
+    overflow: hidden;
+    position: relative;
 }
 
 #hp-progress {
-    height: 100%; background: linear-gradient(to right, #ff4444, #ff8888);
+    height: 100%; 
+    background: linear-gradient(to right, #e53935, #ff8a80);
+    width: 100%; /* Dikontrol oleh JS */
     transition: width 0.3s ease;
 }
 
 .timer-box {
-    display: flex; align-items: center; gap: 8px;
-    background: rgba(0,0,0,0.6); padding: 5px 12px;
-    border-radius: 20px; border: 1px solid var(--gold);
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(0,0,0,0.6); 
+    padding: 5px 12px;
+    border-radius: 20px; 
+    border: 1px solid var(--gold);
+    min-width: 70px;
+    justify-content: center;
 }
 
-/* FIX JAM PASIR RAKSASA */
-.icon-jam { 
-    width: 25px !important; 
-    height: auto; 
-    object-fit: contain;
-}
+.icon-jam { width: 18px !important; height: auto; }
 
-/* --- AREA RITUAL (TENGAH) --- */
+/* --- RITUAL AREA (DIPERKETAT) --- */
 .ritual-center {
-    flex: 1; display: flex; flex-direction: column;
-    justify-content: center; align-items: center; gap: 10px;
+    flex: 1; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    gap: 8px;
+    padding-top: 10px;
 }
 
 #stage-banner {
-    font-size: 12px; background: rgba(0,0,0,0.8);
-    padding: 4px 15px; border-radius: 15px; border: 1px solid var(--gold);
+    font-size: 11px; color: var(--gold);
+    background: rgba(0,0,0,0.8);
+    padding: 4px 15px; border-radius: 12px;
+    border: 1px solid var(--gold);
 }
 
 .scroll-box {
     background: url('../assets/Gulungan.webp') no-repeat center;
     background-size: 100% 100%;
-    width: clamp(280px, 50vw, 450px); aspect-ratio: 2/1.1;
+    width: clamp(260px, 45vw, 400px); 
+    aspect-ratio: 2/1.1;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
 
-.kanji-main { font-size: 3.5rem; color: var(--ink); font-weight: 800; margin: 0; }
+.kanji-main { font-size: 3rem; color: var(--ink); font-weight: 800; margin: 0; }
 
-/* --- INPUT & BUTTONS --- */
-.answer-row { display: flex; gap: 8px; margin: 15px 0; }
+/* --- INPUT & ACTION --- */
+.answer-row { display: flex; gap: 6px; margin: 10px 0; }
 .letter-slot {
-    width: 45px; height: 55px;
+    width: 40px; height: 50px;
     background: url('../assets/KotakKata.webp') no-repeat center;
     background-size: 100% 100%;
     display: flex; align-items: center; justify-content: center;
-    color: #222; font-weight: bold; font-size: 1.5rem;
+    color: #222; font-weight: bold; font-size: 1.4rem;
 }
 
-.action-footer { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-
-#support-container { display: flex; gap: 10px; margin-bottom: 5px; }
+.action-footer { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+#support-container { display: flex; gap: 8px; margin-bottom: 5px; }
 
 .btn-segel-main {
     background: url('../assets/SegelButton.webp') no-repeat center;
-    background-size: 100% 100%; width: 160px; height: 50px;
+    background-size: 100% 100%; 
+    width: 150px; height: 45px;
     border: none; cursor: pointer; transition: 0.1s;
 }
 
-/* --- KARTU TANGAN --- */
-.hand-footer { padding-bottom: 20px; }
-.card-grid { display: grid; gap: 8px; padding: 0 10px; justify-content: center; }
+/* --- KARTU TANGAN (RESPONSIVE) --- */
+.hand-footer { padding-bottom: 15px; width: 100%; }
+.card-grid { display: grid; gap: 6px; padding: 0 10px; justify-content: center; }
 
-@media (min-width: 769px) { .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 900px; } }
+@media (min-width: 769px) { .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 850px; } }
 @media (max-width: 768px) { .card-grid { grid-template-columns: repeat(5, 1fr); max-width: 420px; } }
 
 .card {
     background: url('../assets/KertasJimat.webp') no-repeat center !important;
-    background-size: 100% 100% !important; aspect-ratio: 2/3.2;
+    background-size: 100% 100% !important; 
+    aspect-ratio: 2/3.2;
     display: flex; align-items: center; justify-content: center; color: #222;
 }
 
 /* --- MODAL --- */
 .full-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9); z-index: 9999;
+    background: rgba(0,0,0,0.92); z-index: 9999;
     display: none; justify-content: center; align-items: center;
 }
 .d-flex { display: flex !important; }
