@@ -6,16 +6,21 @@ window.showLevelSelector = () => {
     const home = document.getElementById('homepage-screen');
     const level = document.getElementById('level-selector');
     
-    home.classList.replace('d-flex', 'd-none'); // Sembunyikan Home
-    level.classList.replace('d-none', 'd-flex'); // Munculkan Level Selector
+    // Gunakan add/remove agar lebih stabil dibanding replace
+    home.classList.remove('d-flex');
+    home.classList.add('d-none'); 
+    level.classList.remove('d-none');
+    level.classList.add('d-flex'); 
 };
 
 window.backToHome = () => {
     const home = document.getElementById('homepage-screen');
     const level = document.getElementById('level-selector');
     
-    level.classList.replace('d-flex', 'd-none'); // Sembunyikan Level Selector
-    home.classList.replace('d-none', 'd-flex'); // Munculkan Home
+    level.classList.remove('d-flex');
+    level.classList.add('d-none');
+    home.classList.remove('d-none');
+    home.classList.add('d-flex');
 };
 
 window.startMode = (mode, stage) => {
@@ -23,18 +28,14 @@ window.startMode = (mode, stage) => {
     state.currentStage = stage;
     
     // Sembunyikan modal dan selector level
-    document.getElementById('modal-overlay').classList.replace('d-flex', 'd-none');
-    document.getElementById('level-selector').classList.replace('d-flex', 'd-none');
-    
-    startGame();
-};
-    
-    // Gunakan remove/add agar lebih pasti dibanding replace
     const modal = document.getElementById('modal-overlay');
-    modal.classList.add('d-none');
-    modal.classList.remove('d-flex');
+    const level = document.getElementById('level-selector');
     
-    document.getElementById('level-selector').classList.add('d-none');
+    modal.classList.remove('d-flex');
+    modal.classList.add('d-none');
+    level.classList.remove('d-flex');
+    level.classList.add('d-none');
+    
     startGame();
 };
 
@@ -104,7 +105,6 @@ window.confirmWord = () => {
         document.querySelector('.scroll-box').classList.add('shake');
         setTimeout(() => document.querySelector('.scroll-box').classList.remove('shake'), 400);
         
-        // CEK KALAH INSTAN JIKA PENALTI WAKTU
         state.timeLeft = Math.max(0, state.timeLeft - 10);
         updateUI();
         
@@ -233,7 +233,6 @@ function startTimer() {
             updateUI();
         } 
         
-        // Pengecekan kalah dipisah agar lebih akurat
         if (state.timeLeft <= 0) {
             state.gameActive = false;
             showModal(false);
@@ -243,13 +242,12 @@ function startTimer() {
 }
 
 function showModal(isWin) {
-    console.log("Modal Triggered! isWin:", isWin); // Cek di F12 Console laptopmu
+    console.log("Modal Triggered! isWin:", isWin); 
     const overlay = document.getElementById('modal-overlay');
     const title = document.getElementById('modal-title');
     const desc = document.getElementById('modal-desc');
     const btnArea = document.getElementById('modal-buttons-area');
     
-    // Pastikan modal muncul dengan pasti
     overlay.classList.remove('d-none');
     overlay.classList.add('d-flex');
     btnArea.innerHTML = ''; 
