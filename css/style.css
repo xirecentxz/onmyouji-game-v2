@@ -4,29 +4,23 @@
     --ink: #3e2723;
 }
 
-/* --- DASAR & LAYOUT --- */
+/* --- DASAR & LAYOUT UTAMA --- */
 body {
     margin: 0; padding: 0;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
     background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
     height: 100svh; width: 100%;
     touch-action: manipulation;
-    overflow: hidden; /* Mengunci agar tidak ada scroll liar di HP */
+    overflow: hidden; /* Mencegah layar bergeser saat ritual intens */
 }
 
 .game-layout {
     display: flex; flex-direction: column; 
-    height: 100svh; max-width: 900px; /* Batasan lebar agar web tidak terlalu besar */
+    height: 100svh; max-width: 900px; /* Batasan agar tampilan di laptop tetap elegan */
     margin: 0 auto; position: relative;
 }
 
-/* --- HOME SCREEN --- */
-#homepage-screen .main-logo {
-    width: clamp(180px, 40vw, 300px); /* Memperkecil logo agar proporsional */
-    height: auto;
-}
-
-/* --- HEADER (HUD) --- */
+/* --- HEADER & HUD --- */
 header {
     padding: 5px 15px;
     z-index: 100;
@@ -37,13 +31,13 @@ header {
 .icon-header { width: 35px !important; }
 .icon-jam { width: 20px !important; }
 
-/* --- RITUAL CENTER (AREA VERTIKAL RAPAT) --- */
+/* --- AREA PERMAINAN (KOMPAK) --- */
 .ritual-center {
     flex: 1;
     display: flex; flex-direction: column;
-    justify-content: flex-start; /* Tarik ke atas agar area kartu di bawah luas */
+    justify-content: flex-start; /* Menarik elemen ke atas untuk memberi ruang kartu di bawah */
     align-items: center;
-    gap: 4px; /* Jarak antar elemen sangat rapat */
+    gap: 4px;
     padding-top: 5px;
 }
 
@@ -57,7 +51,7 @@ header {
 .scroll-box {
     background: url('../assets/Gulungan.webp') no-repeat center;
     background-size: 100% 100%;
-    width: clamp(240px, 65vw, 420px); /* Ukuran gulungan lebih kompak */
+    width: clamp(240px, 65vw, 420px);
     aspect-ratio: 2/1.1;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     padding: 5px 10%;
@@ -65,7 +59,7 @@ header {
 
 .kanji-main { font-size: clamp(1.8rem, 6vw, 3.2rem); color: var(--ink); font-weight: 800; }
 
-/* --- FIELD INPUT (WORD ZONE) --- */
+/* --- INPUT ZONE --- */
 .answer-row { 
     display: flex; justify-content: center; 
     gap: 6px; margin: 2px 0 !important; 
@@ -74,7 +68,7 @@ header {
 .letter-slot { 
     width: clamp(38px, 9vw, 50px); 
     height: clamp(48px, 11vw, 60px); 
-    background: url('../assets/KotakKata.webp') no-repeat center; /* Aset field yang benar */
+    background: url('../assets/KotakKata.webp') no-repeat center;
     background-size: 100% 100%;
     display: flex; align-items: center; justify-content: center;
     color: #222; font-weight: bold; font-size: 1.4rem;
@@ -96,10 +90,10 @@ header {
     border: none; cursor: pointer;
 }
 
-/* --- AREA KARTU TANGAN (RESPONSIVE) --- */
+/* --- KARTU TANGAN (RESPONSIVE) --- */
 .hand-footer {
     width: 100%; padding-bottom: 15px;
-    background: rgba(0,0,0,0.3); /* Memberi batas visual area kartu */
+    background: rgba(0,0,0,0.3);
 }
 
 .card-grid {
@@ -107,19 +101,19 @@ header {
     justify-content: center;
 }
 
-/* LAPTOP: 10 Kartu Sejajar */
+/* Tampilan Laptop (10 Kartu Sejajar) */
 @media (min-width: 769px) {
     .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 850px; }
 }
 
-/* HP: 5x2 (Dua Baris) Agar tidak terpotong */
+/* Tampilan HP (5x2 Kartu) */
 @media (max-width: 768px) {
     .card-grid { grid-template-columns: repeat(5, 1fr); max-width: 420px; }
-    .card { height: clamp(75px, 18vh, 95px); } /* Menjaga ukuran kartu di layar HP panjang */
+    .card { height: clamp(75px, 18vh, 95px); }
 }
 
 .card {
-    background: url('../assets/KertasJimat.webp') no-repeat center !important; /* Aset jimat yang benar */
+    background: url('../assets/KertasJimat.webp') no-repeat center !important;
     background-size: 100% 100% !important;
     aspect-ratio: 2/3.2;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -128,16 +122,41 @@ header {
 
 .card .kana { font-size: 1.3rem; font-weight: bold; }
 
-/* --- GLOBAL UI --- */
+/* --- UI GLOBAL & MODAL --- */
 .btn-gold-oval {
     background: var(--gold-grad); border: 2px solid var(--gold);
     border-radius: 20px; color: var(--ink); font-weight: bold;
     font-size: 12px; padding: 3px 12px;
 }
 
+/* Full Overlay untuk Notifikasi Gagal/Berhasil */
 .full-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85); z-index: 1000;
+    position: fixed; top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999; 
+    display: none; /* Sembunyi otomatis saat awal */
+    justify-content: center; align-items: center;
+}
+
+/* Class wajib untuk fungsi JavaScript */
+.d-flex { display: flex !important; }
+.d-none { display: none !important; }
+
+.modal-box {
+    background: #1a1a1a;
+    border: 3px solid var(--gold);
+    color: white;
+    max-width: 400px; width: 90%;
+    padding: 30px; border-radius: 20px;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    text-align: center;
+    animation: modal-pop 0.3s ease-out;
+}
+
+@keyframes modal-pop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 .shake { animation: shake-anim 0.3s; }
@@ -145,38 +164,4 @@ header {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
     75% { transform: translateX(5px); }
-}
-
-/* --- FIX MODAL NOTIFIKASI --- */
-.full-overlay {
-    position: fixed; 
-    top: 0; left: 0; 
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.9); /* Gelapkan background saat modal muncul */
-    z-index: 9999; /* Pastikan di depan semua elemen game */
-    display: none; /* Sembunyi secara default */
-    justify-content: center; 
-    align-items: center;
-}
-
-/* Class pembantu untuk JavaScript */
-.d-flex { display: flex !important; }
-.d-none { display: none !important; }
-
-/* Desain Kotak Modal agar terlihat seperti box game */
-.modal-box {
-    background: #1a1a1a;
-    border: 3px solid var(--gold);
-    color: white;
-    max-width: 400px;
-    width: 90%;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-    animation: modal-pop 0.3s ease-out;
-}
-
-@keyframes modal-pop {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
 }
