@@ -4,112 +4,108 @@
     --ink: #3e2723;
 }
 
-/* --- DASAR & LAYOUT --- */
+/* --- DASAR --- */
 body {
     margin: 0; padding: 0;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
     background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
-    height: 100svh; width: 100%;
-    touch-action: manipulation;
-    overflow: hidden;
+    height: 100svh; width: 100%; overflow: hidden;
 }
 
-/* Overlay Dasar untuk Home, Level Selector, dan Modal */
-.full-overlay {
-    position: fixed; top: 0; left: 0; 
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Background gelap transparan */
-    z-index: 1000;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Class pembantu untuk JS */
-.d-flex { display: flex !important; }
-.d-none { display: none !important; }
-
-/* --- HOME SCREEN --- */
-#homepage-screen {
-    background: rgba(0,0,0,0.4) url('../assets/BG1.webp') no-repeat center;
-    background-size: cover;
-}
-
-#homepage-screen .main-logo {
-    width: clamp(150px, 35vw, 250px); /* Ukuran logo lebih terkendali */
-    height: auto; margin-bottom: 10px;
-}
-
-.game-title { font-size: clamp(2rem, 8vw, 4rem); letter-spacing: 5px; }
-.text-gold { color: var(--gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
-
-/* --- LEVEL SELECTOR --- */
-#level-selector .container {
-    max-width: 600px;
-    padding: 20px;
-}
-
-.btn-gold-oval {
-    background: var(--gold-grad); border: 2px solid var(--gold);
-    border-radius: 50%; /* Bulat sempurna untuk angka stage */
-    width: 45px; height: 45px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--ink); font-weight: bold; cursor: pointer;
-}
-
-.btn-gold-oval:disabled { opacity: 0.4; cursor: not-allowed; }
-
-/* --- GAMEPLAY LAYOUT --- */
 .game-layout {
-    display: flex; flex-direction: column; 
-    height: 100svh; max-width: 900px; 
+    display: flex; flex-direction: column;
+    height: 100svh; max-width: 1000px;
     margin: 0 auto; position: relative;
 }
 
-header { padding: 5px 15px; z-index: 100; height: 50px; display: flex; align-items: center; }
-.icon-header { width: 35px !important; }
+/* --- HEADER: AVATAR - HP - TIMER --- */
+header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 20px; height: 60px; z-index: 100;
+}
 
+.hp-container {
+    flex: 1; max-width: 400px; margin: 0 15px;
+    height: 12px; background: rgba(0,0,0,0.5);
+    border-radius: 10px; border: 1px solid var(--gold); overflow: hidden;
+}
+
+#hp-progress {
+    height: 100%; background: linear-gradient(to right, #ff4444, #ff8888);
+    transition: width 0.3s ease;
+}
+
+.timer-box {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(0,0,0,0.6); padding: 5px 12px;
+    border-radius: 20px; border: 1px solid var(--gold);
+}
+
+/* FIX JAM PASIR RAKSASA */
+.icon-jam { 
+    width: 25px !important; 
+    height: auto; 
+    object-fit: contain;
+}
+
+/* --- AREA RITUAL (TENGAH) --- */
 .ritual-center {
     flex: 1; display: flex; flex-direction: column;
-    justify-content: flex-start; align-items: center;
-    gap: 4px; padding-top: 5px;
+    justify-content: center; align-items: center; gap: 10px;
+}
+
+#stage-banner {
+    font-size: 12px; background: rgba(0,0,0,0.8);
+    padding: 4px 15px; border-radius: 15px; border: 1px solid var(--gold);
 }
 
 .scroll-box {
     background: url('../assets/Gulungan.webp') no-repeat center;
     background-size: 100% 100%;
-    width: clamp(240px, 65vw, 420px);
-    aspect-ratio: 2/1.1;
+    width: clamp(280px, 50vw, 450px); aspect-ratio: 2/1.1;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
 
-.letter-slot { 
-    width: clamp(38px, 9vw, 50px); height: clamp(48px, 11vw, 60px); 
+.kanji-main { font-size: 3.5rem; color: var(--ink); font-weight: 800; margin: 0; }
+
+/* --- INPUT & BUTTONS --- */
+.answer-row { display: flex; gap: 8px; margin: 15px 0; }
+.letter-slot {
+    width: 45px; height: 55px;
     background: url('../assets/KotakKata.webp') no-repeat center;
-    background-size: 100% 100%; display: flex; align-items: center; justify-content: center;
-    color: #222; font-weight: bold; font-size: 1.4rem;
+    background-size: 100% 100%;
+    display: flex; align-items: center; justify-content: center;
+    color: #222; font-weight: bold; font-size: 1.5rem;
+}
+
+.action-footer { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+#support-container { display: flex; gap: 10px; margin-bottom: 5px; }
+
+.btn-segel-main {
+    background: url('../assets/SegelButton.webp') no-repeat center;
+    background-size: 100% 100%; width: 160px; height: 50px;
+    border: none; cursor: pointer; transition: 0.1s;
 }
 
 /* --- KARTU TANGAN --- */
-.hand-footer { width: 100%; padding-bottom: 15px; background: rgba(0,0,0,0.3); }
-.card-grid { display: grid; gap: 6px; padding: 0 10px; justify-content: center; }
+.hand-footer { padding-bottom: 20px; }
+.card-grid { display: grid; gap: 8px; padding: 0 10px; justify-content: center; }
 
-@media (min-width: 769px) { .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 850px; } }
-@media (max-width: 768px) {
-    .card-grid { grid-template-columns: repeat(5, 1fr); max-width: 420px; }
-    .card { height: clamp(75px, 18vh, 95px); }
-}
+@media (min-width: 769px) { .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 900px; } }
+@media (max-width: 768px) { .card-grid { grid-template-columns: repeat(5, 1fr); max-width: 420px; } }
 
 .card {
     background: url('../assets/KertasJimat.webp') no-repeat center !important;
-    background-size: 100% 100% !important;
-    aspect-ratio: 2/3.2; display: flex; align-items: center; justify-content: center;
-    color: #222; cursor: pointer;
+    background-size: 100% 100% !important; aspect-ratio: 2/3.2;
+    display: flex; align-items: center; justify-content: center; color: #222;
 }
 
-/* --- MODAL BOX --- */
-.modal-box {
-    background: #1a1a1a; border: 3px solid var(--gold);
-    color: white; max-width: 400px; width: 90%;
-    padding: 30px; border-radius: 20px; text-align: center;
+/* --- MODAL --- */
+.full-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9); z-index: 9999;
+    display: none; justify-content: center; align-items: center;
 }
+.d-flex { display: flex !important; }
+.d-none { display: none !important; }
