@@ -1,168 +1,750 @@
+/* ================================================================
+   RITUAL GAME UI — IMPROVED STYLESHEET
+   Fonts required: Cinzel (display), Crimson Pro (body)
+   Add to <head>:
+   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+   ================================================================ */
+
 :root {
-    --gold: #d4af37;
-    --gold-grad: linear-gradient(to bottom, #fff3e0, #ffcc80);
-    --ink: #3e2723;
+    --gold:          #d4af37;
+    --gold-light:    #f5e49c;
+    --gold-dim:      #8a6e1a;
+    --gold-grad:     linear-gradient(to bottom, #fff3e0, #ffcc80);
+    --ink:           #2a1a0e;
+    --ink-mid:       #4a2e1a;
+    --parchment:     #f5e6c8;
+    --parchment-drk: #e8d5a3;
+    --red-hp:        #c0392b;
+    --red-hp-light:  #e74c3c;
+    --ember:         #ff6b35;
+    --shadow:        rgba(0, 0, 0, 0.8);
+    --overlay:       rgba(10, 5, 2, 0.7);
+    --border-gold:   1px solid rgba(212, 175, 55, 0.35);
+    --border-gold-strong: 1.5px solid var(--gold);
 }
 
-/* --- DASAR & LAYOUT --- */
+/* ----------------------------------------------------------------
+   RESET & BASE
+   ---------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    margin: 0; padding: 0;
+    font-family: 'Crimson Pro', 'Segoe UI', serif;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
-    background-size: cover; color: white; font-family: 'Segoe UI', sans-serif;
-    height: 100svh; width: 100%; overflow: hidden;
+    background-size: cover;
+    color: white;
+    height: 100svh;
+    width: 100%;
+    overflow: hidden;
+    /* Subtle scanline texture for depth */
+    background-blend-mode: overlay;
 }
 
-/* Membatasi area game secara tegas di tengah layar PC */
+/* ----------------------------------------------------------------
+   GAME LAYOUT — bounded, centered, cinematic
+   ---------------------------------------------------------------- */
 .game-layout {
-    display: flex; flex-direction: column;
-    height: 100svh; width: 100%; max-width: 800px; /* Diperketat agar tidak melar */
-    margin: 0 auto; position: relative;
-    background: rgba(0, 0, 0, 0.4); /* Memberi batas visual area game di PC */
-    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+    background: linear-gradient(170deg, rgba(18, 8, 0, 0.88) 0%, rgba(10, 4, 0, 0.92) 100%);
+    box-shadow:
+        0 0 0 1px rgba(212, 175, 55, 0.08),
+        0 0 60px rgba(212, 175, 55, 0.06),
+        0 30px 80px rgba(0, 0, 0, 0.95);
+    overflow: hidden;
 }
 
-/* --- HEADER (FIXED HUD) --- */
+/* Fine vertical grain overlay for atmosphere */
+.game-layout::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(255, 255, 255, 0.012) 2px, rgba(255, 255, 255, 0.012) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* All direct children sit above the grain layer */
+.game-layout > * { position: relative; z-index: 1; }
+
+/* ----------------------------------------------------------------
+   HEADER — fixed HUD bar
+   ---------------------------------------------------------------- */
 header {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 20px; height: 60px; box-sizing: border-box; z-index: 100;
-}
-
-.avatar-container {
-    width: 40px; height: 40px;
-    background: var(--gold-grad); border: 2px solid var(--gold);
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    height: 60px;
     flex-shrink: 0;
+    background: linear-gradient(to bottom, rgba(212, 175, 55, 0.1), transparent);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.18);
 }
 
-.icon-header { width: 28px !important; height: 28px !important; object-fit: contain; }
+/* --- Avatar --- */
+.avatar-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: var(--border-gold-strong);
+    background: radial-gradient(circle at 40% 35%, #fff3c4, #c89a20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow:
+        0 0 12px rgba(212, 175, 55, 0.35),
+        inset 0 1px 3px rgba(255, 255, 255, 0.4);
+}
+
+.icon-header {
+    width: 24px !important;
+    height: 24px !important;
+    object-fit: contain;
+}
+
+/* --- HP Bar --- */
+.hp-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hp-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+}
 
 .hp-container {
-    flex: 1; margin: 0 15px; height: 14px; 
-    background: rgba(0,0,0,0.6); border-radius: 10px; 
-    border: 1px solid var(--gold); overflow: hidden;
+    height: 11px;
+    background: rgba(0, 0, 0, 0.65);
+    border-radius: 6px;
+    border: 1px solid rgba(212, 175, 55, 0.28);
+    overflow: hidden;
+    position: relative;
 }
 
 #hp-progress {
-    height: 100%; background: linear-gradient(to right, #e53935, #ff8a80);
-    width: 100%; transition: width 0.3s ease;
+    height: 100%;
+    background: linear-gradient(to right, var(--red-hp), var(--red-hp-light), var(--ember));
+    border-radius: 6px;
+    width: 100%;
+    transition: width 0.4s ease;
+    position: relative;
 }
 
+/* Inner highlight stripe */
+#hp-progress::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 8px;
+    right: 4px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 2px;
+}
+
+/* --- Timer --- */
 .timer-box {
-    display: flex; align-items: center; gap: 5px;
-    background: rgba(0,0,0,0.6); padding: 5px 12px;
-    border-radius: 20px; border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(0, 0, 0, 0.55);
+    border: var(--border-gold);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    color: var(--gold-light);
+    flex-shrink: 0;
 }
 
-.icon-jam { width: 18px !important; height: auto; }
+.icon-jam {
+    width: 14px !important;
+    height: 14px;
+    opacity: 0.75;
+}
 
-/* --- HOME SCREEN & LEVEL SELECTOR --- */
+/* Pulsing live dot (add <span class="timer-dot"></span> in HTML) */
+.timer-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ember);
+    box-shadow: 0 0 6px var(--ember);
+    animation: timerPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.45; transform: scale(0.75); }
+}
+
+/* ----------------------------------------------------------------
+   STAGE BANNER
+   ---------------------------------------------------------------- */
+#stage-banner {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 6px 20px 4px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+/* ----------------------------------------------------------------
+   HOMEPAGE & LEVEL SELECTOR
+   ---------------------------------------------------------------- */
 #homepage-screen {
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    height: 100svh; background: rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    height: 100svh;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 20px;
 }
 
-#homepage-screen .main-logo { width: clamp(200px, 40vw, 350px); height: auto; margin-bottom: 20px; }
+#homepage-screen .main-logo {
+    width: clamp(180px, 38vw, 320px);
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+}
 
-/* Fix Level Selector yang berantakan */
+/* General gold button (home CTA) */
+.btn-gold {
+    padding: 13px 40px;
+    background: linear-gradient(to bottom, #f5e49c, #d4af37, #a07c10);
+    border: none;
+    border-radius: 3px;
+    color: var(--ink);
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow:
+        0 3px 0 #6a4e00,
+        0 6px 18px rgba(0, 0, 0, 0.6);
+    transition: all 0.18s ease;
+}
+
+.btn-gold:hover {
+    background: linear-gradient(to bottom, #fff3c4, #e8c84a, #b88d18);
+    transform: translateY(-2px);
+    box-shadow:
+        0 3px 0 #6a4e00,
+        0 10px 24px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(212, 175, 55, 0.25);
+}
+
+.btn-gold:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 #6a4e00, 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Level Selector */
 #level-selector {
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    height: 100svh; width: 100%; background: rgba(0,0,0,0.9);
-    position: absolute; top: 0; left: 0; z-index: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100svh;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    gap: 24px;
+    padding: 30px 20px;
 }
 
-#level-selector .container { max-width: 600px; text-align: center; width: 100%; }
-.stage-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px 0; }
+#level-selector h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+}
+
+#level-selector .container {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+}
+
+.stage-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
 
 .btn-stage {
-    background: transparent; border: 1px solid var(--gold); color: white;
-    width: 45px; height: 45px; border-radius: 5px; cursor: pointer; transition: 0.2s;
-}
-.btn-stage:hover { background: var(--gold); color: black; }
-
-/* --- RITUAL AREA --- */
-.ritual-center {
-    flex: 1; display: flex; flex-direction: column;
-    justify-content: center; align-items: center; gap: 6px; padding-top: 10px;
-}
-
-#stage-banner { font-size: 12px; color: var(--gold); background: rgba(0,0,0,0.8); padding: 4px 15px; border-radius: 12px; border: 1px solid var(--gold); }
-
-.scroll-box {
-    background: url('../assets/Gulungan.webp') no-repeat center; background-size: 100% 100%;
-    width: clamp(280px, 55vw, 450px); aspect-ratio: 2/1.1;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-}
-
-.kanji-main { font-size: 3.5rem; color: var(--ink); font-weight: 800; margin: 0; }
-
-/* --- INPUT & ACTION --- */
-
-/* --- INPUT & ACTION --- */
-.answer-row { 
-    display: flex; 
-    gap: 6px; 
-    /* Atur margin: Atas 10px, Kanan 0, Bawah 2px, Kiri 0 */
-    margin: 10px 0 1px 0 ; 
-}
-.letter-slot {
-    width: 40px; height: 50px; background: url('../assets/KotakKata.webp') no-repeat center; background-size: 100% 100%;
-    display: flex; align-items: center; justify-content: center; color: #222; font-weight: bold; font-size: 1.4rem;
-}
-
-.action-footer { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
-
-/* Fix Tombol Bantuan (Hapus, Hint, Romaji) */
-.support-actions { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
-.support-actions button {
-    background: var(--gold-grad); border: 2px solid var(--gold); border-radius: 15px;
-    padding: 5px 15px; color: var(--ink); font-weight: bold; font-size: 12px; cursor: pointer;
-}
-
-#support-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 5px; }
-
-#support-container button {
-    background: transparent; 
-    border: 1px solid var(--gold); 
-    color: var(--gold);
-    border-radius: 50%; 
-    width: 35px; 
-    height: 35px; 
+    width: 46px;
+    height: 46px;
+    background: transparent;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
     cursor: pointer;
-    
-    /* --- Tambahkan 3 baris di bawah ini --- */
+    transition: all 0.2s ease;
+}
+
+.btn-stage:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--gold);
+    color: var(--gold-light);
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.2);
+    transform: scale(1.08);
+}
+
+.btn-stage.completed {
+    background: rgba(212, 175, 55, 0.08);
+    border-color: rgba(212, 175, 55, 0.5);
+    color: var(--gold-dim);
+}
+
+/* ----------------------------------------------------------------
+   RITUAL CENTER — main game area
+   ---------------------------------------------------------------- */
+.ritual-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 20px 16px;
+}
+
+/* ----------------------------------------------------------------
+   SCROLL / KANJI DISPLAY
+   ---------------------------------------------------------------- */
+.scroll-box {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 2 / 1.1;
+    background: radial-gradient(ellipse at 50% 45%, #f8edd4 0%, #e0c98a 70%, #c8a45a 100%);
+    border: 1.5px solid #c8a45a;
+    border-radius: 4px;
+    box-shadow:
+        inset 0 2px 10px rgba(0, 0, 0, 0.12),
+        inset 0 -2px 10px rgba(0, 0, 0, 0.08),
+        0 4px 24px rgba(0, 0, 0, 0.65),
+        0 0 0 4px rgba(0, 0, 0, 0.35),
+        0 0 0 5px rgba(180, 140, 60, 0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Aged-paper line texture */
+.scroll-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        90deg, transparent, transparent 28px,
+        rgba(180, 140, 60, 0.06) 28px, rgba(180, 140, 60, 0.06) 29px
+    );
+    pointer-events: none;
+}
+
+.kanji-main {
+    font-size: 3.5rem;
+    color: var(--ink);
+    font-weight: 700;
+    line-height: 1;
+    font-family: 'Cinzel', serif;
+    position: relative;
+    z-index: 1;
+    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.14);
+    letter-spacing: 0;
+}
+
+.kanji-sub {
+    font-size: 10px;
+    color: var(--ink-mid);
+    letter-spacing: 3px;
+    font-family: 'Cinzel', serif;
+    position: relative;
+    z-index: 1;
+    opacity: 0.55;
+    text-transform: uppercase;
+}
+
+/* Thin gold rule between kanji and reading */
+.scroll-divider {
+    width: 40px;
+    height: 1px;
+    background: rgba(180, 140, 60, 0.35);
+    position: relative;
+    z-index: 1;
+}
+
+/* ----------------------------------------------------------------
+   ANSWER SLOTS
+   ---------------------------------------------------------------- */
+.answer-row {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    margin: 6px 0 2px;
+}
+
+.letter-slot {
+    width: 42px;
+    height: 52px;
+    background: linear-gradient(to bottom, #f5e6c8, #e8d5a3);
+    border: 1.5px solid #c8a45a;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 1.35rem;
+    font-family: 'Cinzel', serif;
+    box-shadow:
+        inset 0 1px 4px rgba(255, 255, 255, 0.55),
+        inset 0 -1px 4px rgba(0, 0, 0, 0.12),
+        0 3px 8px rgba(0, 0, 0, 0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    position: relative;
+}
+
+/* Bottom underline for empty slots */
+.letter-slot.empty::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 1.5px;
+    background: rgba(180, 140, 60, 0.38);
+    bottom: 11px;
+    border-radius: 1px;
+}
+
+/* Filled/active slot */
+.letter-slot.filled,
+.letter-slot:not(:empty) {
+    background: linear-gradient(to bottom, #fff3c4, #f0d870);
+    border-color: var(--gold);
+    box-shadow:
+        inset 0 1px 4px rgba(255, 255, 255, 0.75),
+        inset 0 -1px 4px rgba(0, 0, 0, 0.08),
+        0 3px 10px rgba(212, 175, 55, 0.35);
+}
+
+/* Pop-in animation for newly filled slot */
+@keyframes slotFill {
+    0%   { transform: scale(0.85); opacity: 0.4; }
+    60%  { transform: scale(1.08); }
+    100% { transform: scale(1);   opacity: 1; }
+}
+
+.letter-slot.just-filled {
+    animation: slotFill 0.25s ease forwards;
+}
+
+/* ----------------------------------------------------------------
+   ACTION FOOTER — support + seal button
+   ---------------------------------------------------------------- */
+.action-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* Small round helper buttons */
+#support-container,
+.support-actions {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0; /* Menghilangkan spasi bawaan dari browser */
+    gap: 12px;
 }
 
+#support-container button,
+.support-actions button {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: transparent;
+    border: var(--border-gold);
+    color: var(--gold);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    padding: 0;
+}
+
+#support-container button:hover,
+.support-actions button:hover {
+    background: rgba(212, 175, 55, 0.12);
+    border-color: var(--gold);
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.22);
+}
+
+#support-container button:active,
+.support-actions button:active {
+    transform: scale(0.91);
+}
+
+/* Main Seal / Submit button */
 .btn-segel-main {
-    background: url('../assets/SegelButton.webp') no-repeat center; background-size: 100% 100%; 
-    width: 150px; height: 45px; border: none; cursor: pointer;
+    padding: 12px 44px;
+    background: linear-gradient(to bottom, #f5e49c, #d4af37, #a07c10);
+    border: none;
+    border-radius: 3px;
+    color: var(--ink);
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow:
+        0 3px 0 #6a4e00,
+        0 6px 16px rgba(0, 0, 0, 0.55),
+        0 0 20px rgba(212, 175, 55, 0.1);
+    transition: all 0.18s ease;
+    width: auto;
+    height: auto;
+    /* Override any background-image from old CSS */
+    background-image: none;
 }
 
-/* --- KARTU TANGAN --- */
-.hand-footer { padding-bottom: 20px; width: 100%; background: rgba(0,0,0,0.4); }
-.card-grid { display: grid; gap: 8px; padding: 0 10px; justify-content: center; }
+.btn-segel-main:hover {
+    background: linear-gradient(to bottom, #fff3c4, #e8c84a, #b88d18);
+    transform: translateY(-2px);
+    box-shadow:
+        0 3px 0 #6a4e00,
+        0 10px 24px rgba(0, 0, 0, 0.65),
+        0 0 30px rgba(212, 175, 55, 0.28);
+}
 
-@media (min-width: 769px) { .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 800px; } }
-@media (max-width: 768px) { .card-grid { grid-template-columns: repeat(5, 1fr); max-width: 420px; } }
+.btn-segel-main:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 #6a4e00, 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+/* ----------------------------------------------------------------
+   HAND / CARD GRID
+   ---------------------------------------------------------------- */
+.hand-footer {
+    flex-shrink: 0;
+    padding: 8px 10px 18px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent);
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.hand-label {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(212, 175, 55, 0.3);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.card-grid {
+    display: grid;
+    gap: 7px;
+    padding: 0;
+    justify-content: center;
+}
+
+/* Desktop: 10-column tight grid */
+@media (min-width: 769px) {
+    .card-grid {
+        grid-template-columns: repeat(10, 1fr);
+        max-width: 100%;
+    }
+}
+
+/* Mobile / narrow: 5 per row */
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: repeat(5, 1fr);
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
 
 .card {
-    background: url('../assets/KertasJimat.webp') no-repeat center !important; background-size: 100% 100% !important; 
-    aspect-ratio: 2/3.2; display: flex; align-items: center; justify-content: center; color: #222; font-weight: bold; font-size: 1.2rem; cursor: pointer;
+    aspect-ratio: 2 / 3;
+    background: linear-gradient(160deg, #f5e6c8 0%, #d9c090 65%, #c8a45a 100%) !important;
+    background-image: none;
+    border: 1px solid #b8924a;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 1.1rem;
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    box-shadow:
+        inset 0 1px 3px rgba(255, 255, 255, 0.5),
+        0 3px 9px rgba(0, 0, 0, 0.55),
+        0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* --- MODAL --- */
-.full-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.92); z-index: 9999;
-    display: none; justify-content: center; align-items: center;
+/* Inner decorative frame on card */
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba(180, 140, 60, 0.28);
+    border-radius: 2px;
+    pointer-events: none;
 }
+
+.card:hover {
+    transform: translateY(-6px) scale(1.07);
+    box-shadow:
+        inset 0 1px 3px rgba(255, 255, 255, 0.6),
+        0 12px 22px rgba(0, 0, 0, 0.75),
+        0 0 14px rgba(212, 175, 55, 0.28);
+    border-color: var(--gold);
+    z-index: 5;
+}
+
+.card:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Card selected state */
+.card.selected {
+    background: linear-gradient(160deg, #fff3c4 0%, #f0d870 60%, #d4af37 100%) !important;
+    border-color: var(--gold);
+    box-shadow:
+        inset 0 1px 3px rgba(255, 255, 255, 0.7),
+        0 4px 14px rgba(212, 175, 55, 0.45);
+}
+
+/* Card used/disabled state */
+.card.used {
+    opacity: 0.3;
+    pointer-events: none;
+    filter: grayscale(0.5);
+}
+
+/* ----------------------------------------------------------------
+   MODALS & OVERLAYS
+   ---------------------------------------------------------------- */
+.full-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
 .d-flex { display: flex !important; }
 .d-none { display: none !important; }
 
 .modal-box {
-    background: #1a1a1a; border: 3px solid var(--gold); color: white;
-    max-width: 400px; width: 90%; padding: 30px; border-radius: 20px; text-align: center;
+    background: linear-gradient(160deg, #1a1008, #0d0804);
+    border: 1.5px solid var(--gold-dim);
+    color: white;
+    max-width: 380px;
+    width: 90%;
+    padding: 36px 32px;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow:
+        0 0 0 1px rgba(212, 175, 55, 0.08),
+        0 0 40px rgba(212, 175, 55, 0.1),
+        0 30px 60px rgba(0, 0, 0, 0.9);
+    animation: modalIn 0.3s ease forwards;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.9) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-box h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.modal-box p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+/* ----------------------------------------------------------------
+   DECORATIVE UTILITY
+   ---------------------------------------------------------------- */
+.gold-divider {
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.35), transparent);
+    flex-shrink: 0;
+}
+
+/* Romaji / hint reveal text */
+.hint-text {
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: rgba(212, 175, 55, 0.55);
+    text-transform: uppercase;
+    margin-top: 2px;
 }
