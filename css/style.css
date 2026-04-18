@@ -97,8 +97,8 @@ header {
 }
 
 .icon-header {
-    width: 28px !important;
-    height: 28px !important;
+    width: 42px !important;
+    height: 42px !important;
     object-fit: contain;
     /* Very slight golden warmth filter */
     filter: drop-shadow(0 0 4px rgba(212,175,55,0.6));
