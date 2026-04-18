@@ -12,131 +12,126 @@ body {
     height: 100svh; width: 100%; overflow: hidden;
 }
 
+/* Membatasi area game secara tegas di tengah layar PC */
 .game-layout {
     display: flex; flex-direction: column;
-    height: 100svh; width: 100%; max-width: 1000px;
+    height: 100svh; width: 100%; max-width: 800px; /* Diperketat agar tidak melar */
     margin: 0 auto; position: relative;
+    background: rgba(0, 0, 0, 0.4); /* Memberi batas visual area game di PC */
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
 }
 
 /* --- HEADER (FIXED HUD) --- */
 header {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-    padding: 10px 15px; 
-    height: 60px; /* Mengunci tinggi header agar tidak berantakan */
-    box-sizing: border-box;
-    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 20px; height: 60px; box-sizing: border-box; z-index: 100;
 }
 
-/* FIX AVATAR RAKSASA */
 .avatar-container {
-    width: 45px; height: 45px;
-    background: var(--gold-grad);
-    border: 2px solid var(--gold);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; /* Mencegah ukuran berubah-ubah */
+    width: 40px; height: 40px;
+    background: var(--gold-grad); border: 2px solid var(--gold);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
 }
 
-.icon-header { 
-    width: 32px !important; 
-    height: 32px !important; 
-    object-fit: contain; 
-}
+.icon-header { width: 28px !important; height: 28px !important; object-fit: contain; }
 
-/* FIX HP BAR MELUBER */
 .hp-container {
-    flex: 1; 
-    margin: 0 15px;
-    max-width: 300px; /* Membatasi lebar HP Bar di monitor laptop */
-    height: 14px; 
-    background: rgba(0,0,0,0.6);
-    border-radius: 10px; 
-    border: 1px solid var(--gold); 
-    overflow: hidden;
-    position: relative;
+    flex: 1; margin: 0 15px; height: 14px; 
+    background: rgba(0,0,0,0.6); border-radius: 10px; 
+    border: 1px solid var(--gold); overflow: hidden;
 }
 
 #hp-progress {
-    height: 100%; 
-    background: linear-gradient(to right, #e53935, #ff8a80);
-    width: 100%; /* Dikontrol oleh JS */
-    transition: width 0.3s ease;
+    height: 100%; background: linear-gradient(to right, #e53935, #ff8a80);
+    width: 100%; transition: width 0.3s ease;
 }
 
 .timer-box {
     display: flex; align-items: center; gap: 5px;
-    background: rgba(0,0,0,0.6); 
-    padding: 5px 12px;
-    border-radius: 20px; 
-    border: 1px solid var(--gold);
-    min-width: 70px;
-    justify-content: center;
+    background: rgba(0,0,0,0.6); padding: 5px 12px;
+    border-radius: 20px; border: 1px solid var(--gold);
 }
 
 .icon-jam { width: 18px !important; height: auto; }
 
-/* --- RITUAL AREA (DIPERKETAT) --- */
-.ritual-center {
-    flex: 1; 
-    display: flex; 
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    gap: 8px;
-    padding-top: 10px;
+/* --- HOME SCREEN & LEVEL SELECTOR --- */
+#homepage-screen {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    height: 100svh; background: rgba(0,0,0,0.6);
 }
 
-#stage-banner {
-    font-size: 11px; color: var(--gold);
-    background: rgba(0,0,0,0.8);
-    padding: 4px 15px; border-radius: 12px;
-    border: 1px solid var(--gold);
+#homepage-screen .main-logo { width: clamp(200px, 40vw, 350px); height: auto; margin-bottom: 20px; }
+
+/* Fix Level Selector yang berantakan */
+#level-selector {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    height: 100svh; width: 100%; background: rgba(0,0,0,0.9);
+    position: absolute; top: 0; left: 0; z-index: 500;
 }
+
+#level-selector .container { max-width: 600px; text-align: center; width: 100%; }
+.stage-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px 0; }
+
+.btn-stage {
+    background: transparent; border: 1px solid var(--gold); color: white;
+    width: 45px; height: 45px; border-radius: 5px; cursor: pointer; transition: 0.2s;
+}
+.btn-stage:hover { background: var(--gold); color: black; }
+
+/* --- RITUAL AREA --- */
+.ritual-center {
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; gap: 10px; padding-top: 10px;
+}
+
+#stage-banner { font-size: 12px; color: var(--gold); background: rgba(0,0,0,0.8); padding: 4px 15px; border-radius: 12px; border: 1px solid var(--gold); }
 
 .scroll-box {
-    background: url('../assets/Gulungan.webp') no-repeat center;
-    background-size: 100% 100%;
-    width: clamp(260px, 45vw, 400px); 
-    aspect-ratio: 2/1.1;
+    background: url('../assets/Gulungan.webp') no-repeat center; background-size: 100% 100%;
+    width: clamp(280px, 55vw, 450px); aspect-ratio: 2/1.1;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
 
-.kanji-main { font-size: 3rem; color: var(--ink); font-weight: 800; margin: 0; }
+.kanji-main { font-size: 3.5rem; color: var(--ink); font-weight: 800; margin: 0; }
 
 /* --- INPUT & ACTION --- */
 .answer-row { display: flex; gap: 6px; margin: 10px 0; }
 .letter-slot {
-    width: 40px; height: 50px;
-    background: url('../assets/KotakKata.webp') no-repeat center;
-    background-size: 100% 100%;
-    display: flex; align-items: center; justify-content: center;
-    color: #222; font-weight: bold; font-size: 1.4rem;
+    width: 40px; height: 50px; background: url('../assets/KotakKata.webp') no-repeat center; background-size: 100% 100%;
+    display: flex; align-items: center; justify-content: center; color: #222; font-weight: bold; font-size: 1.4rem;
 }
 
-.action-footer { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-#support-container { display: flex; gap: 8px; margin-bottom: 5px; }
+.action-footer { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+
+/* Fix Tombol Bantuan (Hapus, Hint, Romaji) */
+.support-actions { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
+.support-actions button {
+    background: var(--gold-grad); border: 2px solid var(--gold); border-radius: 15px;
+    padding: 5px 15px; color: var(--ink); font-weight: bold; font-size: 12px; cursor: pointer;
+}
+
+#support-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 5px; }
+#support-container button {
+    background: transparent; border: 1px solid var(--gold); color: var(--gold);
+    border-radius: 50%; width: 35px; height: 35px; cursor: pointer;
+}
 
 .btn-segel-main {
-    background: url('../assets/SegelButton.webp') no-repeat center;
-    background-size: 100% 100%; 
-    width: 150px; height: 45px;
-    border: none; cursor: pointer; transition: 0.1s;
+    background: url('../assets/SegelButton.webp') no-repeat center; background-size: 100% 100%; 
+    width: 150px; height: 45px; border: none; cursor: pointer;
 }
 
-/* --- KARTU TANGAN (RESPONSIVE) --- */
-.hand-footer { padding-bottom: 15px; width: 100%; }
-.card-grid { display: grid; gap: 6px; padding: 0 10px; justify-content: center; }
+/* --- KARTU TANGAN --- */
+.hand-footer { padding-bottom: 20px; width: 100%; background: rgba(0,0,0,0.4); }
+.card-grid { display: grid; gap: 8px; padding: 0 10px; justify-content: center; }
 
-@media (min-width: 769px) { .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 850px; } }
+@media (min-width: 769px) { .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 800px; } }
 @media (max-width: 768px) { .card-grid { grid-template-columns: repeat(5, 1fr); max-width: 420px; } }
 
 .card {
-    background: url('../assets/KertasJimat.webp') no-repeat center !important;
-    background-size: 100% 100% !important; 
-    aspect-ratio: 2/3.2;
-    display: flex; align-items: center; justify-content: center; color: #222;
+    background: url('../assets/KertasJimat.webp') no-repeat center !important; background-size: 100% 100% !important; 
+    aspect-ratio: 2/3.2; display: flex; align-items: center; justify-content: center; color: #222; font-weight: bold; font-size: 1.2rem; cursor: pointer;
 }
 
 /* --- MODAL --- */
@@ -147,3 +142,8 @@ header {
 }
 .d-flex { display: flex !important; }
 .d-none { display: none !important; }
+
+.modal-box {
+    background: #1a1a1a; border: 3px solid var(--gold); color: white;
+    max-width: 400px; width: 90%; padding: 30px; border-radius: 20px; text-align: center;
+}
