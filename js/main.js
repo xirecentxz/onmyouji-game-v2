@@ -68,7 +68,7 @@ window.confirmWord = () => {
         // LOGIKA COMBO BONUS
         state.comboCount++;
         if (state.comboCount === 3) {
-            state.timeLeft += 3; // Bonus 3 detik
+            state.timeLeft += 5; // Bonus 5 detik
             state.comboCount = 0; // Reset hitungan combo
             
             // Efek Visual Bonus Waktu
