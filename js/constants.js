@@ -1,3 +1,17 @@
+export const STAGE_CONFIG = {
+    1: { target: 20, dmg: 5 },
+    2: { target: 20, dmg: 5 },
+    3: { target: 20, dmg: 5 },
+    4: { target: 20, dmg: 5 },
+    5: { target: 20, dmg: 5 },
+    6: { target: 20, dmg: 5 },
+    7: { target: 20, dmg: 5 },
+    8: { target: 20, dmg: 5 },
+    9: { target: 20, dmg: 5 },
+    10: { target: 10,  dmg: 10 },
+    11: { target: 15, dmg: 6.7 },
+};
+
 export const ROMAJI_MAP = {
     'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
     'か': 'ka', 'き': 'ki', 'く': 'ku', 'け': 'ke', 'こ': 'ko',
