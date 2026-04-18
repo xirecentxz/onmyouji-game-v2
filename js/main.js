@@ -105,7 +105,7 @@ window.confirmWord = () => {
         document.querySelector('.scroll-box').classList.add('shake');
         setTimeout(() => document.querySelector('.scroll-box').classList.remove('shake'), 400);
         
-        state.timeLeft = Math.max(0, state.timeLeft - 10);
+        state.timeLeft = Math.max(0, state.timeLeft - 4);
         updateUI();
         
         if (state.timeLeft <= 0) {
