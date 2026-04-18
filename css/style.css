@@ -1,51 +1,38 @@
 /* ================================================================
-   RITUAL GAME UI — IMPROVED STYLESHEET
-   Fonts required: Cinzel (display), Crimson Pro (body)
-   Add to <head>:
+   ONMYOJI KANJI SEAL — STYLESHEET
+   Fonts: add this to <head> in index.html
    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
    ================================================================ */
 
 :root {
-    --gold:          #d4af37;
-    --gold-light:    #f5e49c;
-    --gold-dim:      #8a6e1a;
-    --gold-grad:     linear-gradient(to bottom, #fff3e0, #ffcc80);
-    --ink:           #2a1a0e;
-    --ink-mid:       #4a2e1a;
-    --parchment:     #f5e6c8;
-    --parchment-drk: #e8d5a3;
-    --red-hp:        #c0392b;
-    --red-hp-light:  #e74c3c;
-    --ember:         #ff6b35;
-    --shadow:        rgba(0, 0, 0, 0.8);
-    --overlay:       rgba(10, 5, 2, 0.7);
-    --border-gold:   1px solid rgba(212, 175, 55, 0.35);
-    --border-gold-strong: 1.5px solid var(--gold);
+    --gold:       #d4af37;
+    --gold-light: #f5e49c;
+    --gold-dim:   #8a6e1a;
+    --gold-grad:  linear-gradient(to bottom, #fff3e0, #ffcc80);
+    --ink:        #3e2723;
+    --ink-mid:    #4a2e1a;
+    --ember:      #ff6b35;
+    --red-hp:     #c0392b;
+    --red-glow:   #e74c3c;
 }
 
 /* ----------------------------------------------------------------
-   RESET & BASE
+   BASE
    ---------------------------------------------------------------- */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: 'Crimson Pro', 'Segoe UI', serif;
+    font-family: 'Cinzel', 'Segoe UI', serif;
     background: #000 url('../assets/BG1.webp') no-repeat center fixed;
     background-size: cover;
     color: white;
     height: 100svh;
     width: 100%;
     overflow: hidden;
-    /* Subtle scanline texture for depth */
-    background-blend-mode: overlay;
 }
 
 /* ----------------------------------------------------------------
-   GAME LAYOUT — bounded, centered, cinematic
+   GAME LAYOUT — centered column, cinematic border on PC
    ---------------------------------------------------------------- */
 .game-layout {
     display: flex;
@@ -55,109 +42,99 @@ body {
     max-width: 480px;
     margin: 0 auto;
     position: relative;
-    background: linear-gradient(170deg, rgba(18, 8, 0, 0.88) 0%, rgba(10, 4, 0, 0.92) 100%);
+    /* Darkened backdrop so assets pop against the BG */
+    background: rgba(0, 0, 0, 0.55);
     box-shadow:
-        0 0 0 1px rgba(212, 175, 55, 0.08),
-        0 0 60px rgba(212, 175, 55, 0.06),
-        0 30px 80px rgba(0, 0, 0, 0.95);
-    overflow: hidden;
+        0 0 0 1px rgba(212, 175, 55, 0.15),
+        0 0 60px rgba(0, 0, 0, 0.9),
+        inset 0 0 120px rgba(0, 0, 0, 0.3);
 }
 
-/* Fine vertical grain overlay for atmosphere */
-.game-layout::before {
+/* Subtle vignette edges on the game column */
+.game-layout::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(255, 255, 255, 0.012) 2px, rgba(255, 255, 255, 0.012) 4px
-    );
     pointer-events: none;
-    z-index: 0;
+    background:
+        radial-gradient(ellipse at 50% 0%,   rgba(212,175,55,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.5) 0%, transparent 70%);
 }
 
-/* All direct children sit above the grain layer */
-.game-layout > * { position: relative; z-index: 1; }
-
 /* ----------------------------------------------------------------
-   HEADER — fixed HUD bar
+   HEADER — HUD bar
    ---------------------------------------------------------------- */
 header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
     padding: 10px 16px;
-    height: 60px;
+    height: 62px;
     flex-shrink: 0;
-    background: linear-gradient(to bottom, rgba(212, 175, 55, 0.1), transparent);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+    box-sizing: border-box;
+    z-index: 100;
+    /* Warm gold shimmer along the top */
+    background: linear-gradient(to bottom, rgba(212,175,55,0.12), transparent);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
 }
 
-/* --- Avatar --- */
+/* --- Avatar circle --- */
 .avatar-container {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
+    /* Gold gradient ring behind the asset */
+    background: var(--gold-grad);
+    border: 2px solid var(--gold);
     border-radius: 50%;
-    border: var(--border-gold-strong);
-    background: radial-gradient(circle at 40% 35%, #fff3c4, #c89a20);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    /* Glow so the badge.webp feels lit */
     box-shadow:
-        0 0 12px rgba(212, 175, 55, 0.35),
-        inset 0 1px 3px rgba(255, 255, 255, 0.4);
+        0 0 10px rgba(212,175,55,0.45),
+        inset 0 1px 3px rgba(255,255,255,0.35);
 }
 
 .icon-header {
-    width: 24px !important;
-    height: 24px !important;
+    width: 28px !important;
+    height: 28px !important;
     object-fit: contain;
+    /* Very slight golden warmth filter */
+    filter: drop-shadow(0 0 4px rgba(212,175,55,0.6));
 }
 
 /* --- HP Bar --- */
-.hp-wrap {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.hp-label {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 2.5px;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-}
-
 .hp-container {
-    height: 11px;
+    flex: 1;
+    margin: 0 14px;
+    height: 13px;
     background: rgba(0, 0, 0, 0.65);
-    border-radius: 6px;
-    border: 1px solid rgba(212, 175, 55, 0.28);
+    border-radius: 8px;
+    border: 1px solid rgba(212,175,55,0.35);
     overflow: hidden;
-    position: relative;
+    /* Recessed look */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
 }
 
 #hp-progress {
     height: 100%;
-    background: linear-gradient(to right, var(--red-hp), var(--red-hp-light), var(--ember));
-    border-radius: 6px;
+    background: linear-gradient(to right, var(--red-hp), var(--red-glow), var(--ember));
     width: 100%;
-    transition: width 0.4s ease;
+    border-radius: 8px;
+    transition: width 0.35s ease;
     position: relative;
 }
 
-/* Inner highlight stripe */
+/* Inner highlight stripe on the HP bar */
 #hp-progress::after {
     content: '';
     position: absolute;
     top: 2px;
     left: 8px;
-    right: 4px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.22);
+    right: 6px;
+    height: 2.5px;
+    background: rgba(255,255,255,0.22);
     border-radius: 2px;
 }
 
@@ -165,109 +142,105 @@ header {
 .timer-box {
     display: flex;
     align-items: center;
-    gap: 7px;
-    background: rgba(0, 0, 0, 0.55);
-    border: var(--border-gold);
-    border-radius: 20px;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.6);
     padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(212,175,55,0.4);
+    /* Gentle gold glow */
+    box-shadow: 0 0 10px rgba(212,175,55,0.1);
     font-family: 'Cinzel', serif;
     font-size: 13px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     color: var(--gold-light);
     flex-shrink: 0;
 }
 
 .icon-jam {
-    width: 14px !important;
-    height: 14px;
-    opacity: 0.75;
-}
-
-/* Pulsing live dot (add <span class="timer-dot"></span> in HTML) */
-.timer-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--ember);
-    box-shadow: 0 0 6px var(--ember);
-    animation: timerPulse 1.2s ease-in-out infinite;
-}
-
-@keyframes timerPulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50%       { opacity: 0.45; transform: scale(0.75); }
+    width: 16px !important;
+    height: auto;
+    /* Warm filter so the asset blends with the gold palette */
+    filter: sepia(1) saturate(3) hue-rotate(5deg) brightness(1.1);
 }
 
 /* ----------------------------------------------------------------
-   STAGE BANNER
-   ---------------------------------------------------------------- */
-#stage-banner {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    text-align: center;
-    padding: 6px 20px 4px;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-}
-
-/* ----------------------------------------------------------------
-   HOMEPAGE & LEVEL SELECTOR
+   HOMEPAGE SCREEN
    ---------------------------------------------------------------- */
 #homepage-screen {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 28px;
     height: 100svh;
-    background: rgba(0, 0, 0, 0.65);
-    padding: 20px;
+    /* Extra overlay so BG1.webp is dark enough to read text */
+    background: rgba(0, 0, 0, 0.62);
 }
 
 #homepage-screen .main-logo {
-    width: clamp(180px, 38vw, 320px);
+    width: clamp(180px, 38vw, 300px);
     height: auto;
-    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+    margin-bottom: 16px;
+    /* Soft gold glow around badge.webp */
+    filter: drop-shadow(0 0 24px rgba(212,175,55,0.55));
+    animation: logoPulse 3s ease-in-out infinite;
 }
 
-/* General gold button (home CTA) */
-.btn-gold {
-    padding: 13px 40px;
+@keyframes logoPulse {
+    0%, 100% { filter: drop-shadow(0 0 18px rgba(212,175,55,0.45)); }
+    50%       { filter: drop-shadow(0 0 32px rgba(212,175,55,0.75)); }
+}
+
+.game-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 7vw, 44px);
+    letter-spacing: 8px;
+    color: var(--gold-light);
+    text-shadow:
+        0 0 20px rgba(212,175,55,0.6),
+        0 2px 8px rgba(0,0,0,0.8);
+}
+
+.text-gold { color: var(--gold-light) !important; }
+
+.lead { letter-spacing: 5px; font-size: 13px; opacity: 0.75; }
+
+/* Gold oval CTA button on homepage */
+.btn-gold-oval {
     background: linear-gradient(to bottom, #f5e49c, #d4af37, #a07c10);
     border: none;
-    border-radius: 3px;
+    border-radius: 30px;
     color: var(--ink);
     font-family: 'Cinzel', serif;
-    font-size: 13px;
     font-weight: 700;
     letter-spacing: 3px;
-    text-transform: uppercase;
+    font-size: 14px !important;
+    padding: 12px 40px !important;
     cursor: pointer;
     box-shadow:
-        0 3px 0 #6a4e00,
-        0 6px 18px rgba(0, 0, 0, 0.6);
+        0 4px 0 #6a4e00,
+        0 8px 20px rgba(0,0,0,0.6),
+        0 0 24px rgba(212,175,55,0.2);
     transition: all 0.18s ease;
 }
 
-.btn-gold:hover {
+.btn-gold-oval:hover {
     background: linear-gradient(to bottom, #fff3c4, #e8c84a, #b88d18);
     transform: translateY(-2px);
     box-shadow:
-        0 3px 0 #6a4e00,
-        0 10px 24px rgba(0, 0, 0, 0.7),
-        0 0 30px rgba(212, 175, 55, 0.25);
+        0 4px 0 #6a4e00,
+        0 12px 28px rgba(0,0,0,0.7),
+        0 0 36px rgba(212,175,55,0.35);
+    color: var(--ink);
 }
 
-.btn-gold:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 0 #6a4e00, 0 2px 8px rgba(0, 0, 0, 0.5);
+.btn-gold-oval:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #6a4e00, 0 3px 8px rgba(0,0,0,0.5);
 }
 
-/* Level Selector */
+/* ----------------------------------------------------------------
+   LEVEL SELECTOR
+   ---------------------------------------------------------------- */
 #level-selector {
     display: flex;
     flex-direction: column;
@@ -277,25 +250,33 @@ header {
     width: 100%;
     background: rgba(0, 0, 0, 0.92);
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     z-index: 500;
-    gap: 24px;
-    padding: 30px 20px;
-}
-
-#level-selector h2 {
-    font-family: 'Cinzel', serif;
-    font-size: 18px;
-    letter-spacing: 5px;
-    color: var(--gold);
-    text-transform: uppercase;
+    padding: 24px 16px;
+    gap: 0;
 }
 
 #level-selector .container {
     max-width: 420px;
-    width: 100%;
     text-align: center;
+    width: 100%;
+}
+
+#level-selector h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+#level-selector h5 {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 10px;
 }
 
 .stage-grid {
@@ -303,38 +284,73 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    margin: 20px 0;
+    margin: 16px 0;
 }
 
 .btn-stage {
     width: 46px;
     height: 46px;
     background: transparent;
-    border: 1px solid rgba(212, 175, 55, 0.35);
+    border: 1px solid rgba(212,175,55,0.4);
     border-radius: 4px;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255,255,255,0.75);
     font-family: 'Cinzel', serif;
     font-size: 13px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.18s ease;
 }
 
-.btn-stage:hover {
-    background: rgba(212, 175, 55, 0.15);
+.btn-stage:hover:not(:disabled) {
+    background: rgba(212,175,55,0.18);
     border-color: var(--gold);
     color: var(--gold-light);
-    box-shadow: 0 0 14px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 14px rgba(212,175,55,0.22);
     transform: scale(1.08);
 }
 
-.btn-stage.completed {
-    background: rgba(212, 175, 55, 0.08);
-    border-color: rgba(212, 175, 55, 0.5);
-    color: var(--gold-dim);
+.btn-stage:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+    filter: grayscale(1);
 }
 
+/* Tutorial & Challenge buttons — override Bootstrap */
+.btn-outline-info {
+    border-color: rgba(212,175,55,0.5) !important;
+    color: var(--gold-light) !important;
+    border-radius: 4px !important;
+    font-family: 'Cinzel', serif !important;
+    letter-spacing: 2px !important;
+    font-size: 13px !important;
+    transition: all 0.18s ease !important;
+}
+
+.btn-outline-info:hover {
+    background: rgba(212,175,55,0.12) !important;
+    border-color: var(--gold) !important;
+}
+
+.btn-danger {
+    background: linear-gradient(to bottom, #c0392b, #8b1a1a) !important;
+    border: 1px solid rgba(255,100,50,0.4) !important;
+    border-radius: 4px !important;
+    font-family: 'Cinzel', serif !important;
+    letter-spacing: 2px !important;
+    font-size: 13px !important;
+    box-shadow: 0 0 16px rgba(192,57,43,0.3) !important;
+    transition: all 0.18s ease !important;
+}
+
+.btn-danger:hover {
+    box-shadow: 0 0 28px rgba(255,100,50,0.4) !important;
+    transform: translateY(-1px);
+}
+
+.btn-link { color: rgba(255,255,255,0.4) !important; font-size: 13px; letter-spacing: 2px; }
+.btn-link:hover { color: rgba(255,255,255,0.7) !important; }
+
 /* ----------------------------------------------------------------
-   RITUAL CENTER — main game area
+   RITUAL CENTER
    ---------------------------------------------------------------- */
 .ritual-center {
     flex: 1;
@@ -342,267 +358,235 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 14px;
-    padding: 10px 20px 16px;
+    gap: 8px;
+    padding: 8px 16px 12px;
+}
+
+/* Stage banner pill */
+#stage-banner {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(0, 0, 0, 0.75);
+    padding: 5px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(212,175,55,0.4);
+    box-shadow: 0 0 10px rgba(212,175,55,0.08);
 }
 
 /* ----------------------------------------------------------------
-   SCROLL / KANJI DISPLAY
+   SCROLL BOX — uses Gulungan.webp asset
    ---------------------------------------------------------------- */
 .scroll-box {
-    width: 100%;
-    max-width: 300px;
+    background: url('../assets/Gulungan.webp') no-repeat center;
+    background-size: 100% 100%;
+    width: clamp(260px, 70vw, 380px);
     aspect-ratio: 2 / 1.1;
-    background: radial-gradient(ellipse at 50% 45%, #f8edd4 0%, #e0c98a 70%, #c8a45a 100%);
-    border: 1.5px solid #c8a45a;
-    border-radius: 4px;
-    box-shadow:
-        inset 0 2px 10px rgba(0, 0, 0, 0.12),
-        inset 0 -2px 10px rgba(0, 0, 0, 0.08),
-        0 4px 24px rgba(0, 0, 0, 0.65),
-        0 0 0 4px rgba(0, 0, 0, 0.35),
-        0 0 0 5px rgba(180, 140, 60, 0.18);
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     gap: 4px;
     position: relative;
-    overflow: hidden;
+    /* Soft warm glow so the scroll feels lit from within */
+    filter: drop-shadow(0 6px 18px rgba(0,0,0,0.7)) drop-shadow(0 0 10px rgba(212,175,55,0.15));
+    transition: filter 0.3s ease;
 }
 
-/* Aged-paper line texture */
-.scroll-box::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-        90deg, transparent, transparent 28px,
-        rgba(180, 140, 60, 0.06) 28px, rgba(180, 140, 60, 0.06) 29px
-    );
-    pointer-events: none;
+.scroll-box:hover {
+    filter: drop-shadow(0 6px 24px rgba(0,0,0,0.8)) drop-shadow(0 0 18px rgba(212,175,55,0.25));
 }
 
 .kanji-main {
     font-size: 3.5rem;
     color: var(--ink);
-    font-weight: 700;
+    font-weight: 800;
+    margin: 0;
     line-height: 1;
-    font-family: 'Cinzel', serif;
-    position: relative;
-    z-index: 1;
-    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.14);
-    letter-spacing: 0;
+    /* Crisp ink look */
+    text-shadow: 1px 2px 4px rgba(0,0,0,0.18);
+    transition: transform 0.2s ease;
 }
 
-.kanji-sub {
-    font-size: 10px;
+/* Kanji pop-in when question changes */
+@keyframes kanjiReveal {
+    from { opacity: 0; transform: scale(0.7) rotate(-4deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.kanji-main.reveal { animation: kanjiReveal 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+.meaning-sub {
+    font-family: 'Crimson Pro', 'Segoe UI', serif;
+    font-size: 12px;
     color: var(--ink-mid);
-    letter-spacing: 3px;
-    font-family: 'Cinzel', serif;
-    position: relative;
-    z-index: 1;
-    opacity: 0.55;
-    text-transform: uppercase;
-}
-
-/* Thin gold rule between kanji and reading */
-.scroll-divider {
-    width: 40px;
-    height: 1px;
-    background: rgba(180, 140, 60, 0.35);
-    position: relative;
-    z-index: 1;
+    letter-spacing: 2px;
+    opacity: 0.65;
 }
 
 /* ----------------------------------------------------------------
-   ANSWER SLOTS
+   ANSWER ROW — uses KotakKata.webp asset
    ---------------------------------------------------------------- */
 .answer-row {
     display: flex;
     gap: 7px;
+    margin: 8px 0 3px;
     align-items: center;
-    margin: 6px 0 2px;
 }
 
 .letter-slot {
     width: 42px;
     height: 52px;
-    background: linear-gradient(to bottom, #f5e6c8, #e8d5a3);
-    border: 1.5px solid #c8a45a;
-    border-radius: 3px;
+    /* KotakKata.webp as the slot frame */
+    background: url('../assets/KotakKata.webp') no-repeat center;
+    background-size: 100% 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--ink);
-    font-weight: 700;
+    font-weight: bold;
     font-size: 1.35rem;
     font-family: 'Cinzel', serif;
-    box-shadow:
-        inset 0 1px 4px rgba(255, 255, 255, 0.55),
-        inset 0 -1px 4px rgba(0, 0, 0, 0.12),
-        0 3px 8px rgba(0, 0, 0, 0.45);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    position: relative;
+    /* Lift & warm glow when filled */
+    transition: filter 0.15s ease, transform 0.15s ease;
 }
 
-/* Bottom underline for empty slots */
-.letter-slot.empty::after {
-    content: '';
-    position: absolute;
-    width: 22px;
-    height: 1.5px;
-    background: rgba(180, 140, 60, 0.38);
-    bottom: 11px;
-    border-radius: 1px;
-}
-
-/* Filled/active slot */
-.letter-slot.filled,
 .letter-slot:not(:empty) {
-    background: linear-gradient(to bottom, #fff3c4, #f0d870);
-    border-color: var(--gold);
-    box-shadow:
-        inset 0 1px 4px rgba(255, 255, 255, 0.75),
-        inset 0 -1px 4px rgba(0, 0, 0, 0.08),
-        0 3px 10px rgba(212, 175, 55, 0.35);
+    filter: drop-shadow(0 0 6px rgba(212,175,55,0.5));
+    transform: scale(1.04);
 }
 
-/* Pop-in animation for newly filled slot */
+/* Pop-in animation when a card is placed */
 @keyframes slotFill {
-    0%   { transform: scale(0.85); opacity: 0.4; }
-    60%  { transform: scale(1.08); }
-    100% { transform: scale(1);   opacity: 1; }
+    0%   { transform: scale(0.8);   opacity: 0.5; }
+    60%  { transform: scale(1.1);  }
+    100% { transform: scale(1.04); opacity: 1; }
 }
 
-.letter-slot.just-filled {
-    animation: slotFill 0.25s ease forwards;
-}
+.letter-slot.just-filled { animation: slotFill 0.22s ease forwards; }
 
 /* ----------------------------------------------------------------
-   ACTION FOOTER — support + seal button
+   ACTION FOOTER
    ---------------------------------------------------------------- */
 .action-footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     width: 100%;
 }
 
-/* Small round helper buttons */
-#support-container,
-.support-actions {
+/* Elemental / support icons row */
+#support-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 12px;
+    gap: 10px;
+    margin-bottom: 2px;
 }
 
-#support-container button,
-.support-actions button {
+#support-container button {
+    background: transparent;
+    border: 1px solid rgba(212,175,55,0.45);
+    color: var(--gold);
+    border-radius: 50%;
     width: 38px;
     height: 38px;
-    border-radius: 50%;
-    background: transparent;
-    border: var(--border-gold);
-    color: var(--gold);
-    font-size: 13px;
     cursor: pointer;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-family: 'Cinzel', serif;
-    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    align-items: center;
     padding: 0;
+    font-size: 16px;
+    transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
 }
 
-#support-container button:hover,
-.support-actions button:hover {
-    background: rgba(212, 175, 55, 0.12);
+#support-container button:hover {
+    background: rgba(212,175,55,0.14);
     border-color: var(--gold);
-    box-shadow: 0 0 14px rgba(212, 175, 55, 0.22);
+    box-shadow: 0 0 14px rgba(212,175,55,0.28);
 }
 
-#support-container button:active,
-.support-actions button:active {
-    transform: scale(0.91);
-}
+#support-container button:active { transform: scale(0.9); }
 
-/* Main Seal / Submit button */
+/* --- Seal button — uses SegelButton.webp asset --- */
 .btn-segel-main {
-    padding: 12px 44px;
-    background: linear-gradient(to bottom, #f5e49c, #d4af37, #a07c10);
+    background: url('../assets/SegelButton.webp') no-repeat center;
+    background-size: 100% 100%;
+    width: 160px;
+    height: 50px;
     border: none;
-    border-radius: 3px;
-    color: var(--ink);
-    font-family: 'Cinzel', serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 3.5px;
-    text-transform: uppercase;
     cursor: pointer;
-    box-shadow:
-        0 3px 0 #6a4e00,
-        0 6px 16px rgba(0, 0, 0, 0.55),
-        0 0 20px rgba(212, 175, 55, 0.1);
-    transition: all 0.18s ease;
-    width: auto;
-    height: auto;
-    /* Override any background-image from old CSS */
-    background-image: none;
+    /* Glow beneath the asset */
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.7)) drop-shadow(0 0 8px rgba(212,175,55,0.2));
+    transition: filter 0.18s ease, transform 0.15s ease;
 }
 
 .btn-segel-main:hover {
-    background: linear-gradient(to bottom, #fff3c4, #e8c84a, #b88d18);
-    transform: translateY(-2px);
-    box-shadow:
-        0 3px 0 #6a4e00,
-        0 10px 24px rgba(0, 0, 0, 0.65),
-        0 0 30px rgba(212, 175, 55, 0.28);
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.8)) drop-shadow(0 0 18px rgba(212,175,55,0.45));
+    transform: translateY(-2px) scale(1.04);
 }
 
 .btn-segel-main:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 0 #6a4e00, 0 2px 8px rgba(0, 0, 0, 0.45);
+    transform: translateY(1px) scale(0.98);
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
 }
 
+/* --- Helper buttons (Hapus / Hint / Romaji) --- */
+.support-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.support-actions button {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(212,175,55,0.38);
+    border-radius: 14px;
+    padding: 5px 16px;
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.support-actions button:hover {
+    background: rgba(212,175,55,0.14);
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(212,175,55,0.18);
+}
+
+.support-actions button:active { transform: scale(0.95); }
+
 /* ----------------------------------------------------------------
-   HAND / CARD GRID
+   HAND / CARD GRID — uses KertasJimat.webp asset
    ---------------------------------------------------------------- */
 .hand-footer {
     flex-shrink: 0;
-    padding: 8px 10px 18px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent);
-    border-top: 1px solid rgba(212, 175, 55, 0.1);
-}
-
-.hand-label {
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 3px;
-    color: rgba(212, 175, 55, 0.3);
-    text-transform: uppercase;
-    margin-bottom: 8px;
+    padding: 8px 10px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0.15));
+    border-top: 1px solid rgba(212,175,55,0.1);
 }
 
 .card-grid {
     display: grid;
     gap: 7px;
-    padding: 0;
+    padding: 0 6px;
     justify-content: center;
 }
 
-/* Desktop: 10-column tight grid */
 @media (min-width: 769px) {
     .card-grid {
         grid-template-columns: repeat(10, 1fr);
-        max-width: 100%;
+        max-width: 480px;
     }
 }
 
-/* Mobile / narrow: 5 per row */
 @media (max-width: 768px) {
     .card-grid {
         grid-template-columns: repeat(5, 1fr);
@@ -612,139 +596,140 @@ header {
 }
 
 .card {
-    aspect-ratio: 2 / 3;
-    background: linear-gradient(160deg, #f5e6c8 0%, #d9c090 65%, #c8a45a 100%) !important;
-    background-image: none;
-    border: 1px solid #b8924a;
-    border-radius: 3px;
+    /* KertasJimat.webp as the card face */
+    background: url('../assets/KertasJimat.webp') no-repeat center !important;
+    background-size: 100% 100% !important;
+    aspect-ratio: 2 / 3.2;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--ink);
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: bold;
+    font-size: 1.15rem;
     font-family: 'Cinzel', serif;
     cursor: pointer;
-    box-shadow:
-        inset 0 1px 3px rgba(255, 255, 255, 0.5),
-        0 3px 9px rgba(0, 0, 0, 0.55),
-        0 1px 3px rgba(0, 0, 0, 0.3);
-    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Inner decorative frame on card */
-.card::before {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    border: 1px solid rgba(180, 140, 60, 0.28);
-    border-radius: 2px;
-    pointer-events: none;
+    /* Natural depth under the card asset */
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.55));
+    transition: filter 0.15s ease, transform 0.15s ease;
 }
 
 .card:hover {
-    transform: translateY(-6px) scale(1.07);
-    box-shadow:
-        inset 0 1px 3px rgba(255, 255, 255, 0.6),
-        0 12px 22px rgba(0, 0, 0, 0.75),
-        0 0 14px rgba(212, 175, 55, 0.28);
-    border-color: var(--gold);
+    transform: translateY(-7px) scale(1.07);
+    filter:
+        drop-shadow(0 12px 18px rgba(0,0,0,0.75))
+        drop-shadow(0 0 10px rgba(212,175,55,0.3));
     z-index: 5;
+    position: relative;
 }
 
 .card:active {
     transform: translateY(-2px) scale(1.02);
 }
 
-/* Card selected state */
+/* Selected card state */
 .card.selected {
-    background: linear-gradient(160deg, #fff3c4 0%, #f0d870 60%, #d4af37 100%) !important;
-    border-color: var(--gold);
-    box-shadow:
-        inset 0 1px 3px rgba(255, 255, 255, 0.7),
-        0 4px 14px rgba(212, 175, 55, 0.45);
+    filter:
+        drop-shadow(0 6px 12px rgba(212,175,55,0.5))
+        drop-shadow(0 0 16px rgba(212,175,55,0.6));
+    transform: translateY(-4px) scale(1.04);
 }
 
-/* Card used/disabled state */
+/* Used/spent card */
 .card.used {
-    opacity: 0.3;
+    opacity: 0.28;
     pointer-events: none;
-    filter: grayscale(0.5);
+    filter: grayscale(0.7);
 }
 
 /* ----------------------------------------------------------------
-   MODALS & OVERLAYS
+   MODAL & OVERLAY
    ---------------------------------------------------------------- */
 .full-overlay {
     position: fixed;
-    inset: 0;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.88);
     z-index: 9999;
     display: none;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    /* Soft blur on whatever is behind */
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
 
+/* Bootstrap utility overrides */
 .d-flex { display: flex !important; }
 .d-none { display: none !important; }
 
 .modal-box {
-    background: linear-gradient(160deg, #1a1008, #0d0804);
-    border: 1.5px solid var(--gold-dim);
+    background: linear-gradient(160deg, #1c1005, #0d0804);
+    border: 2px solid var(--gold-dim);
     color: white;
-    max-width: 380px;
+    max-width: 390px;
     width: 90%;
-    padding: 36px 32px;
-    border-radius: 6px;
+    padding: 36px 28px;
+    border-radius: 8px;
     text-align: center;
     box-shadow:
-        0 0 0 1px rgba(212, 175, 55, 0.08),
-        0 0 40px rgba(212, 175, 55, 0.1),
-        0 30px 60px rgba(0, 0, 0, 0.9);
-    animation: modalIn 0.3s ease forwards;
+        0 0 0 1px rgba(212,175,55,0.08),
+        0 0 50px rgba(212,175,55,0.12),
+        0 30px 70px rgba(0,0,0,0.95);
+    animation: modalIn 0.28s cubic-bezier(0.34,1.56,0.64,1) forwards;
 }
 
 @keyframes modalIn {
-    from { opacity: 0; transform: scale(0.9) translateY(10px); }
-    to   { opacity: 1; transform: scale(1) translateY(0); }
+    from { opacity: 0; transform: scale(0.88) translateY(12px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0); }
 }
 
-.modal-box h2 {
+#modal-title {
     font-family: 'Cinzel', serif;
     font-size: 20px;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     color: var(--gold-light);
     text-transform: uppercase;
-    margin-bottom: 14px;
+    text-shadow: 0 0 20px rgba(212,175,55,0.4);
+    margin-bottom: 12px;
 }
 
-.modal-box p {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.7;
-    margin-bottom: 24px;
+#modal-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.75;
+    letter-spacing: 0.5px;
+    margin-bottom: 22px;
 }
 
-/* ----------------------------------------------------------------
-   DECORATIVE UTILITY
-   ---------------------------------------------------------------- */
-.gold-divider {
-    width: 80%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.35), transparent);
-    flex-shrink: 0;
-}
-
-/* Romaji / hint reveal text */
-.hint-text {
-    font-family: 'Crimson Pro', serif;
-    font-size: 13px;
+/* Modal buttons */
+#modal-buttons-area .btn {
+    font-family: 'Cinzel', serif;
     letter-spacing: 2px;
-    color: rgba(212, 175, 55, 0.55);
-    text-transform: uppercase;
-    margin-top: 2px;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+#modal-buttons-area .btn-primary {
+    background: linear-gradient(to bottom, #f5e49c, #d4af37, #a07c10) !important;
+    border: none !important;
+    color: var(--ink) !important;
+    box-shadow: 0 3px 0 #6a4e00, 0 6px 16px rgba(0,0,0,0.5);
+    transition: all 0.15s ease;
+}
+
+#modal-buttons-area .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 0 #6a4e00, 0 10px 22px rgba(0,0,0,0.6), 0 0 24px rgba(212,175,55,0.25);
+}
+
+#modal-buttons-area .btn-secondary {
+    background: transparent !important;
+    border: 1px solid rgba(212,175,55,0.4) !important;
+    color: var(--gold-light) !important;
+    transition: all 0.15s ease;
+}
+
+#modal-buttons-area .btn-secondary:hover {
+    background: rgba(212,175,55,0.1) !important;
+    border-color: var(--gold) !important;
 }
