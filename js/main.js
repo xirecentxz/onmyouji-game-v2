@@ -15,7 +15,9 @@ window.backToHome = () => {
 window.startMode = (mode, stage) => {
     state.gameMode = mode;
     state.currentStage = stage;
-    document.getElementById('modal-overlay').classList.replace('d-flex', 'd-none');
+    // Menggunakan add/remove agar lebih stabil dibanding replace
+    document.getElementById('modal-overlay').classList.add('d-none');
+    document.getElementById('modal-overlay').classList.remove('d-flex');
     document.getElementById('level-selector').classList.add('d-none');
     startGame();
 };
@@ -28,7 +30,7 @@ async function startGame() {
         state.allData = await res.json();
     }
     resetState();
-    state.comboCount = 0; // Reset combo saat mulai game baru
+    state.comboCount = 0; 
     loadQuestion();
     if (state.gameMode !== 'tutorial') startTimer();
 }
@@ -36,18 +38,14 @@ async function startGame() {
 function loadQuestion() {
     const stageData = state.allData.levels[state.currentStage];
     
-    // Inisialisasi Pool Soal & Hitung Damage Otomatis
     if (state.questionPool.length === 0) {
         let allWords = [...stageData.words];
         shuffle(allWords);
         state.questionPool = allWords; 
-        
-        // Damage = 100 HP / Total Kata di Stage
         state.dynamicDmg = 100 / allWords.length;
     }
     
     state.currentQuestion = state.questionPool.pop();
-    
     document.getElementById('kanji-question').innerText = state.currentQuestion.kanji;
     document.getElementById('kanji-meaning').innerText = ""; 
     document.getElementById('stage-banner').innerText = `Stage ${state.currentStage}: ${stageData.category}`;
@@ -65,13 +63,10 @@ window.confirmWord = () => {
     const answer = state.selectedLetters.join('');
     
     if (answer === state.currentQuestion.reading) {
-        // LOGIKA COMBO BONUS
         state.comboCount++;
         if (state.comboCount === 3) {
-            state.timeLeft += 5; // Bonus 5 detik
-            state.comboCount = 0; // Reset hitungan combo
-            
-            // Efek Visual Bonus Waktu
+            state.timeLeft += 5; 
+            state.comboCount = 0; 
             const timeDisplay = document.getElementById('time-val');
             if(timeDisplay) {
                 timeDisplay.style.color = "#28a745"; 
@@ -89,14 +84,20 @@ window.confirmWord = () => {
             loadQuestion();
         }
     } else {
-        // SALAH = RESET COMBO
         state.comboCount = 0;
-        
         document.querySelector('.scroll-box').classList.add('shake');
         setTimeout(() => document.querySelector('.scroll-box').classList.remove('shake'), 400);
+        
+        // KURANGI WAKTU & CEK KALAH INSTAN
         state.timeLeft = Math.max(0, state.timeLeft - 10);
-        window.clearWord();
         updateUI();
+        
+        if (state.timeLeft <= 0) {
+            state.gameActive = false;
+            showModal(false); // Munculkan modal kalah jika penalti menghabiskan waktu
+        } else {
+            window.clearWord();
+        }
     }
 };
 
@@ -206,13 +207,18 @@ function updateUI() {
 function startTimer() {
     clearInterval(state.timerInt);
     state.timerInt = setInterval(() => {
-        if (state.gameActive && state.timeLeft > 0) {
+        // Logika diperbaiki agar tetap mengecek kondisi kalah meskipun waktu sudah 0
+        if (!state.gameActive) return;
+
+        if (state.timeLeft > 0) {
             state.timeLeft--;
             updateUI();
-            if (state.timeLeft <= 0) {
-                state.gameActive = false;
-                showModal(false);
-            }
+        } 
+        
+        if (state.timeLeft <= 0) {
+            state.gameActive = false;
+            showModal(false);
+            clearInterval(state.timerInt);
         }
     }, 1000);
 }
@@ -223,7 +229,9 @@ function showModal(isWin) {
     const desc = document.getElementById('modal-desc');
     const btnArea = document.getElementById('modal-buttons-area');
     
-    overlay.classList.replace('d-none', 'd-flex');
+    // Pastikan modal muncul dengan pasti
+    overlay.classList.remove('d-none');
+    overlay.classList.add('d-flex');
     btnArea.innerHTML = ''; 
 
     if (isWin) {
