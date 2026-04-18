@@ -96,7 +96,14 @@ header {
 .kanji-main { font-size: 3.5rem; color: var(--ink); font-weight: 800; margin: 0; }
 
 /* --- INPUT & ACTION --- */
-.answer-row { display: flex; gap: 6px; margin: 10px 0; }
+
+/* --- INPUT & ACTION --- */
+.answer-row { 
+    display: flex; 
+    gap: 6px; 
+    /* Atur margin: Atas 10px, Kanan 0, Bawah 2px, Kiri 0 */
+    margin: 10px 0 1px 0 ; 
+}
 .letter-slot {
     width: 40px; height: 50px; background: url('../assets/KotakKata.webp') no-repeat center; background-size: 100% 100%;
     display: flex; align-items: center; justify-content: center; color: #222; font-weight: bold; font-size: 1.4rem;
