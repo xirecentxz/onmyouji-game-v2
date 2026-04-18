@@ -15,9 +15,12 @@ window.backToHome = () => {
 window.startMode = (mode, stage) => {
     state.gameMode = mode;
     state.currentStage = stage;
-    // Menggunakan add/remove agar lebih stabil dibanding replace
-    document.getElementById('modal-overlay').classList.add('d-none');
-    document.getElementById('modal-overlay').classList.remove('d-flex');
+    
+    // Gunakan remove/add agar lebih pasti dibanding replace
+    const modal = document.getElementById('modal-overlay');
+    modal.classList.add('d-none');
+    modal.classList.remove('d-flex');
+    
     document.getElementById('level-selector').classList.add('d-none');
     startGame();
 };
@@ -88,13 +91,13 @@ window.confirmWord = () => {
         document.querySelector('.scroll-box').classList.add('shake');
         setTimeout(() => document.querySelector('.scroll-box').classList.remove('shake'), 400);
         
-        // KURANGI WAKTU & CEK KALAH INSTAN
+        // CEK KALAH INSTAN JIKA PENALTI WAKTU
         state.timeLeft = Math.max(0, state.timeLeft - 10);
         updateUI();
         
         if (state.timeLeft <= 0) {
             state.gameActive = false;
-            showModal(false); // Munculkan modal kalah jika penalti menghabiskan waktu
+            showModal(false); 
         } else {
             window.clearWord();
         }
@@ -207,14 +210,17 @@ function updateUI() {
 function startTimer() {
     clearInterval(state.timerInt);
     state.timerInt = setInterval(() => {
-        // Logika diperbaiki agar tetap mengecek kondisi kalah meskipun waktu sudah 0
-        if (!state.gameActive) return;
+        if (!state.gameActive) {
+            clearInterval(state.timerInt);
+            return;
+        }
 
         if (state.timeLeft > 0) {
             state.timeLeft--;
             updateUI();
         } 
         
+        // Pengecekan kalah dipisah agar lebih akurat
         if (state.timeLeft <= 0) {
             state.gameActive = false;
             showModal(false);
@@ -224,6 +230,7 @@ function startTimer() {
 }
 
 function showModal(isWin) {
+    console.log("Modal Triggered! isWin:", isWin); // Cek di F12 Console laptopmu
     const overlay = document.getElementById('modal-overlay');
     const title = document.getElementById('modal-title');
     const desc = document.getElementById('modal-desc');
