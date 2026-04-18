@@ -3,18 +3,31 @@ import { ROMAJI_MAP, STAGE_CONFIG, POOL } from './constants.js';
 
 // --- NAVIGASI LAYAR ---
 window.showLevelSelector = () => {
-    document.getElementById('homepage-screen').classList.add('d-none');
-    document.getElementById('level-selector').classList.remove('d-none');
+    const home = document.getElementById('homepage-screen');
+    const level = document.getElementById('level-selector');
+    
+    home.classList.replace('d-flex', 'd-none'); // Sembunyikan Home
+    level.classList.replace('d-none', 'd-flex'); // Munculkan Level Selector
 };
 
 window.backToHome = () => {
-    document.getElementById('level-selector').classList.add('d-none');
-    document.getElementById('homepage-screen').classList.remove('d-none');
+    const home = document.getElementById('homepage-screen');
+    const level = document.getElementById('level-selector');
+    
+    level.classList.replace('d-flex', 'd-none'); // Sembunyikan Level Selector
+    home.classList.replace('d-none', 'd-flex'); // Munculkan Home
 };
 
 window.startMode = (mode, stage) => {
     state.gameMode = mode;
     state.currentStage = stage;
+    
+    // Sembunyikan modal dan selector level
+    document.getElementById('modal-overlay').classList.replace('d-flex', 'd-none');
+    document.getElementById('level-selector').classList.replace('d-flex', 'd-none');
+    
+    startGame();
+};
     
     // Gunakan remove/add agar lebih pasti dibanding replace
     const modal = document.getElementById('modal-overlay');
