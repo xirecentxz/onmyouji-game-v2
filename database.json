@@ -190,7 +190,7 @@
         { "kanji": "百万", "reading": "ひゃくまん", "reading_romaji": "hyakuman", "meaning": "satu juta" },
         { "kanji": "円", "reading": "えん", "reading_romaji": "en", "meaning": "yen" },
         { "kanji": "円い", "reading": "まるい", "reading_romaji": "marui", "meaning": "bulat" },
-        { "kanji": "一万円", "reading": "いちまんねん", "reading_romaji": "ichimanen", "meaning": "sepuluh ribu yen" },
+        { "kanji": "一万円", "reading": "いちまんえん", "reading_romaji": "ichimanen", "meaning": "sepuluh ribu yen" },
         { "kanji": "日", "reading": "ひ", "reading_romaji": "hi", "meaning": "hari" },
         { "kanji": "木曜日", "reading": "もくようび", "reading_romaji": "mokuyoubi", "meaning": "kamis" },
         { "kanji": "毎日", "reading": "まいにち", "reading_romaji": "mainichi", "meaning": "setiap hari" },
