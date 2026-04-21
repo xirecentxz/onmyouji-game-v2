@@ -205,7 +205,7 @@
         { "kanji": "再来月", "reading": "さらいげつ", "reading_romaji": "saraigetsu", "meaning": "2 bulan depan" },
         { "kanji": "一ヶ月", "reading": "いっかげつ", "reading_romaji": "ikkagetsu", "meaning": " satu bulan" },
         { "kanji": "明るい", "reading": "あかるい", "reading_romaji": "akarui", "meaning": " terang" },
-        { "kanji": "説明", "reading": "さつめい", "reading_romaji": "setsumei", "meaning": "menjelaskan " }
+        { "kanji": "説明", "reading": "せつめい", "reading_romaji": "setsumei", "meaning": "menjelaskan " }
       ]
     },
     "8": {
