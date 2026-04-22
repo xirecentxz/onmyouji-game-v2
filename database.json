@@ -197,7 +197,12 @@
         { "kanji": "日記", "reading": "にっき", "reading_romaji": "nikki", "meaning": " dairy" },
         { "kanji": "今日", "reading": "きょう", "reading_romaji": "kyou", "meaning": "hari ini" },
         { "kanji": "昨日", "reading": "きのう", "reading_romaji": "kinou", "meaning": " kemarin" },
-        { "kanji": "明日", "reading": "あした", "reading_romaji": "ashita", "meaning": " besok" },
+        { "kanji": "明日", "reading": "あした", "reading_romaji": "ashita", "meaning": " besok" }
+      ]
+    },
+    "8": {
+      "category": "Pemula 3.2",
+      "words": [
         { "kanji": "月", "reading": "つき", "reading_romaji": "tsuki", "meaning": "bulan" },
         { "kanji": "今月", "reading": "こんげつ", "reading_romaji": "kongetsu", "meaning": " bulan ini" },
         { "kanji": "先月", "reading": "せんげつ", "reading_romaji": "sengetsu", "meaning": " bulan lalu" },
@@ -206,11 +211,6 @@
         { "kanji": "一ヶ月", "reading": "いっかげつ", "reading_romaji": "ikkagetsu", "meaning": " satu bulan" },
         { "kanji": "明るい", "reading": "あかるい", "reading_romaji": "akarui", "meaning": " terang" },
         { "kanji": "説明", "reading": "せつめい", "reading_romaji": "setsumei", "meaning": "menjelaskan " }
-      ]
-    },
-    "8": {
-      "category": "Pemula 3.2",
-      "words": [
         { "kanji": "立つ", "reading": "たつ", "reading_romaji": "tatsu", "meaning": "berdiri" },
         { "kanji": "立てる", "reading": "たてる", "reading_romaji": "tateru", "meaning": "mendirikan" },
         { "kanji": "国立の", "reading": "こくりつの", "reading_romaji": "kokuritsu no", "meaning": "negeri" },
@@ -222,7 +222,12 @@
         { "kanji": "花火", "reading": "はなび", "reading_romaji": "hanabi", "meaning": "kembang api" },
         { "kanji": "火事", "reading": "かじ", "reading_romaji": "kaji", "meaning": "kebakaran" },
         { "kanji": "火山", "reading": "かざん", "reading_romaji": "kazan", "meaning": "gunung berapi" },
-        { "kanji": "水", "reading": "みず", "reading_romaji": "mizu", "meaning": "air" },
+        { "kanji": "水", "reading": "みず", "reading_romaji": "mizu", "meaning": "air" }
+      ]
+    },
+    "9": {
+      "category": "Pemula 3.3",
+      "words": [
         { "kanji": "土地", "reading": "とち", "reading_romaji": "tochi", "meaning": "wilayah" },
         { "kanji": "水道", "reading": "すいどう", "reading_romaji": "suidou", "meaning": "air ledeng" },
         { "kanji": "水泳", "reading": "すいえい", "reading_romaji": "suiei", "meaning": "berenang" },
@@ -237,27 +242,18 @@
         { "kanji": "金", "reading": "きん", "reading_romaji": "kin", "meaning": "emas" },
         { "kanji": "大工", "reading": "だいく", "reading_romaji": "daiku", "meaning": "tukang" },
         { "kanji": "工場", "reading": "こうじょう", "reading_romaji": "koujyou", "meaning": "pabrik" }
-      ]
-    },
-    "9": {
-      "category": "Aura & Sifat (Sifat & Keadaan)",
-      "words": [
-        { "kanji": "大きい", "reading": "おおきい", "reading_romaji": "ookii", "meaning": "besar" },
-        { "kanji": "小さい", "reading": "ちいいさい", "reading_romaji": "chiisai", "meaning": "kecil" },
-        { "kanji": "長い", "reading": "ながい", "reading_romaji": "nagai", "meaning": "panjang" },
-        { "kanji": "高い", "reading": "たかい", "reading_romaji": "takai", "meaning": "tinggi/mahal" },
-        { "kanji": "安い", "reading": "やすい", "reading_romaji": "yasui", "meaning": "murah" },
-        { "kanji": "新しい", "reading": "あたらしい", "reading_romaji": "atarashii", "meaning": "baru" },
-        { "kanji": "古い", "reading": "ふるい", "reading_romaji": "furui", "meaning": "lama" },
-        { "kanji": "多い", "reading": "おおい", "reading_romaji": "ooi", "meaning": "banyak" },
-        { "kanji": "少ない", "reading": "すくない", "reading_romaji": "sukunai", "meaning": "sedikit" },
-        { "kanji": "強い", "reading": "つよい", "reading_romaji": "tsuyoi", "meaning": "kuat" },
-        { "kanji": "弱い", "reading": "よわい", "reading_romaji": "yowai", "meaning": "lemah" },
-        { "kanji": "早い", "reading": "はやい", "reading_romaji": "hayai", "meaning": "cepat" },
-        { "kanji": "遅い", "reading": "おそい", "reading_romaji": "osoi", "meaning": "lambat" },
-        { "kanji": "安全な", "reading": "あんぜんな", "reading_romaji": "anzenna", "meaning": "aman" },
-        { "kanji": "安心する", "reading": "あんしんする", "reading_romaji": "anshin-suru", "meaning": "tenang" },
-        { "kanji": "大切な", "reading": "たいせつな", "reading_romaji": "taisetsuna", "meaning": "penting" }
+        { "kanji": "工業", "reading": "こうぎょう", "reading_romaji": "kougyou", "meaning": "industri" },
+        { "kanji": "工学", "reading": "こうがく", "reading_romaji": "kougaku", "meaning": "enginering" },
+        { "kanji": "左", "reading": "ひだり", "reading_romaji": "hidari", "meaning": "kiri" },
+        { "kanji": "左手", "reading": "ひだりて", "reading_romaji": "hidarite", "meaning": "tangan kiri" },
+        { "kanji": "左側", "reading": "ひだりがわ", "reading_romaji": "hidarigawa", "meaning": "sebelah kiri" },
+        { "kanji": "右", "reading": "右", "reading_romaji": "migi", "meaning": "kanan" },
+        { "kanji": "右手", "reading": "みぎて", "reading_romaji": "migite", "meaning": "tangan kanan" },
+        { "kanji": "右側", "reading": "みぎがわ", "reading_romaji": "migigawa", "meaning": "sebelah kanan" },
+        { "kanji": "左右", "reading": "さゆう", "reading_romaji": "sayuu", "meaning": "kiri dan kanan" },
+        { "kanji": "友達", "reading": "ともだち", "reading_romaji": "tomodachi", "meaning": "teman" },
+        { "kanji": "友人", "reading": "ゆうじん", "reading_romaji": "yuujin", "meaning": "sahabat" },
+        { "kanji": "親友", "reading": "しんゆう", "reading_romaji": "shinyu", "meaning": "teman akrab" }
       ]
     },
     "10": {
