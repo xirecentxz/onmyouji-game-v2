@@ -209,19 +209,34 @@
       ]
     },
     "8": {
-      "category": "Mantra Aksi (Kegiatan)",
+      "category": "Pemula 3.2",
       "words": [
         { "kanji": "立つ", "reading": "たつ", "reading_romaji": "tatsu", "meaning": "berdiri" },
         { "kanji": "立てる", "reading": "たてる", "reading_romaji": "tateru", "meaning": "mendirikan" },
         { "kanji": "国立の", "reading": "こくりつの", "reading_romaji": "kokuritsu no", "meaning": "negeri" },
-        { "kanji": "作る", "reading": "つくる", "reading_romaji": "tsukuru", "meaning": "membuat" },
-        { "kanji": "働く", "reading": "はたらく", "reading_romaji": "hataraku", "meaning": "bekerja" },
-        { "kanji": "会う", "reading": "あう", "reading_romaji": "au", "meaning": "bertemu" },
-        { "kanji": "休み", "reading": "やすみ", "reading_romaji": "yasumi", "meaning": "istirahat" },
-        { "kanji": "起きる", "reading": "おきる", "reading_romaji": "okiru", "meaning": "bangun" },
-        { "kanji": "寝る", "reading": "ねる", "reading_romaji": "neru", "meaning": "tidur" },
-        { "kanji": "見る", "reading": "みる", "reading_romaji": "miru", "meaning": "melihat" },
-        { "kanji": "買う", "reading": "かう", "reading_romaji": "kau", "meaning": "membeli" }
+        { "kanji": "音", "reading": "おと", "reading_romaji": "oto", "meaning": "bunyi" },
+        { "kanji": "音楽", "reading": "おんがく", "reading_romaji": "ongaku", "meaning": "musik" },
+        { "kanji": "暗い", "reading": "くらい", "reading_romaji": "kurai", "meaning": "gelap" },
+        { "kanji": "火", "reading": "ひ", "reading_romaji": "hi", "meaning": "api" },
+        { "kanji": "土", "reading": "つち", "reading_romaji": "suchi", "meaning": "tanah" },
+        { "kanji": "花火", "reading": "はなび", "reading_romaji": "hanabi", "meaning": "kembang api" },
+        { "kanji": "火事", "reading": "かじ", "reading_romaji": "kaji", "meaning": "kebakaran" },
+        { "kanji": "火山", "reading": "かざん", "reading_romaji": "kazan", "meaning": "gunung berapi" },
+        { "kanji": "水", "reading": "みず", "reading_romaji": "mizu", "meaning": "air" },
+        { "kanji": "土地", "reading": "とち", "reading_romaji": "tochi", "meaning": "wilayah" },
+        { "kanji": "水道", "reading": "すいどう", "reading_romaji": "suidou", "meaning": "air ledeng" },
+        { "kanji": "水泳", "reading": "すいえい", "reading_romaji": "suiei", "meaning": "berenang" },
+        { "kanji": "お土産", "reading": "おみやげ", "reading_romaji": "omiyage", "meaning": "oleh-oleh" },
+        { "kanji": "国", "reading": "くに", "reading_romaji": "kuni", "meaning": "negara" },
+        { "kanji": "外国", "reading": "がいこく", "reading_romaji": "gaikoku", "meaning": "luar negeri" },
+        { "kanji": "全部", "reading": "ぜんぶ", "reading_romaji": "zenbu", "meaning": "semuanya" },
+        { "kanji": "全然", "reading": "ぜんぜん", "reading_romaji": "zenzen", "meaning": "tidak sama sekali" },
+        { "kanji": "全員", "reading": "ぜんいん", "reading_romaji": "zenin", "meaning": "semua anggota" }
+        { "kanji": "お金", "reading": "おかね", "reading_romaji": "okane", "meaning": "emas" },
+        { "kanji": "お金持ち", "reading": "おかねもち", "reading_romaji": "okanemochi", "meaning": "orang kaya" },
+        { "kanji": "金", "reading": "きん", "reading_romaji": "kin", "meaning": "emas" },
+        { "kanji": "大工", "reading": "だいく", "reading_romaji": "daiku", "meaning": "tukang" },
+        { "kanji": "工場", "reading": "こうじょう", "reading_romaji": "koujyou", "meaning": "pabrik" }
       ]
     },
     "9": {
