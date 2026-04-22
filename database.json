@@ -210,7 +210,7 @@
         { "kanji": "再来月", "reading": "さらいげつ", "reading_romaji": "saraigetsu", "meaning": "2 bulan depan" },
         { "kanji": "一ヶ月", "reading": "いっかげつ", "reading_romaji": "ikkagetsu", "meaning": " satu bulan" },
         { "kanji": "明るい", "reading": "あかるい", "reading_romaji": "akarui", "meaning": " terang" },
-        { "kanji": "説明", "reading": "せつめい", "reading_romaji": "setsumei", "meaning": "menjelaskan " }
+        { "kanji": "説明", "reading": "せつめい", "reading_romaji": "setsumei", "meaning": "menjelaskan" },
         { "kanji": "立つ", "reading": "たつ", "reading_romaji": "tatsu", "meaning": "berdiri" },
         { "kanji": "立てる", "reading": "たてる", "reading_romaji": "tateru", "meaning": "mendirikan" },
         { "kanji": "国立の", "reading": "こくりつの", "reading_romaji": "kokuritsu no", "meaning": "negeri" },
@@ -236,7 +236,7 @@
         { "kanji": "外国", "reading": "がいこく", "reading_romaji": "gaikoku", "meaning": "luar negeri" },
         { "kanji": "全部", "reading": "ぜんぶ", "reading_romaji": "zenbu", "meaning": "semuanya" },
         { "kanji": "全然", "reading": "ぜんぜん", "reading_romaji": "zenzen", "meaning": "tidak sama sekali" },
-        { "kanji": "全員", "reading": "ぜんいん", "reading_romaji": "zenin", "meaning": "semua anggota" }
+        { "kanji": "全員", "reading": "ぜんいん", "reading_romaji": "zenin", "meaning": "semua anggota" },
         { "kanji": "お金", "reading": "おかね", "reading_romaji": "okane", "meaning": "emas" },
         { "kanji": "お金持ち", "reading": "おかねもち", "reading_romaji": "okanemochi", "meaning": "orang kaya" },
         { "kanji": "金", "reading": "きん", "reading_romaji": "kin", "meaning": "emas" },
