@@ -211,9 +211,9 @@
     "8": {
       "category": "Mantra Aksi (Kegiatan)",
       "words": [
-        { "kanji": "行く", "reading": "いく", "reading_romaji": "iku", "meaning": "pergi" },
-        { "kanji": "来る", "reading": "くる", "reading_romaji": "kuru", "meaning": "datang" },
-        { "kanji": "帰る", "reading": "かえる", "reading_romaji": "kaeru", "meaning": "pulang" },
+        { "kanji": "立つ", "reading": "たつ", "reading_romaji": "tatsu", "meaning": "berdiri" },
+        { "kanji": "立てる", "reading": "たてる", "reading_romaji": "tateru", "meaning": "mendirikan" },
+        { "kanji": "国立の", "reading": "こくりつの", "reading_romaji": "kokuritsu no", "meaning": "negeri" },
         { "kanji": "作る", "reading": "つくる", "reading_romaji": "tsukuru", "meaning": "membuat" },
         { "kanji": "働く", "reading": "はたらく", "reading_romaji": "hataraku", "meaning": "bekerja" },
         { "kanji": "会う", "reading": "あう", "reading_romaji": "au", "meaning": "bertemu" },
