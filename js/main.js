@@ -183,7 +183,7 @@ function renderWordZone() {
 
     const zone = document.getElementById('word-zone');
     zone.innerHTML = '';
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 7; i++) {
         const slot = document.createElement('div');
         slot.className = 'letter-slot';
         const char = state.selectedLetters[i];
