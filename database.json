@@ -323,5 +323,6 @@
         { "kanji": "生徒", "reading": "せいと", "reading_romaji": "seito", "meaning": "murid" },
         { "kanji": "生活", "reading": "せいかつ", "reading_romaji": "seikatsu", "meaning": "kehidupan" }
       ]
+    }
   }
 }
