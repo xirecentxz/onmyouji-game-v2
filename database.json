@@ -256,23 +256,26 @@
       ]
     },
     "10": {
-      "category": "Ritual Agung (Arah & Posisi)",
+      "category": "Pemula 4.1",
       "words": [
-        { "kanji": "上", "reading": "うえ", "reading_romaji": "ue", "meaning": "atas" },
-        { "kanji": "下", "reading": "した", "reading_romaji": "shita", "meaning": "bawah" },
-        { "kanji": "中", "reading": "なか", "reading_romaji": "naka", "meaning": "tengah" },
-        { "kanji": "左", "reading": "ひだり", "reading_romaji": "hidari", "meaning": "kiri" },
-        { "kanji": "右", "reading": "みぎ", "reading_romaji": "migi", "meaning": "kanan" },
-        { "kanji": "前", "reading": "まえ", "reading_romaji": "mae", "meaning": "depan" },
-        { "kanji": "後", "reading": "うしろ", "reading_romaji": "ushiro", "meaning": "belakang" },
-        { "kanji": "北", "reading": "きた", "reading_romaji": "kita", "meaning": "utara" },
-        { "kanji": "東", "reading": "ひがし", "reading_romaji": "higashi", "meaning": "timur" },
-        { "kanji": "南", "reading": "みなみ", "reading_romaji": "minami", "meaning": "selatan" },
-        { "kanji": "西", "reading": "にし", "reading_romaji": "nishi", "meaning": "barat" },
-        { "kanji": "横", "reading": "よこ", "reading_romaji": "yoko", "meaning": "samping" },
-        { "kanji": "内", "reading": "うち", "reading_romaji": "uchi", "meaning": "dalam" },
-        { "kanji": "右側", "reading": "みぎがわ", "reading_romaji": "migigawa", "meaning": "sebelah kanan" },
-        { "kanji": "左側", "reading": "ひだりがわ", "reading_romaji": "hidarigawa", "meaning": "sebelah kiri" }
+        { "kanji": "何", "reading": "なに", "reading_romaji": "nani", "meaning": "apa" },
+        { "kanji": "何人", "reading": "なにじん", "reading_romaji": "nanijin", "meaning": "orang mana" },
+        { "kanji": "何年", "reading": "なんねん", "reading_romaji": "nannen", "meaning": "berapa tahun" },
+        { "kanji": "何時", "reading": "なんじ", "reading_romaji": "nanji", "meaning": "jam berapa" },
+        { "kanji": "手", "reading": "て", "reading_romaji": "te", "meaning": "tangan" },
+        { "kanji": "手紙", "reading": "てがみ", "reading_romaji": "tegami", "meaning": "surat" },
+        { "kanji": "手伝う", "reading": "てつだう", "reading_romaji": "tetsudau", "meaning": "membantu" },
+        { "kanji": "上手な", "reading": "じょうずな", "reading_romaji": "jyouzuna", "meaning": "pandai" },
+        { "kanji": "下手な", "reading": "へたな", "reading_romaji": "hetana", "meaning": "kurang pandai" },
+        { "kanji": "切る", "reading": "きる", "reading_romaji": "kiru", "meaning": "memotong" },
+        { "kanji": "切手", "reading": "きって", "reading_romaji": "kitte", "meaning": "prangko" },
+        { "kanji": "切符", "reading": "きっぷ", "reading_romaji": "kippu", "meaning": "karcis" },
+        { "kanji": "大切な", "reading": "たいせつな", "reading_romaji": "taisetsuna", "meaning": "penting" },
+        { "kanji": "分かる", "reading": "わかる", "reading_romaji": "wakaru", "meaning": "paham" },
+        { "kanji": "分ける", "reading": "わける", "reading_romaji": "wakeru", "meaning": "membagi" },
+        { "kanji": "五分", "reading": "ごふん", "reading_romaji": "gofun", "meaning": "lima menit" }
+        { "kanji": "二十分", "reading": "にじゅっぷん", "reading_romaji": "nijuppun", "meaning": "20 menit" },
+        { "kanji": "半分", "reading": "はんぶん", "reading_romaji": "hanbun", "meaning": "setengahnya" }
       ]
     },
     "11": {
