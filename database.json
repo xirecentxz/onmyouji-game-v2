@@ -273,7 +273,7 @@
         { "kanji": "大切な", "reading": "たいせつな", "reading_romaji": "taisetsuna", "meaning": "penting" },
         { "kanji": "分かる", "reading": "わかる", "reading_romaji": "wakaru", "meaning": "paham" },
         { "kanji": "分ける", "reading": "わける", "reading_romaji": "wakeru", "meaning": "membagi" },
-        { "kanji": "五分", "reading": "ごふん", "reading_romaji": "gofun", "meaning": "lima menit" }
+        { "kanji": "五分", "reading": "ごふん", "reading_romaji": "gofun", "meaning": "lima menit" },
         { "kanji": "二十分", "reading": "にじゅっぷん", "reading_romaji": "nijuppun", "meaning": "20 menit" },
         { "kanji": "半分", "reading": "はんぶん", "reading_romaji": "hanbun", "meaning": "setengahnya" }
       ]
