@@ -275,28 +275,33 @@
         { "kanji": "分ける", "reading": "わける", "reading_romaji": "wakeru", "meaning": "membagi" },
         { "kanji": "五分", "reading": "ごふん", "reading_romaji": "gofun", "meaning": "lima menit" },
         { "kanji": "二十分", "reading": "にじゅっぷん", "reading_romaji": "nijuppun", "meaning": "20 menit" },
-        { "kanji": "半分", "reading": "はんぶん", "reading_romaji": "hanbun", "meaning": "setengahnya" }
+        { "kanji": "半分", "reading": "はんぶん", "reading_romaji": "hanbun", "meaning": "setengahnya" },
+        { "kanji": "今", "reading": "いま", "reading_romaji": "ima", "meaning": "sekarang" },
+        { "kanji": "今晩", "reading": "こんばん", "reading_romaji": "konban", "meaning": "malam" },
+        { "kanji": "今年", "reading": "ことし", "reading_romaji": "kotoshi", "meaning": "tahun ini" },
+        { "kanji": "今朝", "reading": "けさ", "reading_romaji": "kesa", "meaning": "pagi ini" }
       ]
     },
     "11": {
-      "category": "Pengulangan Pemula",
+      "category": "Pemula 4.2",
       "words": [
-        { "kanji": "一人", "reading": "ひとり", "reading_romaji": "hitori", "meaning": "satu orang" },
-        { "kanji": "二日", "reading": "ふつか", "reading_romaji": "futsuka", "meaning": "tanggal 2" },
-        { "kanji": "三つ", "reading": "みっつ", "reading_romaji": "mittsu", "meaning": "tiga buah" },
-        { "kanji": "山川", "reading": "やまかわ", "reading_romaji": "yamakawa", "meaning": "yamakawa" },
-        { "kanji": "目的", "reading": "もくてき", "reading_romaji": "mokuteki", "meaning": "tujuan" },
-        { "kanji": "出口", "reading": "でぐち", "reading_romaji": "deguchi", "meaning": "pintu keluar" },
-        { "kanji": "イギリス人", "reading": "いぎりすじん", "reading_romaji": "igirisujin", "meaning": "orang inggris" },
-        { "kanji": "木曜日", "reading": "もくようび", "reading_romaji": "mokuyoubi", "meaning": "kamis" },
-        { "kanji": "本当", "reading": "ほんとう", "reading_romaji": "hontou", "meaning": "benar-benar" },
-        { "kanji": "休日", "reading": "きゅうじつ", "reading_romaji": "kyuujitsu", "meaning": "hari libur" },
-        { "kanji": "力", "reading": "ちから", "reading_romaji": "chikara", "meaning": "tenaga" },
-        { "kanji": "田んぼ", "reading": "たんぼ", "reading_romaji": "tanbo", "meaning": "sawah" },
-        { "kanji": "体", "reading": "からだ", "reading_romaji": "karada", "meaning": "badan" },
-        { "kanji": "男の子", "reading": "おとこのこ", "reading_romaji": "otoko no ko", "meaning": "anak laki-laki" },
-        { "kanji": "女の子", "reading": "おんなのこ", "reading_romaji": "onnanoko", "meaning": "anak perempuan" },
-        { "kanji": "安い", "reading": "やすい", "reading_romaji": "yasui", "meaning": "murah" }
+        { "kanji": "三時半", "reading": "さんじはん", "reading_romaji": "sanjihan", "meaning": "jam setengah empat" },
+        { "kanji": "半年", "reading": "はんとし", "reading_romaji": "hantoshi", "meaning": "setangah tahun" },
+        { "kanji": "前半", "reading": "ぜんはん", "reading_romaji": "zenhan", "meaning": "setengah pertama" },
+        { "kanji": "後半", "reading": "こうはん", "reading_romaji": "kouhan", "meaning": "setengah kedua" },
+        { "kanji": "止まろ", "reading": "とまる", "reading_romaji": "tomaru", "meaning": "berhenti" },
+        { "kanji": "止める", "reading": "とめる", "reading_romaji": "tomeru", "meaning": "memberhentikan" },
+        { "kanji": "正しい", "reading": "ただしい", "reading_romaji": "tadashii", "meaning": "benar" },
+        { "kanji": "お正月", "reading": "おしょうがつ", "reading_romaji": "oshougatsu", "meaning": "tahun baru" },
+        { "kanji": "歩く", "reading": "あるく", "reading_romaji": "aruku", "meaning": "berjalan" },
+        { "kanji": "足", "reading": "あし", "reading_romaji": "ashi", "meaning": "kaki" },
+        { "kanji": "足す", "reading": "たす", "reading_romaji": "tasu", "meaning": "menambah" },
+        { "kanji": "不足する", "reading": "ふそくする", "reading_romaji": "fusoku suru", "meaning": "tidak mencukupi" },
+        { "kanji": "走る", "reading": "はしる", "reading_romaji": "hashiru", "meaning": "berlari" },
+        { "kanji": "起きる", "reading": "おきる", "reading_romaji": "okiru", "meaning": "bangun" },
+        { "kanji": "起こす", "reading": "おこす", "reading_romaji": "okosu", "meaning": "membangunkan" },
+        { "kanji": "夕方", "reading": "ゆうがた", "reading_romaji": "yugata", "meaning": "senja" },
+        { "kanji": "夕食", "reading": "ゆうしょく", "reading_romaji": "yuushoku", "meaning": "makan malam" }
       ]
     }
   }
