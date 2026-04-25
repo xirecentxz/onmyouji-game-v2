@@ -6,7 +6,6 @@ window.showLevelSelector = () => {
     const home = document.getElementById('homepage-screen');
     const level = document.getElementById('level-selector');
     
-    // Gunakan add/remove agar lebih stabil dibanding replace
     home.classList.remove('d-flex');
     home.classList.add('d-none'); 
     level.classList.remove('d-none');
@@ -24,10 +23,10 @@ window.backToHome = () => {
 };
 
 window.startMode = (mode, stage) => {
+    // mode bisa berisi: 'tutorial', 'normal', atau 'sudden-death'
     state.gameMode = mode;
     state.currentStage = stage;
     
-    // Sembunyikan modal dan selector level
     const modal = document.getElementById('modal-overlay');
     const level = document.getElementById('level-selector');
     
@@ -49,7 +48,10 @@ async function startGame() {
     resetState();
     state.comboCount = 0; 
     loadQuestion();
+    
+    // Timer hanya berjalan jika bukan mode tutorial
     if (state.gameMode !== 'tutorial') startTimer();
+    updateUI(); // Panggil updateUI sekali di awal agar simbol ∞ langsung muncul di tutorial
 }
 
 function loadQuestion() {
@@ -80,9 +82,14 @@ window.confirmWord = () => {
     const answer = state.selectedLetters.join('');
     
     if (answer === state.currentQuestion.reading) {
+        // --- JIKA JAWABAN BENAR ---
         state.comboCount++;
+        
+        // Fitur Combo +10 Detik (Berlaku untuk Normal & Sudden Death)
         if (state.comboCount === 3) {
-            state.timeLeft += 10; 
+            if (state.gameMode !== 'tutorial') {
+                state.timeLeft += 10; 
+            }
             state.comboCount = 0; 
             const timeDisplay = document.getElementById('time-val');
             if(timeDisplay) {
@@ -101,14 +108,24 @@ window.confirmWord = () => {
             loadQuestion();
         }
     } else {
+        // --- JIKA JAWABAN SALAH ---
         state.comboCount = 0;
         document.querySelector('.scroll-box').classList.add('shake');
         setTimeout(() => document.querySelector('.scroll-box').classList.remove('shake'), 400);
         
-        state.timeLeft = Math.max(0, state.timeLeft - 4);
+        // Eksekusi Hukuman Berdasarkan Mode Game
+        if (state.gameMode !== 'tutorial') {
+            if (state.gameMode === 'sudden-death') {
+                state.timeLeft = 0; // Mati seketika
+            } else {
+                state.timeLeft = Math.max(0, state.timeLeft - 4); // Penalti normal
+            }
+        }
+        
         updateUI();
         
-        if (state.timeLeft <= 0) {
+        // Pengecekan Kematian (Tutorial dikecualikan agar tidak pernah game over karena waktu)
+        if (state.timeLeft <= 0 && state.gameMode !== 'tutorial') {
             state.gameActive = false;
             showModal(false); 
         } else {
@@ -183,13 +200,19 @@ function renderWordZone() {
 
     const zone = document.getElementById('word-zone');
     zone.innerHTML = '';
-    for (let i = 0; i < 7; i++) {
+    
+    // Otomatis menyesuaikan jumlah field zone berdasarkan panjang teks jawaban
+    const totalSlots = state.currentQuestion.reading.length; 
+
+    for (let i = 0; i < totalSlots; i++) {
         const slot = document.createElement('div');
         slot.className = 'letter-slot';
         const char = state.selectedLetters[i];
+        
         if (char) {
             const romaji = state.isRomajiVisible ? `<div style="font-size:8px;">${ROMAJI_MAP[char] || ''}</div>` : '';
             slot.innerHTML = `<div>${char}</div>${romaji}`;
+            slot.classList.add('just-filled'); // Animasi pop-in dari CSS
         }
         zone.appendChild(slot);
     }
@@ -217,7 +240,14 @@ function updateUI() {
     if (hpProgress) hpProgress.style.width = Math.max(0, state.yokaiHP) + "%";
     
     const timeVal = document.getElementById('time-val');
-    if (timeVal) timeVal.innerText = state.timeLeft + "s";
+    if (timeVal) {
+        // Tampilkan Infinity (∞) untuk tutorial, sisanya tampilkan angka waktu
+        if (state.gameMode === 'tutorial') {
+            timeVal.innerText = "∞";
+        } else {
+            timeVal.innerText = state.timeLeft + "s";
+        }
+    }
 }
 
 function startTimer() {
@@ -261,7 +291,8 @@ function showModal(isWin) {
         `;
     } else {
         title.innerText = "RITUAL GAGAL!";
-        desc.innerText = "Waktu habis, Yokai melarikan diri.";
+        // Deskripsi kekalahan disesuaikan sedikit jika terkena sudden-death
+        desc.innerText = state.gameMode === 'sudden-death' ? "Segel rusak! Satu kesalahan berakibat fatal." : "Waktu habis, Yokai melarikan diri.";
         btnArea.innerHTML = `
             <button class="btn btn-danger fw-bold py-2" onclick="window.startMode('${state.gameMode}', ${state.currentStage})">COBA LAGI</button>
             <button class="btn btn-outline-light btn-sm mt-2" onclick="location.reload()">MENYERAH</button>
