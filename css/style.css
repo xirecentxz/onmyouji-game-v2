@@ -1,5 +1,7 @@
 /* ================================================================
    ONMYOJI KANJI SEAL — STYLESHEET
+   Fonts: add this to <head> in index.html
+   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
    ================================================================ */
 
 :root {
@@ -30,7 +32,7 @@ body {
 }
 
 /* ----------------------------------------------------------------
-   GAME LAYOUT
+   GAME LAYOUT — centered column, cinematic border on PC
    ---------------------------------------------------------------- */
 .game-layout {
     display: flex;
@@ -40,16 +42,23 @@ body {
     max-width: 480px;
     margin: 0 auto;
     position: relative;
+    /* Darkened backdrop so assets pop against the BG */
     background: rgba(0, 0, 0, 0.55);
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+    box-shadow:
+        0 0 0 1px rgba(212, 175, 55, 0.15),
+        0 0 60px rgba(0, 0, 0, 0.9),
+        inset 0 0 120px rgba(0, 0, 0, 0.3);
 }
 
+/* Subtle vignette edges on the game column */
 .game-layout::after {
     content: '';
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.04) 0%, transparent 60%);
+    background:
+        radial-gradient(ellipse at 50% 0%,   rgba(212,175,55,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.5) 0%, transparent 70%);
 }
 
 /* ----------------------------------------------------------------
@@ -62,28 +71,37 @@ header {
     padding: 10px 16px;
     height: 62px;
     flex-shrink: 0;
+    box-sizing: border-box;
     z-index: 100;
+    /* Warm gold shimmer along the top */
     background: linear-gradient(to bottom, rgba(212,175,55,0.12), transparent);
     border-bottom: 1px solid rgba(212, 175, 55, 0.2);
 }
 
+/* --- Avatar circle --- */
 .avatar-container {
     width: 42px;
     height: 42px;
-    background: transparent; /* Fix double ring */
+    /* Gold gradient ring behind the asset */
+    background: transparent;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));
+    /* Glow so the badge.webp feels lit */
+    filter: drop-shadow(0 0 10px rgba(212,175,55,0.6));
 }
 
 .icon-header {
     width: 100% !important;
     height: 100% !important;
     object-fit: contain;
+    /* Very slight golden warmth filter */
+    filter: drop-shadow(0 0 4px rgba(212,175,55,0.6));
 }
 
+/* --- HP Bar --- */
 .hp-container {
     flex: 1;
     margin: 0 14px;
@@ -92,15 +110,32 @@ header {
     border-radius: 8px;
     border: 1px solid rgba(212,175,55,0.35);
     overflow: hidden;
+    /* Recessed look */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
 }
 
 #hp-progress {
     height: 100%;
     background: linear-gradient(to right, var(--red-hp), var(--red-glow), var(--ember));
     width: 100%;
+    border-radius: 8px;
     transition: width 0.35s ease;
+    position: relative;
 }
 
+/* Inner highlight stripe on the HP bar */
+#hp-progress::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 8px;
+    right: 6px;
+    height: 2.5px;
+    background: rgba(255,255,255,0.22);
+    border-radius: 2px;
+}
+
+/* --- Timer --- */
 .timer-box {
     display: flex;
     align-items: center;
@@ -109,14 +144,210 @@ header {
     padding: 6px 14px;
     border-radius: 20px;
     border: 1px solid rgba(212,175,55,0.4);
+    /* Gentle gold glow */
+    box-shadow: 0 0 10px rgba(212,175,55,0.1);
+    font-family: 'Cinzel', serif;
     font-size: 13px;
+    letter-spacing: 1px;
     color: var(--gold-light);
+    flex-shrink: 0;
 }
 
-.icon-jam { width: 16px !important; height: auto; }
+.icon-jam {
+    width: 16px !important;
+    height: auto;
+    /* Warm filter so the asset blends with the gold palette */
+    filter: sepia(1) saturate(3) hue-rotate(5deg) brightness(1.1);
+}
 
 /* ----------------------------------------------------------------
-   RITUAL CENTER (ARENA UTAMA)
+   HOMEPAGE SCREEN
+   ---------------------------------------------------------------- */
+#homepage-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100svh;
+    /* Extra overlay so BG1.webp is dark enough to read text */
+    background: rgba(0, 0, 0, 0.62);
+}
+
+#homepage-screen .main-logo {
+    width: clamp(180px, 38vw, 300px);
+    height: auto;
+    margin-bottom: 16px;
+    /* Soft gold glow around badge.webp */
+    filter: drop-shadow(0 0 24px rgba(212,175,55,0.55));
+    animation: logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+    0%, 100% { filter: drop-shadow(0 0 18px rgba(212,175,55,0.45)); }
+    50%       { filter: drop-shadow(0 0 32px rgba(212,175,55,0.75)); }
+}
+
+.game-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 7vw, 44px);
+    letter-spacing: 8px;
+    color: var(--gold-light);
+    text-shadow:
+        0 0 20px rgba(212,175,55,0.6),
+        0 2px 8px rgba(0,0,0,0.8);
+}
+
+.text-gold { color: var(--gold-light) !important; }
+
+.lead { letter-spacing: 5px; font-size: 13px; opacity: 0.75; }
+
+/* Gold oval CTA button on homepage */
+.btn-gold-oval {
+    background: linear-gradient(to bottom, #f5e49c, #d4af37, #a07c10);
+    border: none;
+    border-radius: 30px;
+    color: var(--ink);
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 14px !important;
+    padding: 12px 40px !important;
+    cursor: pointer;
+    box-shadow:
+        0 4px 0 #6a4e00,
+        0 8px 20px rgba(0,0,0,0.6),
+        0 0 24px rgba(212,175,55,0.2);
+    transition: all 0.18s ease;
+}
+
+.btn-gold-oval:hover {
+    background: linear-gradient(to bottom, #fff3c4, #e8c84a, #b88d18);
+    transform: translateY(-2px);
+    box-shadow:
+        0 4px 0 #6a4e00,
+        0 12px 28px rgba(0,0,0,0.7),
+        0 0 36px rgba(212,175,55,0.35);
+    color: var(--ink);
+}
+
+.btn-gold-oval:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #6a4e00, 0 3px 8px rgba(0,0,0,0.5);
+}
+
+/* ----------------------------------------------------------------
+   LEVEL SELECTOR
+   ---------------------------------------------------------------- */
+#level-selector {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100svh;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    position: absolute;
+    top: 0; left: 0;
+    z-index: 500;
+    padding: 24px 16px;
+    gap: 0;
+}
+
+#level-selector .container {
+    max-width: 420px;
+    text-align: center;
+    width: 100%;
+}
+
+#level-selector h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+#level-selector h5 {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 10px;
+}
+
+.stage-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.btn-stage {
+    width: 46px;
+    height: 46px;
+    background: transparent;
+    border: 1px solid rgba(212,175,55,0.4);
+    border-radius: 4px;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.btn-stage:hover:not(:disabled) {
+    background: rgba(212,175,55,0.18);
+    border-color: var(--gold);
+    color: var(--gold-light);
+    box-shadow: 0 0 14px rgba(212,175,55,0.22);
+    transform: scale(1.08);
+}
+
+.btn-stage:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+/* Tutorial & Challenge buttons — override Bootstrap */
+.btn-outline-info {
+    border-color: rgba(212,175,55,0.5) !important;
+    color: var(--gold-light) !important;
+    border-radius: 4px !important;
+    font-family: 'Cinzel', serif !important;
+    letter-spacing: 2px !important;
+    font-size: 13px !important;
+    transition: all 0.18s ease !important;
+}
+
+.btn-outline-info:hover {
+    background: rgba(212,175,55,0.12) !important;
+    border-color: var(--gold) !important;
+}
+
+.btn-danger {
+    background: linear-gradient(to bottom, #c0392b, #8b1a1a) !important;
+    border: 1px solid rgba(255,100,50,0.4) !important;
+    border-radius: 4px !important;
+    font-family: 'Cinzel', serif !important;
+    letter-spacing: 2px !important;
+    font-size: 13px !important;
+    box-shadow: 0 0 16px rgba(192,57,43,0.3) !important;
+    transition: all 0.18s ease !important;
+}
+
+.btn-danger:hover {
+    box-shadow: 0 0 28px rgba(255,100,50,0.4) !important;
+    transform: translateY(-1px);
+}
+
+.btn-link { color: rgba(255,255,255,0.4) !important; font-size: 13px; letter-spacing: 2px; }
+.btn-link:hover { color: rgba(255,255,255,0.7) !important; }
+
+/* ----------------------------------------------------------------
+   RITUAL CENTER
    ---------------------------------------------------------------- */
 .ritual-center {
     flex: 1;
@@ -124,52 +355,92 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 12px;
-    padding: 10px 16px;
+    gap: 8px;
+    padding: 8px 16px 12px;
 }
 
+/* Stage banner pill */
 #stage-banner {
     font-family: 'Cinzel', serif;
     font-size: 11px;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     color: var(--gold);
-    background: rgba(0, 0, 0, 0.8);
-    padding: 4px 16px;
-    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 5px 18px;
+    border-radius: 14px;
     border: 1px solid rgba(212,175,55,0.4);
+    box-shadow: 0 0 10px rgba(212,175,55,0.08);
 }
 
+/* ----------------------------------------------------------------
+   SCROLL BOX — uses Gulungan.webp asset
+   ---------------------------------------------------------------- */
 .scroll-box {
     background: url('../assets/Gulungan.webp') no-repeat center;
     background-size: 100% 100%;
-    width: clamp(260px, 75vw, 390px);
+    width: clamp(260px, 70vw, 380px);
     aspect-ratio: 2 / 1.1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    filter: drop-shadow(0 6px 15px rgba(0,0,0,0.6));
+    gap: 4px;
+    position: relative;
+    /* Soft warm glow so the scroll feels lit from within */
+    filter: drop-shadow(0 6px 18px rgba(0,0,0,0.7)) drop-shadow(0 0 10px rgba(212,175,55,0.15));
+    transition: filter 0.3s ease;
+}
+
+.scroll-box:hover {
+    filter: drop-shadow(0 6px 24px rgba(0,0,0,0.8)) drop-shadow(0 0 18px rgba(212,175,55,0.25));
 }
 
 .kanji-main {
-    font-size: 3.8rem; /* Lebih besar sedikit */
+    font-size: 3.5rem;
     color: var(--ink);
     font-weight: 800;
+    margin: 0;
     line-height: 1;
+    /* Crisp ink look */
+    text-shadow: 1px 2px 4px rgba(0,0,0,0.18);
+    transition: transform 0.2s ease;
 }
 
-/* --- FIELD ZONE (KOTAK JAWABAN) --- */
+/* Kanji pop-in when question changes */
+@keyframes kanjiReveal {
+    from { opacity: 0; transform: scale(0.7) rotate(-4deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.kanji-main.reveal { animation: kanjiReveal 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+.meaning-sub {
+    font-family: 'Crimson Pro', 'Segoe UI', serif;
+    font-size: 12px;
+    color: var(--ink-mid);
+    letter-spacing: 2px;
+    opacity: 0.65;
+}
+
+/* ----------------------------------------------------------------
+   ANSWER ROW — uses KotakKata.webp asset
+   ---------------------------------------------------------------- */
 .answer-row {
     display: flex;
-    gap: 5px; /* Rapat agar 7 kotak muat */
-    margin: 10px 0;
+    /* UPDATE 1: Jarak diatur ulang agar muat 7 kotak di layar HP */
+    gap: 4px;
+    margin: 15px 0 10px;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap; /* Safety for small screens */
+    flex-wrap: wrap; 
 }
 
 .letter-slot {
-    width: 46px;  /* LEBIH BESAR agar mudah ditekan */
+    /* UPDATE 2: Kotak diperbesar agar mudah dipencet */
+    width: 46px;
     height: 56px;
+    /* KotakKata.webp as the slot frame */
     background: url('../assets/KotakKata.webp') no-repeat center;
     background-size: 100% 100%;
     display: flex;
@@ -177,86 +448,161 @@ header {
     justify-content: center;
     color: var(--ink);
     font-weight: bold;
+    /* UPDATE 3: Font ikut diperbesar */
     font-size: 1.5rem;
+    font-family: 'Cinzel', serif;
+    /* Lift & warm glow when filled */
+    transition: filter 0.15s ease, transform 0.15s ease;
+    margin: 0 2px;
 }
 
-/* --- SUPPORT BUTTONS (HIRAGANA OVAL -> LINGKARAN RAPI) --- */
+.letter-slot:not(:empty) {
+    filter: drop-shadow(0 0 6px rgba(212,175,55,0.5));
+    transform: scale(1.04);
+}
+
+/* Pop-in animation when a card is placed */
+@keyframes slotFill {
+    0%   { transform: scale(0.8);   opacity: 0.5; }
+    60%  { transform: scale(1.1);  }
+    100% { transform: scale(1.04); opacity: 1; }
+}
+
+.letter-slot.just-filled { animation: slotFill 0.22s ease forwards; }
+
+/* ----------------------------------------------------------------
+   ACTION FOOTER
+   ---------------------------------------------------------------- */
+.action-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Elemental / support icons row */
 #support-container {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    margin: 5px 0;
+    gap: 12px; /* UPDATE 4: Merenggangkan jarak tombol sedikit */
+    margin-bottom: 2px;
 }
 
 #support-container button {
-    background: rgba(0,0,0,0.4);
+    /* UPDATE 5: Latar warna tipis dan ukuran dikerdilkan jadi 34px */
+    background: rgba(212, 175, 55, 0.1);
     border: 1px solid var(--gold);
     color: var(--gold);
     border-radius: 50%;
-    width: 36px;  /* LEBIH KECIL & PROPORSIONAL */
-    height: 36px;
+    width: 34px;
+    height: 34px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 14px;
-    transition: 0.2s;
+    padding: 0;
+    font-size: 12px; /* Font hiragana dikerdilkan */
+    transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
 }
 
-#support-container button:hover { background: rgba(212,175,55,0.2); }
+#support-container button:hover {
+    background: rgba(212,175,55,0.14);
+    border-color: var(--gold);
+    box-shadow: 0 0 14px rgba(212,175,55,0.28);
+}
 
-/* --- TOMBOL SEGEL UTAMA --- */
+#support-container button:active { transform: scale(0.9); }
+
+/* --- Seal button — uses SegelButton.webp asset --- */
 .btn-segel-main {
     background: url('../assets/SegelButton.webp') no-repeat center;
     background-size: 100% 100%;
-    width: 150px;
-    height: 46px;
+    /* UPDATE 6: Ukuran dikurangi sedikit & diberi margin atas-bawah */
+    width: 144px;
+    height: 45px;
+    margin: 10px 0;
     border: none;
     cursor: pointer;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
-    margin: 5px 0;
+    /* Glow beneath the asset */
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.7)) drop-shadow(0 0 8px rgba(212,175,55,0.2));
+    transition: filter 0.18s ease, transform 0.15s ease;
 }
 
-/* --- TOMBOL BANTUAN BAWAH --- */
+.btn-segel-main:hover {
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.8)) drop-shadow(0 0 18px rgba(212,175,55,0.45));
+    transform: translateY(-2px) scale(1.04);
+}
+
+.btn-segel-main:active {
+    transform: translateY(1px) scale(0.98);
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+}
+
+/* --- Helper buttons (Hapus / Hint / Romaji) --- */
 .support-actions {
     display: flex;
-    gap: 8px;
-    margin-bottom: 5px;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 8px;
 }
 
 .support-actions button {
-    background: rgba(0,0,0,0.6);
-    border: 1px solid rgba(212,175,55,0.4);
-    border-radius: 20px;
-    padding: 4px 14px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(212,175,55,0.38);
+    border-radius: 14px;
+    padding: 5px 16px;
     color: var(--gold-light);
-    font-size: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 600;
     letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
+.support-actions button:hover {
+    background: rgba(212,175,55,0.14);
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(212,175,55,0.18);
+}
+
+.support-actions button:active { transform: scale(0.95); }
+
 /* ----------------------------------------------------------------
-   HAND / CARD GRID
+   HAND / CARD GRID — uses KertasJimat.webp asset
    ---------------------------------------------------------------- */
 .hand-footer {
-    padding: 10px 10px 20px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    flex-shrink: 0;
+    padding: 8px 10px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0.15));
+    border-top: 1px solid rgba(212,175,55,0.1);
 }
 
 .card-grid {
     display: grid;
-    gap: 8px;
+    gap: 7px;
+    padding: 0 6px;
     justify-content: center;
 }
 
-@media (max-width: 768px) {
-    .card-grid { grid-template-columns: repeat(5, 1fr); max-width: 340px; margin: 0 auto; }
+@media (min-width: 769px) {
+    .card-grid {
+        grid-template-columns: repeat(10, 1fr);
+        max-width: 480px;
+    }
 }
 
-@media (min-width: 769px) {
-    .card-grid { grid-template-columns: repeat(10, 1fr); max-width: 480px; }
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: repeat(5, 1fr);
+        max-width: 320px;
+        margin: 0 auto;
+    }
 }
 
 .card {
+    /* KertasJimat.webp as the card face */
     background: url('../assets/KertasJimat.webp') no-repeat center !important;
     background-size: 100% 100% !important;
     aspect-ratio: 2 / 3.2;
@@ -265,51 +611,141 @@ header {
     justify-content: center;
     color: var(--ink);
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
+    font-family: 'Cinzel', serif;
     cursor: pointer;
-    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
-    transition: 0.2s;
+    /* Natural depth under the card asset */
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.55));
+    transition: filter 0.15s ease, transform 0.15s ease;
 }
 
-.card:hover { transform: translateY(-5px); }
-
-/* --- HINT & SELECTION --- */
-.hint-glow {
-    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 1)) !important;
-    transform: scale(1.1) translateY(-5px) !important;
-    border: 2px solid var(--gold-light);
-    border-radius: 5px;
-    z-index: 10;
+.card:hover {
+    transform: translateY(-7px) scale(1.07);
+    filter:
+        drop-shadow(0 12px 18px rgba(0,0,0,0.75))
+        drop-shadow(0 0 10px rgba(212,175,55,0.3));
+    z-index: 5;
+    position: relative;
 }
 
-.card.used { opacity: 0.2; pointer-events: none; filter: grayscale(1); }
+.card:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Selected card state */
+.card.selected {
+    filter:
+        drop-shadow(0 6px 12px rgba(212,175,55,0.5))
+        drop-shadow(0 0 16px rgba(212,175,55,0.6));
+    transform: translateY(-4px) scale(1.04);
+}
+
+/* Used/spent card */
+.card.used {
+    opacity: 0.28;
+    pointer-events: none;
+    filter: grayscale(0.7);
+}
 
 /* ----------------------------------------------------------------
-   HOMEPAGE & MODAL
+   MODAL & OVERLAY
    ---------------------------------------------------------------- */
-#homepage-screen {
-    display: flex; flex-direction: column; justify-content: center;
-    align-items: center; height: 100svh; background: rgba(0, 0, 0, 0.7);
-}
-
-.main-logo { width: 220px; filter: drop-shadow(0 0 20px var(--gold)); }
-
-.btn-gold-oval {
-    background: var(--gold-grad); border: none; border-radius: 30px;
-    color: var(--ink); font-weight: bold; padding: 10px 30px; cursor: pointer;
-}
-
 .full-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.9); z-index: 9999;
-    display: none; justify-content: center; align-items: center;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    /* Soft blur on whatever is behind */
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
 
+/* Bootstrap utility overrides */
 .d-flex { display: flex !important; }
 .d-none { display: none !important; }
 
 .modal-box {
-    background: #1a1005; border: 2px solid var(--gold-dim);
-    color: white; max-width: 350px; width: 90%; padding: 30px;
-    border-radius: 10px; text-align: center;
+    background: linear-gradient(160deg, #1c1005, #0d0804);
+    border: 2px solid var(--gold-dim);
+    color: white;
+    max-width: 390px;
+    width: 90%;
+    padding: 36px 28px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow:
+        0 0 0 1px rgba(212,175,55,0.08),
+        0 0 50px rgba(212,175,55,0.12),
+        0 30px 70px rgba(0,0,0,0.95);
+    animation: modalIn 0.28s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.88) translateY(12px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+#modal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(212,175,55,0.4);
+    margin-bottom: 12px;
+}
+
+#modal-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.75;
+    letter-spacing: 0.5px;
+    margin-bottom: 22px;
+}
+
+/* Modal buttons */
+#modal-buttons-area .btn {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 2px;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+#modal-buttons-area .btn-primary {
+    background: linear-gradient(to bottom, #f5e49c, #d4af37, #a07c10) !important;
+    border: none !important;
+    color: var(--ink) !important;
+    box-shadow: 0 3px 0 #6a4e00, 0 6px 16px rgba(0,0,0,0.5);
+    transition: all 0.15s ease;
+}
+
+#modal-buttons-area .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 0 #6a4e00, 0 10px 22px rgba(0,0,0,0.6), 0 0 24px rgba(212,175,55,0.25);
+}
+
+#modal-buttons-area .btn-secondary {
+    background: transparent !important;
+    border: 1px solid rgba(212,175,55,0.4) !important;
+    color: var(--gold-light) !important;
+    transition: all 0.15s ease;
+}
+
+#modal-buttons-area .btn-secondary:hover {
+    background: rgba(212,175,55,0.1) !important;
+    border-color: var(--gold) !important;
+}
+
+/* Hint agar Menyala */
+.hint-glow {
+    filter: drop-shadow(0 0 25px rgba(212, 175, 55, 1)) !important;
+    transform: scale(1.1) translateY(-5px) !important;
+    border: 2px solid var(--gold-light);
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    z-index: 10;
 }
