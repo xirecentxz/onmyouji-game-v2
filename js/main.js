@@ -201,10 +201,9 @@ function renderWordZone() {
     const zone = document.getElementById('word-zone');
     zone.innerHTML = '';
     
-    // Otomatis menyesuaikan jumlah field zone berdasarkan panjang teks jawaban
-    const totalSlots = state.currentQuestion.reading.length; 
 
-    for (let i = 0; i < totalSlots; i++) {
+
+    for (let i = 0; i < 7; i++) {
         const slot = document.createElement('div');
         slot.className = 'letter-slot';
         const char = state.selectedLetters[i];
