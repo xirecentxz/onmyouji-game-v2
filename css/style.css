@@ -83,14 +83,17 @@ header {
     width: 42px;
     height: 42px;
     /* Gold gradient ring behind the asset */
-    background: transparent;
-    border: none;
+    background: var(--gold-grad);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     /* Glow so the badge.webp feels lit */
-    filter: drop-shadow(0 0 10px rgba(212,175,55,0.6));
+    box-shadow:
+        0 0 10px rgba(212,175,55,0.45),
+        inset 0 1px 3px rgba(255,255,255,0.35);
 }
 
 .icon-header {
@@ -428,18 +431,14 @@ header {
    ---------------------------------------------------------------- */
 .answer-row {
     display: flex;
-    /* UPDATE 1: Jarak diatur ulang agar muat 7 kotak di layar HP */
-    gap: 4px;
-    margin: 15px 0 10px;
+    gap: 7px;
+    margin: 8px 0 3px;
     align-items: center;
-    justify-content: center;
-    flex-wrap: wrap; 
 }
 
 .letter-slot {
-    /* UPDATE 2: Kotak diperbesar agar mudah dipencet */
-    width: 46px;
-    height: 56px;
+    width: 42px;
+    height: 52px;
     /* KotakKata.webp as the slot frame */
     background: url('../assets/KotakKata.webp') no-repeat center;
     background-size: 100% 100%;
@@ -448,12 +447,10 @@ header {
     justify-content: center;
     color: var(--ink);
     font-weight: bold;
-    /* UPDATE 3: Font ikut diperbesar */
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-family: 'Cinzel', serif;
     /* Lift & warm glow when filled */
     transition: filter 0.15s ease, transform 0.15s ease;
-    margin: 0 2px;
 }
 
 .letter-slot:not(:empty) {
@@ -485,24 +482,23 @@ header {
 #support-container {
     display: flex;
     justify-content: center;
-    gap: 12px; /* UPDATE 4: Merenggangkan jarak tombol sedikit */
+    gap: 10px;
     margin-bottom: 2px;
 }
 
 #support-container button {
-    /* UPDATE 5: Latar warna tipis dan ukuran dikerdilkan jadi 34px */
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid var(--gold);
+    background: transparent;
+    border: 1px solid rgba(212,175,55,0.45);
     color: var(--gold);
     border-radius: 50%;
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0;
-    font-size: 12px; /* Font hiragana dikerdilkan */
+    font-size: 16px;
     transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
 }
 
@@ -518,10 +514,8 @@ header {
 .btn-segel-main {
     background: url('../assets/SegelButton.webp') no-repeat center;
     background-size: 100% 100%;
-    /* UPDATE 6: Ukuran dikurangi sedikit & diberi margin atas-bawah */
-    width: 144px;
-    height: 45px;
-    margin: 10px 0;
+    width: 160px;
+    height: 50px;
     border: none;
     cursor: pointer;
     /* Glow beneath the asset */
