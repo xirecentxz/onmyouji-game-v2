@@ -8,9 +8,9 @@ export const STAGE_CONFIG = {
     7: { target: 15, dmg: 7.5 },
     8: { target: 20, dmg: 5 },
     9: { target: 20, dmg: 5 },
-    10: { target: 10,  dmg: 10 },
+    10: { target: 15,  dmg: 6.7 },
     11: { target: 15, dmg: 6.7 },
-    12: { target: 10,  dmg: 10 },
+    12: { target: 15,  dmg: 6.7 },
 };
 
 export const ROMAJI_MAP = {
