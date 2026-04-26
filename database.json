@@ -289,7 +289,7 @@
         { "kanji": "半年", "reading": "はんとし", "reading_romaji": "hantoshi", "meaning": "setangah tahun" },
         { "kanji": "前半", "reading": "ぜんはん", "reading_romaji": "zenhan", "meaning": "setengah pertama" },
         { "kanji": "後半", "reading": "こうはん", "reading_romaji": "kouhan", "meaning": "setengah kedua" },
-        { "kanji": "止まろ", "reading": "とまる", "reading_romaji": "tomaru", "meaning": "berhenti" },
+        { "kanji": "止まる", "reading": "とまる", "reading_romaji": "tomaru", "meaning": "berhenti" },
         { "kanji": "止める", "reading": "とめる", "reading_romaji": "tomeru", "meaning": "memberhentikan" },
         { "kanji": "正しい", "reading": "ただしい", "reading_romaji": "tadashii", "meaning": "benar" },
         { "kanji": "お正月", "reading": "おしょうがつ", "reading_romaji": "oshougatsu", "meaning": "tahun baru" },
