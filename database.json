@@ -373,7 +373,7 @@
         { "kanji": "西洋", "reading": "せいよう", "reading_romaji": "seiyou", "meaning": "eropa" },
         { "kanji": "南", "reading": "みなみ", "reading_romaji": "minami", "meaning": "selatan" },
         { "kanji": "南口", "reading": "みなみぐち", "reading_romaji": "minamiguchi", "meaning": "pintu selatan" },
-        { "kanji": "南北", "reading": "なんぼく", "reading_romaji": "nanboku", "meaning": "selatan dan utara" },
+        { "kanji": "南北", "reading": "なんぼく", "reading_romaji": "nanboku", "meaning": "selatan dan utara" }
       ]
     }
   }
