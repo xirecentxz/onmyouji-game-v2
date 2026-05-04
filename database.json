@@ -341,8 +341,10 @@
         { "kanji": "天国", "reading": "てんごく", "reading_romaji": "tengoku", "meaning": "surga" },
         { "kanji": "作分", "reading": "さくぶん", "reading_romaji": "sakubun", "meaning": "karangan" },
         { "kanji": "文法", "reading": "ぶんぽう", "reading_romaji": "bunpou", "meaning": "pola kalimat" },
-        { "kanji": "お父さん", "reading": "せいかつ", "reading_romaji": "seikatsu", "meaning": "kehidupan" },
+        { "kanji": "お父さん", "reading": "おとうさん", "reading_romaji": "ayah", "meaning": "ayah" },
+        { "kanji": "父", "reading": "ちち", "reading_romaji": "chichi", "meaning": "ayah" },
         { "kanji": "父親", "reading": "ちちおや", "reading_romaji": "chichioya", "meaning": "bapak" },
+        { "kanji": "父母", "reading": "ふぼ", "reading_romaji": "fubo", "meaning": "ayah dan ibu" },
         { "kanji": "お母さん", "reading": "おかあさん", "reading_romaji": "okaasan", "meaning": "ibu" },
         { "kanji": "母", "reading": "はは", "reading_romaji": "haha", "meaning": "ibu" },
         { "kanji": "母親", "reading": "ははおや", "reading_romaji": "hahaoya", "meaning": "ibu" }
