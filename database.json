@@ -375,6 +375,28 @@
         { "kanji": "南口", "reading": "みなみぐち", "reading_romaji": "minamiguchi", "meaning": "pintu selatan" },
         { "kanji": "南北", "reading": "なんぼく", "reading_romaji": "nanboku", "meaning": "selatan dan utara" }
       ]
+    },
+    "15": {
+      "category": "Pemula 5.3",
+      "words": [
+        { "kanji": "北", "reading": "きた", "reading_romaji": "kita", "meaning": "utara" },
+        { "kanji": "北口", "reading": "きたぐち", "reading_romaji": "kitaguchi", "meaning": "pintu utara" },
+        { "kanji": "北風", "reading": "きたかぜ", "reading_romaji": "kitakaze", "meaning": "angin utara" },
+        { "kanji": "北海道", "reading": "ほっかいどう", "reading_romaji": "hokkaidou", "meaning": "hokaido" },
+        { "kanji": "耳", "reading": "みみ", "reading_romaji": "mimi", "meaning": "telinga" },
+        { "kanji": "右耳", "reading": "みぎみみ", "reading_romaji": "migimimi", "meaning": "telinga kanan" },
+        { "kanji": "門", "reading": "もん", "reading_romaji": "mon", "meaning": "gerbang" },
+        { "kanji": "正門", "reading": "せいもん", "reading_romaji": "seimon", "meaning": "pintu depan" },
+        { "kanji": "専門", "reading": "せんもん", "reading_romaji": "senmon", "meaning": "jurusan" },
+        { "kanji": "聞く", "reading": "きく", "reading_romaji": "kiku", "meaning": "mendengar" },
+        { "kanji": "聞こえる", "reading": "きこえる", "reading_romaji": "kikoeru", "meaning": "terdengar" },
+        { "kanji": "新聞", "reading": "しんぶん", "reading_romaji": "shinbun", "meaning": "koran" },
+        { "kanji": "間", "reading": "あいだ", "reading_romaji": "aida", "meaning": "diantara" },
+        { "kanji": "昼間", "reading": "ひるま", "reading_romaji": "hiruma", "meaning": "siang hari" },
+        { "kanji": "間に合う", "reading": "まにあう", "reading_romaji": "maniau", "meaning": "terkejar" },
+        { "kanji": "時間", "reading": "じかん", "reading_romaji": "jikan", "meaning": "waktu" },
+        { "kanji": "四時間", "reading": "よじかん", "reading_romaji": "yojikan", "meaning": "empat jam" }
+      ]
     }
   }
 }
