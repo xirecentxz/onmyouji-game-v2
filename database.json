@@ -323,6 +323,26 @@
         { "kanji": "生徒", "reading": "せいと", "reading_romaji": "seito", "meaning": "murid" },
         { "kanji": "生活", "reading": "せいかつ", "reading_romaji": "seikatsu", "meaning": "kehidupan" }
       ]
+    },
+    "13": {
+      "category": "Pemula 5.1",
+      "words": [
+        { "kanji": "外", "reading": "そと", "reading_romaji": "soto", "meaning": "luar" },
+        { "kanji": "海外", "reading": "かいがい", "reading_romaji": "kaigai", "meaning": "luar negeri" },
+        { "kanji": "外出", "reading": "がいしゅつ", "reading_romaji": "gaishutsu", "meaning": "keluar" },
+        { "kanji": "多い", "reading": "おおい", "reading_romaji": "ooi", "meaning": "banyak" },
+        { "kanji": "多分", "reading": "たぶん", "reading_romaji": "tabun", "meaning": "mungkin" },
+        { "kanji": "有名な", "reading": "ゆうめいな", "reading_romaji": "yuumeina", "meaning": "terkenal" },
+        { "kanji": "夜", "reading": "よる", "reading_romaji": "yoru", "meaning": "malam" },
+        { "kanji": "今夜", "reading": "こんや", "reading_romaji": "konya", "meaning": "malam ini" },
+        { "kanji": "夜食", "reading": "やしょく", "reading_romaji": "yashoku", "meaning": "cemilan malam" },
+        { "kanji": "生まれる", "reading": "うまれる", "reading_romaji": "umareru", "meaning": "lahir" },
+        { "kanji": "生きる", "reading": "いきる", "reading_romaji": "ikiru", "meaning": "hidup" },
+        { "kanji": "大学生", "reading": "だいがくせい", "reading_romaji": "daigakusei", "meaning": "mahasiswa" },
+        { "kanji": "先生", "reading": "せんせい", "reading_romaji": "sensei", "meaning": "guru" },
+        { "kanji": "生徒", "reading": "せいと", "reading_romaji": "seito", "meaning": "murid" },
+        { "kanji": "生活", "reading": "せいかつ", "reading_romaji": "seikatsu", "meaning": "kehidupan" }
+      ]
     }
   }
 }
